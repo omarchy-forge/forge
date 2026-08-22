@@ -67,6 +67,10 @@ an exact-tag Omarchy installation followed by complete cleanup. It remains
 private, unannounced, absent from marketplaces, and not installed for ongoing
 use.
 
+Handoff `v0.1.1` is also released privately as a development-tooling
+maintenance update adopting Forge `v0.2.0`; it passed exact-tag installation
+and cleanup verification without changing those distribution boundaries.
+
 ## Forge follow-ups from Handoff
 
 - Accept `.git`-only targets without requiring `--force` (implemented after

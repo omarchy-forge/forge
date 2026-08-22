@@ -112,6 +112,11 @@ uses the reviewed `docs/RELEASE_NOTES_0.2.0.md` description.
   and left `omarchy-shell shell ping` returning `ok`.
 - Handoff remains private, is not installed for ongoing use, and has not been
   submitted to a marketplace or announced publicly.
+- Private maintenance release `v0.1.1` is tagged at
+  `6038185070e580696326a6e8591c761d700dd63f` with the Forge `v0.2.0`
+  development workflow. Its private CI passed, and an independent exact-tag
+  installation exercised ready/empty/error before complete removal, test-data
+  cleanup, byte-for-byte `shell.json` restoration, and healthy shell IPC.
 
 ### Milestone 6 — local development and visual tooling
 
