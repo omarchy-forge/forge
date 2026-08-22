@@ -247,3 +247,16 @@ States are fictional and in-memory. They do not read fixture paths supplied by
 the caller, write plugin data, call live-shell IPC, or broaden the explicit QML
 trust boundary. The short settling interval validates each state contract but
 is not yet an interactive watcher or screenshot session.
+
+## D-021: Template-declared plugin-only screenshots
+
+Status: accepted, 2026-08-22.
+
+Screenshot capture uses Qt Quick `grabToImage` on a plugin-declared
+`forgeScreenshotTarget` after applying a fictional state in the isolated
+runtime. Forge does not invoke compositor, monitor, window, or region capture,
+so unrelated desktop pixels cannot enter the result.
+
+The command requires explicit QML trust, one of the fixed demo states, and a
+new `.png` output path. Existing files are never overwritten. Plugins without
+an explicit capture target fail closed; Forge does not guess at a screen region.

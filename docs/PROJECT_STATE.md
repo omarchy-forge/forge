@@ -121,8 +121,12 @@ current.
   predates the generated harness. A disposable exact working-tree copy using
   the current harness exercised all three states without modifying the private
   repository, installing the plugin, or touching live shell configuration.
-- File watching and screenshot capture remain later increments; the command
-  does not install or enable plugins or mutate live shell configuration.
+- The third increment adds `omaforge screenshot` using a template-declared Qt
+  Quick item. Ready, empty, and error produced plugin-only RGBA PNGs in the real
+  isolated runtime; no compositor or desktop capture API is used and existing
+  files are not overwritten.
+- File watching remains a later increment; these commands do not install or
+  enable plugins or mutate live shell configuration.
 
 ## Forge feedback from Handoff
 

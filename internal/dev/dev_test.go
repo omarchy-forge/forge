@@ -68,3 +68,35 @@ func TestRunRejectsUnknownState(t *testing.T) {
 		t.Fatalf("error = %v, want unsupported state", err)
 	}
 }
+
+func TestScreenshotPassesAbsoluteOutput(t *testing.T) {
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "tests"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "manifest.json"), []byte("{}\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "tests", "runtime"), []byte("printf '%s\\n' \"$@\"\nprintf image > \"${@: -1}\"\n"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	output := filepath.Join(t.TempDir(), "preview.png")
+	var buffer bytes.Buffer
+	if err := Screenshot(root, "ready", output, strings.NewReader(""), &buffer, &buffer); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(buffer.String(), "--screenshot\n"+output) {
+		t.Fatalf("arguments = %q", buffer.String())
+	}
+}
+
+func TestScreenshotRefusesOverwrite(t *testing.T) {
+	output := filepath.Join(t.TempDir(), "preview.png")
+	if err := os.WriteFile(output, []byte("keep"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	err := Screenshot(".", "ready", output, strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
+	if err == nil || !strings.Contains(err.Error(), "already exists") {
+		t.Fatalf("error = %v", err)
+	}
+}

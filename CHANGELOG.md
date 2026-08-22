@@ -6,6 +6,8 @@
   for a reviewed generated plugin's isolated Quickshell runtime harness.
 - Add isolated fictional `ready`, `empty`, and `error` state simulation to
   `omaforge dev` without installing the plugin or persisting state.
+- Add deterministic plugin-only PNG capture through a template-declared Qt
+  Quick item, with no desktop capture and no overwrite behavior.
 
 ## [0.1.0] - 2026-08-22
 
