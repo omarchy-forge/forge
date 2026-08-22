@@ -2,8 +2,21 @@
 set -euo pipefail
 
 if [[ ${1:-} != "--trust-plugin-code" ]]; then
-  echo "Usage: ./tests/runtime --trust-plugin-code" >&2
+  echo "Usage: ./tests/runtime --trust-plugin-code [--state ready|empty|error]" >&2
   echo "This test executes the plugin's QML and local commands. Review the code first." >&2
+  exit 2
+fi
+
+state=""
+if [[ ${2:-} == "--state" ]]; then
+  state="${3:-}"
+  case "$state" in
+    ready|empty|error) ;;
+    *) echo "runtime state must be ready, empty, or error" >&2; exit 2 ;;
+  esac
+  [[ $# -eq 3 ]] || { echo "unexpected runtime arguments" >&2; exit 2; }
+elif [[ $# -ne 1 ]]; then
+  echo "unexpected runtime arguments" >&2
   exit 2
 fi
 
@@ -76,6 +89,7 @@ XDG_DATA_HOME="$runtime_root/data" \
 XDG_CACHE_HOME="$runtime_root/cache" \
 XDG_RUNTIME_DIR="$runtime_root/runtime" \
 WAYLAND_DISPLAY="$wayland_display" \
+OMAFORGE_DEV_STATE="$state" \
 NO_COLOR=1 \
 setsid timeout 12 quickshell --no-color --path "$runtime_root/config/shell.qml" >"$output_file" 2>&1 &
 runtime_pid=$!
@@ -85,7 +99,11 @@ for _ in {1..100}; do
     kill -- "-$runtime_pid" 2>/dev/null || true
     wait "$runtime_pid" 2>/dev/null || true
     runtime_pid=""
-    echo "isolated Quickshell runtime test passed"
+    if [[ -n "$state" ]]; then
+      echo "isolated Quickshell runtime state passed: $state"
+    else
+      echo "isolated Quickshell runtime test passed"
+    fi
     exit 0
   fi
   if grep -qF "OMAFORGE_RUNTIME_FAIL" "$output_file" 2>/dev/null || ! kill -0 "$runtime_pid" 2>/dev/null; then

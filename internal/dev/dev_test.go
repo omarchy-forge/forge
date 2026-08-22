@@ -21,7 +21,7 @@ func TestRunExecutesTrustedHarness(t *testing.T) {
 		t.Fatal(err)
 	}
 	var output bytes.Buffer
-	if err := Run(root, strings.NewReader(""), &output, &output); err != nil {
+	if err := Run(root, "ready", strings.NewReader(""), &output, &output); err != nil {
 		t.Fatal(err)
 	}
 	want := "--trust-plugin-code\n" + root + "\n"
@@ -35,7 +35,7 @@ func TestRunRejectsMissingHarness(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(root, "manifest.json"), []byte("{}\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	err := Run(root, strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
+	err := Run(root, "", strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
 	if err == nil || !strings.Contains(err.Error(), "tests/runtime") {
 		t.Fatalf("error = %v, want missing runtime harness", err)
 	}
@@ -56,8 +56,15 @@ func TestRunRejectsSymlinkHarness(t *testing.T) {
 	if err := os.Symlink(outside, filepath.Join(root, "tests", "runtime")); err != nil {
 		t.Fatal(err)
 	}
-	err := Run(root, strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
+	err := Run(root, "", strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
 	if err == nil || !strings.Contains(err.Error(), "regular file") {
 		t.Fatalf("error = %v, want regular-file rejection", err)
+	}
+}
+
+func TestRunRejectsUnknownState(t *testing.T) {
+	err := Run(".", "loading", strings.NewReader(""), &bytes.Buffer{}, &bytes.Buffer{})
+	if err == nil || !strings.Contains(err.Error(), "unsupported demo state") {
+		t.Fatalf("error = %v, want unsupported state", err)
 	}
 }

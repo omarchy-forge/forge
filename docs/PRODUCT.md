@@ -25,8 +25,9 @@ compatibility, testability, security, accessibility, and release readiness.
 Forge provides `init`, deterministic `check`, local `doctor`, and a trusted
 one-shot `dev` runtime check for one reviewed bar-widget-with-popout template.
 Generated projects include static tests, official-validator integration, and an
-opt-in isolated Quickshell harness. File watching, screenshot capture, and
-additional templates remain future work.
+opt-in isolated Quickshell harness with fictional ready, empty, and error state
+simulation. File watching, screenshot capture, and additional templates remain
+future work.
 
 ## Non-goals
 

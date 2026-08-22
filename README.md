@@ -44,10 +44,14 @@ one-shot runtime harness with an explicit trust acknowledgement:
 
 ```bash
 omaforge dev ./my-plugin --trust-plugin-code
+omaforge dev ./my-plugin --trust-plugin-code --state ready
+omaforge dev ./my-plugin --trust-plugin-code --state empty
+omaforge dev ./my-plugin --trust-plugin-code --state error
 ```
 
-This does not install or enable the plugin, modify shell configuration, or
-connect to the live Omarchy Shell process.
+The optional state is applied only in memory inside the temporary runtime. This
+does not install or enable the plugin, modify shell configuration, or connect
+to the live Omarchy Shell process.
 
 ## GitHub Action and releases
 

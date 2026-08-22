@@ -4,6 +4,8 @@
 
 - Add `omaforge dev <directory> --trust-plugin-code` as a one-shot entry point
   for a reviewed generated plugin's isolated Quickshell runtime harness.
+- Add isolated fictional `ready`, `empty`, and `error` state simulation to
+  `omaforge dev` without installing the plugin or persisting state.
 
 ## [0.1.0] - 2026-08-22
 

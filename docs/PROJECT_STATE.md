@@ -114,9 +114,15 @@ current.
   executing it with argument-safe process invocation.
 - A freshly generated plugin passed static Forge checks and the real isolated
   runtime through the new command on the verified local Wayland session.
-- File watching, richer state simulation, and screenshot capture remain later
-  increments; the command does not install or enable plugins or mutate live
-  shell configuration.
+- The second increment adds validated `ready`, `empty`, and `error` state
+  selection. Generated plugins apply these fictional states in memory inside
+  the temporary runtime and must explicitly accept the requested state.
+- Handoff exposes the same `setDemoState` vocabulary but its released tree
+  predates the generated harness. A disposable exact working-tree copy using
+  the current harness exercised all three states without modifying the private
+  repository, installing the plugin, or touching live shell configuration.
+- File watching and screenshot capture remain later increments; the command
+  does not install or enable plugins or mutate live shell configuration.
 
 ## Forge feedback from Handoff
 

@@ -77,8 +77,8 @@ use.
 ## Later milestones
 
 - Milestone 6 local development tooling: the first one-shot trusted
-  `omaforge dev` runtime check is implemented; file watching, state simulation,
-  and screenshot capture remain later increments.
+  `omaforge dev` runtime check and fictional ready/empty/error state simulation
+  are implemented; file watching and screenshot capture remain later increments.
 - Documentation website deployment and domain connection, only with explicit
   approval.
 - Any Handoff marketplace submission, public announcement, visibility change,

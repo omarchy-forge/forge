@@ -228,3 +228,22 @@ The harness retains responsibility for temporary HOME/XDG isolation, read-only
 Omarchy module links, process-group cleanup, and its timeout. This one-shot
 runtime check does not install or enable the plugin, mutate shell configuration,
 watch files, capture screenshots, or imply that arbitrary plugin QML is safe.
+
+## D-020: Fixed isolated demo-state vocabulary
+
+Status: accepted, 2026-08-22.
+
+`omaforge dev` accepts only `ready`, `empty`, or `error` through `--state`.
+Forge passes the validated value to the project harness as fixed arguments; the
+harness exposes it to its temporary QML host and requires the plugin's
+`setDemoState` method to accept it before reporting success.
+
+State-driven runs require only the common panel lifecycle and `setDemoState`
+contract; they do not impose the starter template's public `refresh` method on
+independently implemented plugins. The no-state smoke run retains the refresh
+check.
+
+States are fictional and in-memory. They do not read fixture paths supplied by
+the caller, write plugin data, call live-shell IPC, or broaden the explicit QML
+trust boundary. The short settling interval validates each state contract but
+is not yet an interactive watcher or screenshot session.

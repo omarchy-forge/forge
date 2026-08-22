@@ -76,7 +76,7 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, required := range []string{"--trust-plugin-code", "XDG_RUNTIME_DIR", "OMAFORGE_RUNTIME_PASS"} {
+	for _, required := range []string{"--trust-plugin-code", "--state", "XDG_RUNTIME_DIR", "OMAFORGE_DEV_STATE", "OMAFORGE_RUNTIME_PASS"} {
 		if !bytes.Contains(runtimeScript, []byte(required)) {
 			t.Errorf("tests/runtime missing %q", required)
 		}
