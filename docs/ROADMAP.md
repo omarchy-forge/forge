@@ -29,16 +29,27 @@ Implemented and merged:
 
 ## Milestone 3: action and releases
 
-In development on `feat/github-action-releases`:
+Implemented and merged:
 
 - Checksum-verifying reusable GitHub Action with PR annotations.
 - Tag-driven Linux `amd64` and `arm64` archives with checksums.
 - Least-privilege release workflow with immutable Action references.
 - Release and Action documentation plus end-to-end packaging tests.
 
+## Milestone 4: documentation website
+
+In development on `feat/documentation-website`:
+
+- Distinct homepage and complete initial documentation navigation.
+- Quickstart, templates, commands, anatomy, manifest, and compatibility guides.
+- Roadmap and contributing pages grounded in current shipped behavior.
+- Static-first architecture without accounts, tracking, or AI chat.
+- No deployment or domain connection without explicit approval.
+
 ## Later milestones
 
-- Documentation-first website, deployed only with explicit approval.
+- Documentation website deployment and domain connection, only with explicit
+  approval.
 - A separately released Handoff reference plugin.
 - Additional templates after the first template is proven.
 - Trusted local preview, demo, and screenshot tooling.

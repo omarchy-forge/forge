@@ -18,3 +18,6 @@ normal CLI behavior. It does not execute plugin QML during static checks.
 Omarchy plugins themselves run unsandboxed inside the desktop shell, so users
 must review and trust plugin code before enabling it. See
 `docs/SECURITY_MODEL.md` for boundaries and future requirements.
+
+The documentation website's currently unpatched transitive advisories and
+bounded mitigations are recorded in `website/SECURITY.md`.

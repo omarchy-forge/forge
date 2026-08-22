@@ -120,3 +120,23 @@ Third-party release actions are avoided. Official GitHub Actions are pinned to
 immutable commit SHAs, and GitHub CLI creates the release from the already
 verified workflow artifact. Tags and releases remain explicit external actions
 and are not created by normal CI or local packaging.
+
+## D-013: Static-first Geistdocs website boundary
+
+Status: accepted, 2026-08-22.
+
+The documentation website uses Next.js 16, TypeScript, MDX, and the
+Geistdocs/Fumadocs rendering foundation in `website/`. The package-backed
+structure provides navigation, source-backed search, raw Markdown routes, and
+edit links without creating a parallel documentation engine.
+
+The stock initializer's AI chat, feedback submission, analytics, and Markdown
+request tracking are explicitly removed or disabled. Next.js telemetry is also
+disabled in every package script. The site has no account, authentication,
+database, telemetry, or user-data persistence. Only `esbuild` is explicitly
+allowed to run an install lifecycle script in pnpm's workspace policy.
+
+The planned `omarchyforge.com` origin is not hard-coded as a deployed fact. A
+canonical URL is supplied through `NEXT_PUBLIC_SITE_URL` when deployment is
+separately authorized; local builds fall back to localhost. Building the site
+does not create a Vercel project, deployment, domain, or environment variable.

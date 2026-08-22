@@ -6,6 +6,8 @@ The project is currently unreleased and in early development.
 
 ## Unreleased
 
+- Add an undeployed documentation-first Next.js/MDX website with the complete
+  initial Forge documentation set and a distinct visual identity.
 - Add a checksum-verifying composite GitHub Action with native annotations.
 - Add reproducible Linux release archives, SHA-256 checksums, and tag-driven
   GitHub Release automation.

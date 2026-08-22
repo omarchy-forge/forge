@@ -1,0 +1,33 @@
+---
+title: Compatibility
+description: What Forge has actually verified against Omarchy and what remains heuristic.
+---
+
+Forge distinguishes installed upstream evidence from its own static quality
+rules.
+
+## Current target
+
+- Installed package verified: `omarchy 4.0.0-1`.
+- Manifest schema: JSON number `1`.
+- Forge compatibility selector: `--omarchy-version 4`.
+- Official pinned inspection: Omarchy `quattro` revision `ed7bae4`.
+- Reference plugin inspection: Basecamp revision `abc1ba7`.
+
+The installed official validator remains authoritative. Findings labeled
+`official-parity` mirror the inspected validator contract so CI can run without
+an Omarchy installation. Findings labeled `forge` cover additional structural,
+security, UX, and publish-readiness expectations.
+
+## Runtime evidence
+
+A generated sample has been installed, enabled, exercised, disabled, and
+removed on the actual Omarchy system. Verified scenarios include horizontal and
+vertical bars, keyboard behavior, dark and light themes, ready/empty/error demo
+states, hot reload, and exact restoration of user shell configuration.
+
+Static heuristics are not runtime proof. Pattern matches are labeled as
+heuristics and require human review.
+
+See the repository's `docs/UPSTREAM_COMPATIBILITY.md` for commands, inspected
+paths, limitations, and the complete evidence log.

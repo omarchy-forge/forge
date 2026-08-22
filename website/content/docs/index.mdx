@@ -1,0 +1,22 @@
+---
+title: Omarchy Forge
+description: Local-first developer tools for building, checking, and shipping Omarchy plugins.
+---
+
+Omarchy Forge turns an empty directory into a reviewed plugin shape, then helps
+you keep it healthy as it changes. The CLI is local-first, deterministic, and
+network-independent by default.
+
+## What ships today
+
+- A polished bar-widget-with-popout scaffolder.
+- Deterministic structural and Forge quality checks.
+- Human-readable local Omarchy diagnostics.
+- Text, JSON, and SARIF reports.
+- A checksum-verifying GitHub Action and release pipeline infrastructure.
+
+Forge complements the official `omarchy plugin validate` command. It does not
+replace the installed validator, execute third-party QML during static checks,
+or silently alter your Omarchy configuration.
+
+Start with the [quickstart](/docs/quickstart), then read the [plugin anatomy](/docs/plugin-anatomy) to understand the generated project.

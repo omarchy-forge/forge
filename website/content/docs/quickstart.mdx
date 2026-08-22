@@ -1,0 +1,61 @@
+---
+title: Quickstart
+description: Build Forge from source, scaffold a plugin, and run both Forge and official validation.
+---
+
+Forge is still unreleased. Until an authorized release exists, build the CLI
+from its private source checkout rather than inventing an installation URL.
+
+## Prerequisites
+
+- Omarchy 4 with shell plugin support.
+- Go 1.23 or newer.
+- Git for local plugin installation and development.
+
+## Build the CLI
+
+```bash
+git clone https://github.com/omarchy-forge/forge.git
+cd forge
+go build -o ./tmp/omaforge ./cmd/omaforge
+./tmp/omaforge version
+```
+
+The repository is currently private, so cloning requires authorized GitHub
+access.
+
+## Scaffold a bar widget
+
+```bash
+./tmp/omaforge init project-pulse \
+  --id dev.example.project-pulse \
+  --author "Example Developer" \
+  --git
+```
+
+Forge refuses dangerous targets, symlinked output trees, and nonempty
+directories unless generated-file collisions are explicitly previewed with
+`--force`. Use `--dry-run` to inspect the complete write plan.
+
+## Check and validate
+
+```bash
+./tmp/omaforge check project-pulse
+./tmp/omaforge doctor project-pulse
+omarchy plugin validate project-pulse
+```
+
+`check` is deterministic and never executes plugin QML. `doctor` adds read-only
+local environment probes and invokes the installed official validator.
+
+## Try the plugin
+
+Review the generated source before enabling it; plugins run unsandboxed inside
+the long-lived Omarchy Shell process.
+
+```bash
+cd project-pulse
+omarchy plugin add "$PWD" --enable
+./demo/run empty
+omarchy plugin remove dev.example.project-pulse
+```

@@ -1,0 +1,16 @@
+{
+  "title": "Omarchy Forge",
+  "description": "Build, check, and ship trustworthy Omarchy plugins.",
+  "root": true,
+  "pages": [
+    "index",
+    "quickstart",
+    "templates",
+    "commands",
+    "plugin-anatomy",
+    "manifest-reference",
+    "compatibility",
+    "roadmap",
+    "contributing"
+  ]
+}

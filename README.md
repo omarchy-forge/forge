@@ -42,6 +42,23 @@ exists yet, so these files are release infrastructure rather than an available
 installation promise. See the [Action guide](action/README.md) and
 [release process](docs/RELEASING.md).
 
+## Documentation website
+
+The undeployed website lives in `website/` and covers the homepage, quickstart,
+templates, commands, plugin anatomy, manifest, compatibility, roadmap, and
+contributing guides. It uses a static-first Next.js/MDX architecture without AI
+chat, analytics, tracking, accounts, authentication, or a database.
+
+```bash
+cd website
+corepack enable
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm build
+```
+
+Deployment and domain connection require separate explicit approval.
+
 ## Create a plugin
 
 ```bash

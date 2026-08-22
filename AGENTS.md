@@ -1,6 +1,8 @@
 # Agent guidance
 
-- Read `handoff.md` and all relevant repository documents before acting.
+- Read `handoff.md`, `docs/PROJECT_STATE.md`, and all relevant repository
+  documents before acting. Treat `docs/PROJECT_STATE.md` as the current durable
+  execution checkpoint when status text in the original handoff is stale.
 - Inspect the installed Omarchy implementation; do not assume its APIs.
 - Never edit Omarchy-owned files, including files under `$OMARCHY_PATH`.
 - Keep the CLI local-first, deterministic, and network-independent by default.
