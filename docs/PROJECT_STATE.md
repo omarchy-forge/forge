@@ -12,15 +12,16 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Latest completed checkpoint before this update: public-visibility documentation
-  pull request `#15`, merged as `dec9469`.
+- Latest completed checkpoint: beginner-first onboarding pull request `#27`,
+  merged as `fbaa31c` and deployed to the production documentation site.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
   checks passed).
-- Forge's public visibility has been authorized and applied. No website
-  deployment, domain connection, Handoff visibility change, marketplace
-  submission, or public launch announcement has been authorized or performed.
+- Forge's public visibility, documentation deployment, and custom-domain
+  connection have been authorized and applied. Handoff remains private; no
+  marketplace submission or public launch announcement has been authorized or
+  performed.
 
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
@@ -199,8 +200,8 @@ advisory allowlist remains. See `website/SECURITY.md`.
 The documentation site is live at `https://www.omarchyforge.com` in the Vercel
 project `omarchy-forge-docs`; `https://omarchyforge.com` redirects to that
 canonical origin. Production sets `NEXT_PUBLIC_SITE_URL` to the custom origin.
-Deployment `dpl_51BvXAM4Uf4BDLDfuSN2qwr2cfmG` was built from verified Forge
-commit `b643fc4` on 2026-08-22. HTTP checks passed for the homepage,
+Deployment `dpl_GefkAvgLAqgiUhE2oQPYmsn713ca` was built from verified Forge
+commit `fbaa31c` on 2026-08-22. HTTP checks passed for the homepage,
 documentation pages, search endpoint, sitemap, robots file, and LLM-readable
 content. The sitemap and robots file advertise the custom origin. Browser
 verification confirmed the apex redirect, meaningful rendered content, working
@@ -217,7 +218,9 @@ testing, and capture a plugin-only screenshot. The installation block detects
 the supported CPU architecture, downloads only the matching archive, and
 verifies the published checksum. The exact commands were exercised against the
 public `v0.2.0` release. Go and source-build instructions are separated as a
-contributor-only path.
+contributor-only path. Pull request `#27` passed both copies of the Go and
+website CI suites, merged as `fbaa31c`, and the rendered production Quickstart
+was browser-verified with no framework overlay, console errors, or page errors.
 
 ## Standing boundaries
 
