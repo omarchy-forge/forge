@@ -125,8 +125,13 @@ current.
   Quick item. Ready, empty, and error produced plugin-only RGBA PNGs in the real
   isolated runtime; no compositor or desktop capture API is used and existing
   files are not overwritten.
-- File watching remains a later increment; these commands do not install or
-  enable plugins or mutate live shell configuration.
+- The fourth increment adds `omaforge dev --watch`: an initial isolated run,
+  deterministic content fingerprinting outside `.git`, bounded polling, and
+  fresh isolated reruns after changes. Failed runs do not end the session, and
+  Ctrl-C cancels it cleanly.
+- Milestone 6's planned dev-state, screenshot, and watch slices are now
+  implemented. None installs or enables plugins or mutates live shell
+  configuration.
 
 ## Forge feedback from Handoff
 

@@ -59,6 +59,9 @@ one-shot runtime check. `--state ready|empty|error` applies a fictional state in
 memory before the harness completes. It does not install or enable the plugin,
 change shell configuration or watch files.
 
+Add `--watch` to rerun a fresh isolated harness after local project changes.
+The session survives failed runs so source can be repaired and stops on Ctrl-C.
+
 ## `omaforge screenshot`
 
 Capture a fictional state from the plugin's explicitly declared panel item:

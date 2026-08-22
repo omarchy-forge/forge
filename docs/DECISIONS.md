@@ -260,3 +260,17 @@ so unrelated desktop pixels cannot enter the result.
 The command requires explicit QML trust, one of the fixed demo states, and a
 new `.png` output path. Existing files are never overwritten. Plugins without
 an explicit capture target fail closed; Forge does not guess at a screen region.
+
+## D-022: Polling watch sessions over fresh isolated runs
+
+Status: accepted, 2026-08-22.
+
+`omaforge dev --watch` computes a deterministic fingerprint of sorted regular
+project files while excluding `.git`. A bounded local poll detects changes and
+reruns the project-owned harness in a fresh temporary runtime. No filesystem
+watch dependency or persistent live-shell installation is introduced.
+
+One explicit trust acknowledgement covers the session. Failed QML runs are
+reported without terminating the watcher so the developer can repair source;
+Ctrl-C or termination ends the session cleanly. The watcher performs no network
+access and does not write inside the project.

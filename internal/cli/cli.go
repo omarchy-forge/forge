@@ -3,12 +3,15 @@ package cli
 
 import (
 	"bufio"
+	"context"
 	"errors"
 	"flag"
 	"fmt"
 	"io"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 
 	"github.com/omarchy-forge/forge/internal/checks"
 	"github.com/omarchy-forge/forge/internal/dev"
@@ -25,7 +28,7 @@ Usage:
   omaforge init <directory> [options]
   omaforge check <directory> [options]
   omaforge doctor [directory]
-  omaforge dev <directory> --trust-plugin-code [--state ready|empty|error]
+  omaforge dev <directory> --trust-plugin-code [--state ready|empty|error] [--watch]
   omaforge screenshot <directory> --trust-plugin-code --state ready|empty|error --output <file.png>
 
 Commands:
@@ -129,14 +132,15 @@ func runScreenshot(args []string, stdin io.Reader, stdout, stderr io.Writer) int
 func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	for _, argument := range args {
 		if argument == "-h" || argument == "--help" {
-			fmt.Fprintln(stdout, "Usage: omaforge dev <directory> --trust-plugin-code [--state ready|empty|error]")
-			fmt.Fprintln(stdout, "Runs the project's isolated one-shot runtime harness after explicit trust acknowledgement.")
+			fmt.Fprintln(stdout, "Usage: omaforge dev <directory> --trust-plugin-code [--state ready|empty|error] [--watch]")
+			fmt.Fprintln(stdout, "Runs the project's isolated runtime harness after explicit trust acknowledgement.")
 			return 0
 		}
 	}
 	trusted := false
 	directory := ""
 	state := ""
+	watch := false
 	for index := 0; index < len(args); index++ {
 		argument := args[index]
 		switch argument {
@@ -153,6 +157,12 @@ func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 			}
 			index++
 			state = args[index]
+		case "--watch":
+			if watch {
+				fmt.Fprintln(stderr, "omaforge dev accepts --watch only once")
+				return 2
+			}
+			watch = true
 		default:
 			if strings.HasPrefix(argument, "-") || directory != "" {
 				fmt.Fprintln(stderr, "omaforge dev accepts exactly one plugin directory and --trust-plugin-code")
@@ -169,6 +179,15 @@ func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	if state != "" && state != "ready" && state != "empty" && state != "error" {
 		fmt.Fprintf(stderr, "omaforge dev: unknown state %q; available: ready, empty, error\n", state)
 		return 2
+	}
+	if watch {
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+		if err := dev.Watch(ctx, directory, state, stdin, stdout, stderr); err != nil {
+			fmt.Fprintf(stderr, "omaforge dev: %v\n", err)
+			return 1
+		}
+		return 0
 	}
 	if err := dev.Run(directory, state, stdin, stdout, stderr); err != nil {
 		fmt.Fprintf(stderr, "omaforge dev: %v\n", err)

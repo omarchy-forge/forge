@@ -37,6 +37,9 @@ to their fictional in-memory demo contract inside the temporary runtime.
 template-declared `forgeScreenshotTarget`. It never invokes monitor or window
 screen-copy tools. Output must be a new `.png` path, preventing accidental
 replacement of an existing asset.
+Watch mode performs local reads only, excludes `.git`, and executes only the
+already acknowledged project harness. Each change receives a fresh isolated
+runtime rather than keeping plugin QML resident in the live shell.
 
 The installed Omarchy implementation is authoritative but owned externally.
 Forge may inspect it and invoke documented commands; it must never modify those

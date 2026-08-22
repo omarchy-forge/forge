@@ -26,6 +26,10 @@ the plugin version it executes.
 Screenshot capture follows the same path and renders only the plugin's explicit
 `forgeScreenshotTarget` with Qt Quick `grabToImage`; it has no compositor or
 desktop-capture dependency.
+Watch mode hashes sorted regular-file paths and contents while excluding
+`.git`, polls locally at a bounded interval, and reruns the same one-shot
+harness when the fingerprint changes. A failed development run is reported but
+does not end the watch session.
 
 Force mode overwrites only colliding generated paths, preserves unrelated
 files, rejects symlinks, and prints its complete plan before writing. Dry-run
