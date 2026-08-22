@@ -16,7 +16,111 @@ _Forge builds tooling around the Omarchy plugin layer; it is not part of the
 desktop runtime. The workflow labels illustrate the product direction—see the
 [roadmap](docs/ROADMAP.md) for what is currently implemented._
 
-## Check a plugin
+## Build your first plugin
+
+Forge runs on the Linux machine where Omarchy is installed. If you normally use
+Windows or macOS, open a terminal **inside Omarchy** before continuing. You do
+not need Go, `sudo`, or prior Linux development experience to use the release.
+
+### 1. Install Forge
+
+Copy this entire block into the Omarchy terminal. It detects the machine's CPU,
+downloads the matching Forge `v0.2.0` release, verifies its checksum, and
+installs it for your user only:
+
+```bash
+set -eu
+version="0.2.0"
+case "$(uname -m)" in
+  x86_64) arch="amd64" ;;
+  aarch64|arm64) arch="arm64" ;;
+  *) echo "Unsupported CPU: $(uname -m)" >&2; exit 1 ;;
+esac
+workdir="$(mktemp -d)"
+cd "$workdir"
+curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/omaforge_${version}_linux_${arch}.tar.gz"
+curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/checksums.txt"
+sha256sum --ignore-missing --check checksums.txt
+tar -xzf "omaforge_${version}_linux_${arch}.tar.gz"
+install -Dm755 omaforge "$HOME/.local/bin/omaforge"
+"$HOME/.local/bin/omaforge" version
+```
+
+This changes only `~/.local/bin/omaforge`. If `omaforge` is not found in a new
+terminal, use `$HOME/.local/bin/omaforge` or add `~/.local/bin` to your `PATH`.
+
+### 2. Create a plugin
+
+```bash
+cd "$HOME"
+omaforge init project-pulse --git
+```
+
+Forge asks for the remaining information. For the plugin ID, use a unique
+reverse-domain value such as `dev.yourname.project-pulse`.
+
+### 3. Check your project
+
+```bash
+cd "$HOME/project-pulse"
+omaforge check .
+omaforge doctor .
+omarchy plugin validate .
+```
+
+`check` does not execute plugin QML. `doctor` performs read-only checks of your
+local environment. The final command is Omarchy's official validator.
+
+### 4. Preview it safely
+
+Review the generated QML first, then acknowledge that local QML execution is
+trusted:
+
+```bash
+omaforge dev . --trust-plugin-code --state ready
+omaforge dev . --trust-plugin-code --state empty
+omaforge dev . --trust-plugin-code --state error
+omaforge dev . --trust-plugin-code --state ready --watch
+```
+
+These commands use an isolated temporary runtime. They do not install the
+plugin, edit Omarchy configuration, or connect to the live shell. Stop watch
+mode with `Ctrl-C`.
+
+### 5. Try it in Omarchy
+
+Plugins execute unsandboxed inside the long-running Omarchy Shell process. Only
+enable code you have reviewed:
+
+```bash
+omarchy plugin add "$PWD" --enable
+./demo/run empty
+```
+
+When testing is complete, remove it with the plugin ID entered during creation:
+
+```bash
+omarchy plugin remove dev.yourname.project-pulse
+```
+
+### 6. Capture a preview image
+
+```bash
+omaforge screenshot . \
+  --trust-plugin-code \
+  --state ready \
+  --output assets/preview.png
+```
+
+Forge captures only the plugin-declared panel content, never the desktop, and
+refuses to overwrite an existing file.
+
+For more detail, see the
+[complete Quickstart](https://www.omarchyforge.com/docs/quickstart),
+[command reference](https://www.omarchyforge.com/docs/commands), and
+[plugin anatomy guide](https://www.omarchyforge.com/docs/plugin-anatomy).
+
+## Check an existing plugin
 
 Forge checks are deterministic, local, and do not execute plugin QML or use the
 network:
@@ -31,40 +135,6 @@ Findings identify whether a rule mirrors the inspected official validator or
 is a Forge quality rule. Exit code 0 means no error-severity findings, 1 means
 the project has errors, and 2 means command usage is invalid. Warnings are
 reported without failing the check.
-
-For human-readable local environment diagnostics, including Omarchy,
-Quickshell, shell IPC, QML tooling, and the official validator, run:
-
-```bash
-omaforge doctor .
-```
-
-After reviewing a generated plugin's QML and local commands, run its isolated
-one-shot runtime harness with an explicit trust acknowledgement:
-
-```bash
-omaforge dev ./my-plugin --trust-plugin-code
-omaforge dev ./my-plugin --trust-plugin-code --state ready
-omaforge dev ./my-plugin --trust-plugin-code --state empty
-omaforge dev ./my-plugin --trust-plugin-code --state error
-omaforge dev ./my-plugin --trust-plugin-code --state ready --watch
-```
-
-The optional state is applied only in memory inside the temporary runtime. This
-does not install or enable the plugin, modify shell configuration, or connect
-to the live Omarchy Shell process.
-
-Capture only the template-declared panel content—never the desktop—into a new
-PNG file:
-
-```bash
-omaforge screenshot ./my-plugin --trust-plugin-code --state ready --output preview.png
-```
-
-Forge refuses to overwrite an existing screenshot.
-
-Watch mode hashes regular project files except `.git`, reruns the isolated
-harness after changes, survives failed development runs, and stops on Ctrl-C.
 
 ## GitHub Action and releases
 
@@ -94,22 +164,10 @@ pnpm build
 Vercel serves `www.omarchyforge.com` as the canonical origin, with the apex
 domain redirecting to it.
 
-## Create a plugin
+## Build Forge from source
 
-```bash
-omaforge init project-pulse \
-  --id dev.example.project-pulse \
-  --author "Example Developer"
-```
-
-Run `omaforge init --help` for interactive and noninteractive options,
-including `--dry-run`, section selection, optional CI, and local Git
-initialization. Forge refuses dangerous targets and nonempty directories unless
-the generated-file collisions are explicitly previewed with `--force`.
-
-## Build and run
-
-Go 1.23 or newer is required for development.
+This section is for Forge contributors. Go 1.23 or newer is required to build
+the CLI from source; ordinary plugin authors can use the release above.
 
 ```bash
 go build -o ./tmp/omaforge ./cmd/omaforge

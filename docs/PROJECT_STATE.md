@@ -207,6 +207,18 @@ verification confirmed the apex redirect, meaningful rendered content, working
 documentation navigation, no framework error overlay, and no console or page
 errors.
 
+## Beginner onboarding checkpoint
+
+The root README and website Quickstart lead with the same numbered first-plugin
+journey: enter an Omarchy terminal, install the exact Forge release without
+`sudo`, create a plugin interactively, check and officially validate it, preview
+fictional states in isolation, enable reviewed code in Omarchy, remove it after
+testing, and capture a plugin-only screenshot. The installation block detects
+the supported CPU architecture, downloads only the matching archive, and
+verifies the published checksum. The exact commands were exercised against the
+public `v0.2.0` release. Go and source-build instructions are separated as a
+contributor-only path.
+
 ## Standing boundaries
 
 - Keep the CLI local-first, deterministic, and network-independent by default.
