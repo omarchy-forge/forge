@@ -15,7 +15,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const pages: MetadataRoute.Sitemap = [];
 
-  for (const page of source.getPages()) {
+  for (const page of source.getPages() as Array<{
+    data: { lastModified?: Date };
+    url: string;
+  }>) {
     const data = page.data as {
       lastModified?: Date;
     };

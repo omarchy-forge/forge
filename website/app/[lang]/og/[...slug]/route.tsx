@@ -9,7 +9,9 @@ export const GET = async (
   { params }: RouteContext<"/[lang]/og/[...slug]">
 ) => {
   const { slug, lang } = await params;
-  const page = source.getPage(slug.slice(0, -1), lang);
+  const page = source.getPage(slug.slice(0, -1), lang) as
+    | { data: { title: string; description?: string } }
+    | undefined;
 
   if (!page) {
     return new Response("Not found", { status: 404 });
@@ -88,8 +90,8 @@ export const generateStaticParams = async ({
 }: RouteContext<"/[lang]/og/[...slug]">) => {
   const { lang } = await params;
 
-  return source.getPages(lang).map((page) => ({
+  return (source.getPages(lang) as Array<{ locale?: string }>).map((page) => ({
     lang: page.locale,
-    slug: getPageImage(page).segments,
+    slug: getPageImage(page as never).segments,
   }));
 };
