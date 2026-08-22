@@ -140,4 +140,25 @@ IPC command remains an explicit fallback. The shell persists customization in
   was not needed for the Milestone 0 executable. It should be inspected at a
   pinned official revision before designing the first template.
 - Runtime compatibility of a future generated plugin remains untested because
-  Milestone 0 intentionally contains no template and executes no QML.
+  Milestone 0 intentionally contained no template and executed no QML.
+
+## Milestone 1 follow-up inspection
+
+On 2026-08-22, template work also inspected these pinned official revisions:
+
+- Omarchy `quattro`: `ed7bae4ac5a570e9df307486e0202fdafcc6ee24`.
+- Basecamp plugin: `abc1ba72aaf47db530d2a0c6901d99f0f98e6aa7`.
+
+The upstream checkout supplied the validator, registry, manifest entry-point,
+and bar-widget contract tests missing from the installed package. The Basecamp
+plugin confirmed current practices for `Panel`, `BarIconButton`,
+`KeyboardPanel`, `PanelKeyCatcher`, array-form `Process.command` values, inline
+settings, fictional demo data, local-path installation, privacy documentation,
+and QML tests.
+
+A Forge-generated sample passed the installed `omarchy plugin validate`
+command. Its actual entry point was then instantiated using the pinned
+Omarchy bar-widget contract harness with an isolated temporary home and config.
+The harness confirmed delayed bar/settings injection, finite dimensions, safe
+refresh/close calls, and horizontal-to-vertical geometry changes. No plugin was
+installed and no persistent shell configuration was changed.

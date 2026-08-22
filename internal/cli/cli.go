@@ -2,8 +2,15 @@
 package cli
 
 import (
+	"bufio"
+	"errors"
+	"flag"
 	"fmt"
 	"io"
+	"os"
+	"strings"
+
+	"github.com/omarchy-forge/forge/internal/scaffold"
 )
 
 const helpText = `Omarchy Forge
@@ -12,15 +19,16 @@ Developer tools for building, testing, and shipping Omarchy plugins.
 Usage:
   omaforge [--help]
   omaforge version
+  omaforge init <directory> [options]
 
 Commands:
+  init       Create a bar-widget plugin project
   version    Print build and compatibility information
 
 Options:
   -h, --help Print this help
 
-Omarchy Forge is in early development. Plugin scaffolding and checking are not
-available yet.
+Run 'omaforge init --help' for scaffolding options.
 `
 
 // BuildInfo contains release metadata supplied at link time.
@@ -31,13 +39,15 @@ type BuildInfo struct {
 }
 
 // Run executes the CLI and returns a process exit code.
-func Run(args []string, stdout, stderr io.Writer, info BuildInfo) int {
+func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInfo) int {
 	if len(args) == 0 || (len(args) == 1 && (args[0] == "--help" || args[0] == "-h")) {
 		fmt.Fprint(stdout, helpText)
 		return 0
 	}
 
 	switch args[0] {
+	case "init":
+		return runInit(args[1:], stdin, stdout, stderr)
 	case "version":
 		if len(args) != 1 {
 			fmt.Fprintln(stderr, "omaforge version does not accept arguments")
@@ -51,6 +61,163 @@ func Run(args []string, stdout, stderr io.Writer, info BuildInfo) int {
 		fmt.Fprintln(stderr, "Run 'omaforge --help' for usage.")
 		return 2
 	}
+}
+
+func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("init", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+	var options scaffold.Options
+	var templateName string
+	var nonInteractive bool
+	var noCI bool
+	flags.StringVar(&options.ID, "id", "", "namespaced plugin ID (required)")
+	flags.StringVar(&options.Name, "name", "", "plugin display name")
+	flags.StringVar(&options.Description, "description", "", "short plugin description")
+	flags.StringVar(&options.Author, "author", "", "plugin author (required)")
+	flags.StringVar(&options.License, "license", "MIT", "plugin license (MIT only)")
+	flags.StringVar(&options.Section, "section", "right", "default bar section: left, center, or right")
+	flags.StringVar(&templateName, "template", "bar-widget", "template name (bar-widget only)")
+	flags.BoolVar(&options.DryRun, "dry-run", false, "show the write plan without creating files")
+	flags.BoolVar(&options.Force, "force", false, "overwrite colliding generated files after showing the plan")
+	flags.BoolVar(&options.InitGit, "git", false, "initialize a local Git repository")
+	flags.BoolVar(&noCI, "no-ci", false, "omit the generated GitHub Actions workflow")
+	flags.BoolVar(&nonInteractive, "non-interactive", false, "fail instead of prompting for missing values")
+	flags.Usage = func() {
+		fmt.Fprintln(flags.Output(), "Usage: omaforge init <directory> [options]")
+		fmt.Fprintln(flags.Output())
+		fmt.Fprintln(flags.Output(), "Create a deterministic Omarchy bar-widget plugin project.")
+		fmt.Fprintln(flags.Output())
+		fmt.Fprintln(flags.Output(), "Options:")
+		flags.PrintDefaults()
+	}
+	for _, argument := range args {
+		if argument == "-h" || argument == "--help" {
+			flags.SetOutput(stdout)
+			flags.Usage()
+			return 0
+		}
+	}
+
+	orderedArgs, orderErr := reorderInitArgs(args)
+	if orderErr != nil {
+		fmt.Fprintf(stderr, "omaforge init: %v\n", orderErr)
+		return 2
+	}
+	if err := flags.Parse(orderedArgs); err != nil {
+		if errors.Is(err, flag.ErrHelp) {
+			return 0
+		}
+		return 2
+	}
+	if flags.NArg() > 1 {
+		fmt.Fprintln(stderr, "omaforge init accepts exactly one output directory")
+		return 2
+	}
+	if templateName != "bar-widget" {
+		fmt.Fprintf(stderr, "unknown template %q; available template: bar-widget\n", templateName)
+		return 2
+	}
+
+	reader := bufio.NewReader(stdin)
+	if flags.NArg() == 1 {
+		options.Directory = flags.Arg(0)
+	} else if nonInteractive {
+		fmt.Fprintln(stderr, "output directory is required in non-interactive mode")
+		return 2
+	} else {
+		options.Directory = prompt(reader, stdout, "Output directory", "")
+	}
+	if options.Name == "" {
+		options.Name = scaffold.DisplayName(options.Directory)
+	}
+	if !nonInteractive {
+		options.Name = prompt(reader, stdout, "Plugin name", options.Name)
+		options.ID = prompt(reader, stdout, "Plugin ID", options.ID)
+		options.Description = prompt(reader, stdout, "Description", options.Description)
+		options.Author = prompt(reader, stdout, "Author", options.Author)
+		options.Section = prompt(reader, stdout, "Default section", options.Section)
+	}
+	if options.Description == "" {
+		options.Description = "A polished Omarchy bar widget."
+	}
+	options.IncludeCI = !noCI
+	options.HomeDir, _ = os.UserHomeDir()
+	options.OmarchyPath = os.Getenv("OMARCHY_PATH")
+
+	previewed := false
+	if options.Force && !options.DryRun {
+		previewOptions := options
+		previewOptions.DryRun = true
+		preview, previewErr := scaffold.Generate(previewOptions)
+		if previewErr != nil {
+			fmt.Fprintf(stderr, "omaforge init: %v\n", previewErr)
+			return 1
+		}
+		for _, change := range preview.Changes {
+			fmt.Fprintf(stdout, "%s %s\n", change.Action, change.Path)
+		}
+		previewed = true
+	}
+	result, err := scaffold.Generate(options)
+	if err != nil {
+		fmt.Fprintf(stderr, "omaforge init: %v\n", err)
+		return 1
+	}
+	if !previewed {
+		for _, change := range result.Changes {
+			fmt.Fprintf(stdout, "%s %s\n", change.Action, change.Path)
+		}
+	}
+	if options.DryRun {
+		fmt.Fprintf(stdout, "Dry run complete: %d files planned; nothing written.\n", len(result.Changes))
+	} else {
+		fmt.Fprintf(stdout, "Created %s with %d files.\n", result.Directory, len(result.Changes))
+		fmt.Fprintln(stdout, "Next: omarchy plugin validate "+result.Directory)
+	}
+	return 0
+}
+
+func reorderInitArgs(args []string) ([]string, error) {
+	valueFlags := map[string]bool{
+		"--id": true, "--name": true, "--description": true, "--author": true,
+		"--license": true, "--section": true, "--template": true,
+	}
+	var options, positional []string
+	for index := 0; index < len(args); index++ {
+		argument := args[index]
+		if argument == "--" {
+			positional = append(positional, args[index+1:]...)
+			break
+		}
+		if !strings.HasPrefix(argument, "-") || argument == "-" {
+			positional = append(positional, argument)
+			continue
+		}
+		options = append(options, argument)
+		name := strings.SplitN(argument, "=", 2)[0]
+		if valueFlags[name] && !strings.Contains(argument, "=") {
+			if index+1 >= len(args) {
+				return nil, fmt.Errorf("flag %s requires a value", name)
+			}
+			index++
+			options = append(options, args[index])
+		}
+	}
+	return append(options, positional...), nil
+}
+
+func prompt(reader *bufio.Reader, stdout io.Writer, label, defaultValue string) string {
+	if defaultValue == "" {
+		fmt.Fprintf(stdout, "%s: ", label)
+	} else {
+		fmt.Fprintf(stdout, "%s [%s]: ", label, defaultValue)
+	}
+	value, _ := reader.ReadString('\n')
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return defaultValue
+	}
+	return value
 }
 
 func printVersion(w io.Writer, info BuildInfo) {

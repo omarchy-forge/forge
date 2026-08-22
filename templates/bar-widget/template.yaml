@@ -1,0 +1,5 @@
+schemaVersion: 1
+name: bar-widget
+description: Theme-aware Omarchy bar widget with a keyboard-accessible popout
+manifestSchema: 1
+entryPoint: Panel.qml

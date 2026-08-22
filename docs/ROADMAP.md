@@ -11,10 +11,14 @@ Roadmap items describe intent, not shipped functionality.
 
 ## Milestone 1: bar-widget scaffolder
 
+Implemented on the `feat/bar-widget-scaffolder` development branch:
+
 - Interactive and fully noninteractive `omaforge init`.
 - Safe collision and output-path behavior, plus `--dry-run`.
 - One polished bar-widget-with-popout template.
 - Deterministic golden tests and official-validator integration.
+
+The milestone is not released until the branch is reviewed and merged.
 
 ## Milestone 2: check and doctor
 

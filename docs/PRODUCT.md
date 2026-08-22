@@ -22,9 +22,10 @@ compatibility, testability, security, accessibility, and release readiness.
 
 ## Current state
 
-Milestone 0 contains only the repository foundation and the `omaforge --help`
-and `omaforge version` commands. Plugin generation and checking are planned but
-not implemented.
+The development branch provides `omaforge init` for one reviewed
+bar-widget-with-popout template, alongside `--help` and `version`. Generated
+projects include local tests and official-validator integration. Broader Forge
+checking and diagnostics remain planned rather than implemented.
 
 ## Non-goals
 
