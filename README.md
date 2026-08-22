@@ -33,6 +33,15 @@ Quickshell, shell IPC, QML tooling, and the official validator, run:
 omaforge doctor .
 ```
 
+## GitHub Action and releases
+
+The repository contains a composite check Action and a tag-driven Linux release
+pipeline. The Action downloads an exact release version, verifies its checksum,
+and emits pull-request annotations. No public Forge release or stable Action tag
+exists yet, so these files are release infrastructure rather than an available
+installation promise. See the [Action guide](action/README.md) and
+[release process](docs/RELEASING.md).
+
 ## Create a plugin
 
 ```bash

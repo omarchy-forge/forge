@@ -1,0 +1,50 @@
+name: Omarchy Forge Check
+description: Download a pinned Forge release, verify it, check a plugin, and annotate findings.
+author: Omarchy Forge
+
+inputs:
+  version:
+    description: Exact Forge release tag to download, such as v1.2.3.
+    required: true
+  path:
+    description: Plugin directory to check.
+    required: false
+    default: .
+  repository:
+    description: GitHub repository containing Forge releases.
+    required: false
+    default: omarchy-forge/forge
+  github-token:
+    description: Token for downloading releases from a private repository.
+    required: false
+    default: ""
+
+outputs:
+  report:
+    description: Path to the schema-v1 JSON report.
+    value: ${{ steps.check.outputs.report }}
+
+runs:
+  using: composite
+  steps:
+    - id: install
+      name: Download and verify Omarchy Forge
+      shell: bash
+      env:
+        FORGE_VERSION: ${{ inputs.version }}
+        FORGE_REPOSITORY: ${{ inputs.repository }}
+        OMAFORGE_GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: >-
+        "$GITHUB_ACTION_PATH/install.sh"
+        "$FORGE_VERSION"
+        "$FORGE_REPOSITORY"
+
+    - id: check
+      name: Check plugin and annotate findings
+      shell: bash
+      env:
+        FORGE_TARGET: ${{ inputs.path }}
+      run: |
+        report="${RUNNER_TEMP}/omaforge-report.json"
+        printf 'report=%s\n' "$report" >> "$GITHUB_OUTPUT"
+        "$GITHUB_ACTION_PATH/run.sh" "${{ steps.install.outputs.binary }}" "$FORGE_TARGET" "$report" "$GITHUB_ACTION_PATH/annotate.mjs"

@@ -33,6 +33,17 @@ environment probes. External commands have short timeouts. Doctor may invoke
 the installed official validator, but deterministic `check` never depends on
 locally installed tooling.
 
+`action/` is a composite GitHub Action with no vendored package dependencies.
+It accepts workflow inputs through environment variables, downloads only an
+exact semantic version, verifies the selected archive against the released
+checksum file, and then invokes `check`. A small Node script converts the JSON
+report to escaped GitHub workflow annotations.
+
+`scripts/build-release.sh` is the single local and CI packaging path. It builds
+static Linux `amd64` and `arm64` binaries, injects version provenance, creates
+normalized archives, and emits SHA-256 checksums. The tag workflow separates a
+read-only build job from the write-authorized release publication job.
+
 ## Future boundaries
 
 As later milestones require them, focused internal packages may own additional

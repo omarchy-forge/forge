@@ -90,3 +90,33 @@ Status: accepted, 2026-08-22.
 external validators. `doctor` is intentionally environment-aware and may run
 read-only installed commands with bounded timeouts, including the authoritative
 Omarchy validator. Both share Forge's project rule report.
+
+## D-011: Exact-version Action installation
+
+Status: accepted, 2026-08-22.
+
+The composite Action requires an exact semantic Forge version and rejects
+moving values such as `latest`. It downloads the architecture-specific archive
+and release checksum file, verifies SHA-256 before extraction, and invokes only
+the released `omaforge check` command. Workflow inputs enter shell scripts
+through quoted environment variables rather than expression interpolation.
+
+GitHub annotations are derived from the schema-v1 JSON report. Workflow command
+and property metacharacters are escaped before output. The Action does not run
+plugin QML and has no package-install, telemetry, account, or network behavior
+beyond downloading the explicitly selected release assets.
+
+## D-012: Tag-only, least-privilege releases
+
+Status: accepted, 2026-08-22.
+
+One reviewed shell script owns local and CI release packaging. It produces
+normalized static Linux `amd64` and `arm64` archives and a checksum manifest,
+refusing nonempty output directories. The release workflow runs only for exact
+`vX.Y.Z` tags. Its build job has read-only contents access; only the dependent
+publication job receives `contents: write`.
+
+Third-party release actions are avoided. Official GitHub Actions are pinned to
+immutable commit SHAs, and GitHub CLI creates the release from the already
+verified workflow artifact. Tags and releases remain explicit external actions
+and are not created by normal CI or local packaging.
