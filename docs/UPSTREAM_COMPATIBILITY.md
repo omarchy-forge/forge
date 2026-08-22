@@ -188,3 +188,16 @@ Quickshell, received `ok` from shell IPC, and passed a generated sample through
 `omarchy plugin validate`. `qmllint` remained unavailable and was accurately
 reported as an optional-tool warning. Doctor did not modify user or packaged
 configuration, install software, execute plugin QML, or use the network.
+
+## Isolated generated-project runtime harness
+
+On 2026-08-22, a newly generated bar widget passed the opt-in runtime harness
+against the installed Omarchy 4 `Commons` and `Ui` modules and Quickshell
+`0.3.0` revision `28771c7c74b42e20afca0b1b63980cb46515537c`. The harness
+loaded the actual generated `Panel.qml`, confirmed its refresh/close lifecycle
+and finite implicit geometry, and rejected deliberately invalid QML.
+
+The run used temporary HOME and XDG config/data/cache/runtime directories, left
+no harness process or temporary directory behind, did not install or enable the
+plugin, did not edit shell configuration, and did not call the live shell IPC.
+This is trusted local runtime evidence, not part of static checking or CI.

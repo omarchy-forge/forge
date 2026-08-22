@@ -14,6 +14,19 @@ session with the user's authority. Static Forge checks must parse files without
 executing QML. Runtime testing belongs only in trusted or disposable
 environments.
 
+Generated bar-widget projects include an optional local Quickshell harness.
+It refuses to run without the literal `--trust-plugin-code` acknowledgement
+because loading the entry point also permits that QML to invoke its documented
+local commands. The harness copies the reviewed project without `.git` into a
+temporary tree, isolates HOME and XDG config/data/cache/runtime paths, uses the
+installed read-only Omarchy QML contract, runs it in a dedicated process group,
+enforces a timeout, and deletes the tree afterward. It does not install or
+enable the plugin, edit `shell.json`, or connect to the live `omarchy-shell`
+process.
+
+The harness is excluded from `omaforge check`, generated CI, and Forge's normal
+automated tests. Those paths remain static and do not execute plugin QML.
+
 The installed Omarchy implementation is authoritative but owned externally.
 Forge may inspect it and invoke documented commands; it must never modify those
 files. User configuration such as `~/.config/omarchy/shell.json` also remains
@@ -33,8 +46,9 @@ operation.
 - Report unknown compatibility as unknown, not success.
 - Never run untrusted pull-request code on a persistent personal Omarchy host.
 
-## Current milestone
+## Current implementation
 
-The Milestone 0 CLI reads no project files, runs no external commands, performs
-no network access, and writes no user data. Its only commands print static help
-or build metadata.
+The CLI's check path remains static, deterministic, and network-free. Local
+environment probes are read-only. Scaffold writes are collision-protected, and
+runtime QML execution is confined to the separately invoked trusted harness
+described above.

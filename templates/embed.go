@@ -77,7 +77,7 @@ func Render(data Data) ([]File, error) {
 		}
 		outputPath := strings.TrimSuffix(relative, ".tmpl")
 		mode := fs.FileMode(0o644)
-		if outputPath == "demo/run" || outputPath == "tests/run" {
+		if outputPath == "demo/run" || outputPath == "tests/run" || outputPath == "tests/runtime" {
 			mode = 0o755
 		}
 		files = append(files, File{Path: path.Clean(outputPath), Content: rendered.Bytes(), Mode: mode})

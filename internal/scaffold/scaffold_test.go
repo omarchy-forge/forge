@@ -49,7 +49,7 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 	if manifest["id"] != "dev.example.project-pulse" {
 		t.Errorf("manifest id = %v", manifest["id"])
 	}
-	for _, executable := range []string{"demo/run", "tests/run"} {
+	for _, executable := range []string{"demo/run", "tests/run", "tests/runtime"} {
 		info, err := os.Stat(filepath.Join(first, executable))
 		if err != nil {
 			t.Fatal(err)
@@ -70,6 +70,20 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 	for _, forbidden := range []string{"OMAFORGE_DEMO_STATE", "omarchy-restart-shell"} {
 		if bytes.Contains(demoScript, []byte(forbidden)) {
 			t.Errorf("demo/run contains obsolete runtime mechanism %q", forbidden)
+		}
+	}
+	runtimeScript, err := os.ReadFile(filepath.Join(first, "tests", "runtime"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, required := range []string{"--trust-plugin-code", "XDG_RUNTIME_DIR", "OMAFORGE_RUNTIME_PASS"} {
+		if !bytes.Contains(runtimeScript, []byte(required)) {
+			t.Errorf("tests/runtime missing %q", required)
+		}
+	}
+	for _, forbidden := range []string{"omarchy plugin add", "omarchy plugin enable", "omarchy-shell"} {
+		if bytes.Contains(runtimeScript, []byte(forbidden)) {
+			t.Errorf("tests/runtime contains persistent-shell operation %q", forbidden)
 		}
 	}
 }

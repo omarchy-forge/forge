@@ -19,5 +19,9 @@ Omarchy plugins themselves run unsandboxed inside the desktop shell, so users
 must review and trust plugin code before enabling it. See
 `docs/SECURITY_MODEL.md` for boundaries and future requirements.
 
+Generated projects may include a separately invoked runtime smoke test. It
+requires `--trust-plugin-code`, runs only after explicit local invocation, and
+is not executed by Forge checks or generated CI.
+
 The documentation website's currently unpatched transitive advisories and
 bounded mitigations are recorded in `website/SECURITY.md`.

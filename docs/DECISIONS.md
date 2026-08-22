@@ -172,3 +172,19 @@ A `.git` file, symlink, or any additional directory entry still makes the
 target nonempty and requires `--force`. Normal generation does not write inside
 existing Git metadata; `--git` remains the explicit option for running Git
 initialization when requested.
+
+## D-016: Explicitly trusted isolated runtime harness
+
+Status: accepted, 2026-08-22.
+
+Generated bar-widget projects include `tests/runtime`, an optional Omarchy-host
+entry-point smoke test. It requires the literal `--trust-plugin-code` argument
+because QML is executable code. It runs a copy of the plugin in temporary HOME
+and XDG directories, links only to the installed read-only Omarchy QML contract,
+checks lifecycle methods and finite geometry, and cleans up a dedicated process
+group after a bounded run.
+
+The harness is never called by static checks, generated CI, or the normal test
+script. This preserves the rule that untrusted pull-request QML is not executed
+automatically while giving a developer an explicit local runtime check after
+reviewing their own code.

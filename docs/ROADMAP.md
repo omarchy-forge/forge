@@ -68,7 +68,8 @@ use.
 - Accept `.git`-only targets without requiring `--force` (implemented after
   `v0.1.0` dogfooding).
 - Evaluate a service-plus-widget template.
-- Evaluate a reusable isolated Quickshell entry-point harness.
+- Provide a reusable isolated Quickshell entry-point harness (implemented on
+  the current development branch with an explicit trust gate).
 
 ## Later milestones
 
