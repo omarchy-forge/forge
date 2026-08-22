@@ -20,7 +20,7 @@ Implemented and merged:
 
 ## Milestone 2: check and doctor
 
-In development on `feat/check-doctor`:
+Implemented and merged:
 
 - Shared versioned rule model with stable IDs and severities.
 - Human-readable, read-only local diagnostics.
@@ -29,9 +29,12 @@ In development on `feat/check-doctor`:
 
 ## Milestone 3: action and releases
 
-- Reusable GitHub Action.
-- Versioned Linux binaries and checksums.
-- Release and compatibility documentation.
+In development on `feat/github-action-releases`:
+
+- Checksum-verifying reusable GitHub Action with PR annotations.
+- Tag-driven Linux `amd64` and `arm64` archives with checksums.
+- Least-privilege release workflow with immutable Action references.
+- Release and Action documentation plus end-to-end packaging tests.
 
 ## Later milestones
 

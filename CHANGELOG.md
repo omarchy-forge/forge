@@ -6,6 +6,9 @@ The project is currently unreleased and in early development.
 
 ## Unreleased
 
+- Add a checksum-verifying composite GitHub Action with native annotations.
+- Add reproducible Linux release archives, SHA-256 checksums, and tag-driven
+  GitHub Release automation.
 - Add deterministic `omaforge check` reporting in text, JSON, and SARIF.
 - Add read-only `omaforge doctor` diagnostics for Omarchy plugin development.
 - Add a shared, versioned finding model that distinguishes official-parity and
