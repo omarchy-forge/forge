@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version-file: website/.node-version
-          cache: false
+          package-manager-cache: false
 
       - name: Enable pnpm
         run: corepack enable

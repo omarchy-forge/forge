@@ -14,9 +14,9 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 - Default branch: `main`.
 - Latest merged commit: `548260d`, merging Milestone 3.
 - Active branch: `feat/documentation-website`.
-- Active branch commit: `e5f3ab8` (`docs: add documentation website`).
-- The active branch is pushed to `origin`; no Milestone 4 pull request has been
-  opened or merged yet.
+- Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
+  website`).
+- Milestone 4 pull request: `#4` (open at the latest checkpoint; not merged).
 - No website deployment, domain connection, release, package publication, or
   repository-visibility change has been authorized or performed.
 
@@ -116,10 +116,9 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review the pushed Milestone 4 branch and open its pull request only with user
-   approval.
-2. Let required GitHub checks complete; investigate failures before merge.
-3. Merge only with explicit user approval.
-4. After merge, update this file and `ROADMAP.md` to record the merged commit.
-5. Plan the next milestone separately. Website deployment and connection of
+1. Let the required checks on Milestone 4 pull request `#4` complete;
+   investigate failures before merge.
+2. Merge only with explicit user approval.
+3. After merge, update this file and `ROADMAP.md` to record the merged commit.
+4. Plan the next milestone separately. Website deployment and connection of
    `omarchyforge.com` remain distinct approval-gated work.
