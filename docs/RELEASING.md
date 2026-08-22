@@ -11,9 +11,9 @@ branches and pull requests never publish releases.
 3. Run the complete local baseline, including `tests/release-action.sh`.
 4. Review the tag target and obtain explicit authorization to create a release.
 
-For `v0.1.0`, also verify `docs/RELEASE_NOTES_0.1.0.md` and confirm that the
-Action guide pins both the Action reference and downloaded version to
-`v0.1.0`.
+Verify the matching `docs/RELEASE_NOTES_<version>.md`. After publication, use
+that reviewed file as the GitHub Release description and update current-facing
+installation examples in a separate post-release checkpoint.
 
 ## Artifacts
 
@@ -38,7 +38,7 @@ official GitHub-maintained Actions pinned to immutable commit SHAs.
 ## Local packaging check
 
 ```bash
-scripts/build-release.sh v0.1.0 "$(git rev-parse HEAD)" "$(git show -s --format=%cI HEAD)" ./dist
+scripts/build-release.sh v0.2.0 "$(git rev-parse HEAD)" "$(git show -s --format=%cI HEAD)" ./dist
 cd dist
 sha256sum --check checksums.txt
 ```

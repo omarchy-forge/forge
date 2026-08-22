@@ -25,6 +25,11 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
 
+The next release candidate is Forge `v0.2.0`, containing the completed
+Milestone 6 trusted development workflow. Its reviewed notes live in
+`docs/RELEASE_NOTES_0.2.0.md`; do not describe it as published until the tag
+workflow and independent artifact verification complete.
+
 ## Delivered milestones
 
 ### Milestone 0 — repository foundation
