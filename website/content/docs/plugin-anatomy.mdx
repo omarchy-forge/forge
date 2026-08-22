@@ -1,0 +1,47 @@
+---
+title: Plugin anatomy
+description: Understand the files and runtime boundaries in a generated Forge bar widget.
+---
+
+```text
+my-widget/
+├── manifest.json
+├── Panel.qml
+├── services/DataService.qml
+├── components/
+│   ├── LoadingState.qml
+│   ├── EmptyState.qml
+│   ├── ErrorState.qml
+│   └── DetailsPopout.qml
+├── demo/
+├── tests/
+└── .github/workflows/forge.yml
+```
+
+## Manifest
+
+`manifest.json` is the installation contract. It declares identity, version,
+kinds, entry points, placement, and settings metadata. See the
+[manifest reference](/docs/manifest-reference).
+
+## Panel and service
+
+`Panel.qml` owns the bar button, popout, keyboard behavior, visual states, and a
+small IPC surface. `DataService.qml` owns refresh timing, the external process,
+timeout handling, output parsing, and fictional in-memory demo states.
+
+Array-form `Process.command` values avoid shell interpolation. The starter
+command is local `date --iso-8601=seconds`; replacing it requires corresponding
+requirements, privacy, failure, and timeout documentation.
+
+## Theme and orientation
+
+The template uses injected bar context and Omarchy `Color` and `Style` tokens.
+Official shared components handle top, bottom, left, and right bar placement.
+
+## Trust boundary
+
+Omarchy plugins are unsandboxed QML loaded into one long-lived shell process.
+Forge static checks never execute third-party QML. Review source before local
+installation, avoid privilege escalation and installer hooks, and keep secrets
+out of plugin repositories.

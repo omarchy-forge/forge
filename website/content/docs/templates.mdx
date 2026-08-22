@@ -1,0 +1,41 @@
+---
+title: Templates
+description: The current Forge template and the quality contract behind generated projects.
+---
+
+## Bar widget with popout
+
+The first and only shipped template creates an Omarchy bar widget backed by a
+keyboard-accessible popout.
+
+```bash
+omaforge init my-widget \
+  --template bar-widget \
+  --id dev.example.my-widget \
+  --author "Example Developer"
+```
+
+Generated projects include:
+
+- A schema-v1 `manifest.json` with inline settings metadata.
+- A theme-aware, orientation-aware `Panel.qml`.
+- Loading, ready, empty, and error states.
+- An asynchronous local command with argument-safe invocation and timeout.
+- Runtime-only fictional demo states through Omarchy Shell IPC.
+- README, MIT license, changelog, tests, and optional CI.
+
+## Scaffolding controls
+
+| Option | Purpose |
+| --- | --- |
+| `--dry-run` | Render and validate the plan without writing. |
+| `--force` | Preview and overwrite only colliding generated files. |
+| `--git` | Initialize a local Git repository without creating a remote. |
+| `--no-ci` | Omit the generated GitHub Actions workflow. |
+| `--non-interactive` | Fail instead of prompting for missing required values. |
+| `--section` | Choose `left`, `center`, or `right`. |
+
+The same validated inputs always produce the same file contents and modes.
+User-provided strings never determine generated filenames.
+
+Additional templates remain roadmap items until this shape has proven reusable.

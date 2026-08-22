@@ -1,0 +1,56 @@
+---
+title: Command reference
+description: Current Omarchy Forge CLI commands, formats, and exit behavior.
+---
+
+## `omaforge init`
+
+Create a deterministic bar-widget project.
+
+```bash
+omaforge init <directory> [options]
+```
+
+Run `omaforge init --help` for every scaffold input and safety control.
+
+## `omaforge check`
+
+Run static, noninteractive, network-free checks without executing QML.
+
+```bash
+omaforge check .
+omaforge check . --format text
+omaforge check . --format json
+omaforge check . --format sarif
+omaforge check . --omarchy-version 4
+```
+
+Reports use schema version 1. Every finding has a stable rule ID, severity,
+evidence location when available, remediation, and either an `official-parity`
+or `forge` source.
+
+| Exit code | Meaning |
+| --- | --- |
+| `0` | No error-severity findings; warnings may exist. |
+| `1` | Project errors or report-write failure. |
+| `2` | Invalid command usage. |
+
+## `omaforge doctor`
+
+Combine Forge checks with read-only local probes for Omarchy, Quickshell, shell
+IPC, optional `qmllint`, and the official validator.
+
+```bash
+omaforge doctor .
+```
+
+## `omaforge version`
+
+Print version, commit, build date, and supported manifest schema information.
+
+```bash
+omaforge version
+```
+
+Local source builds honestly report `dev` and unknown provenance unless linker
+flags inject release metadata.

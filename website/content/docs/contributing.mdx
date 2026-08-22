@@ -1,0 +1,33 @@
+---
+title: Contributing
+description: How to contribute safely and keep claims grounded in verified behavior.
+---
+
+Forge is early-stage and currently developed in a private repository. Discuss
+substantial changes before investing in implementation.
+
+## Baseline
+
+```bash
+test -z "$(gofmt -l .)"
+go test ./...
+go vet ./...
+go build ./cmd/omaforge
+cd website
+pnpm typecheck
+pnpm build
+```
+
+## Working rules
+
+- Inspect installed Omarchy behavior instead of assuming APIs.
+- Never modify Omarchy-owned files below `/usr/share/omarchy`.
+- Keep normal checks deterministic, local, and network-independent.
+- Never execute untrusted plugin QML in static checks or persistent CI.
+- Preserve unrelated user changes and avoid hidden configuration mutation.
+- Add tests for every behavior and document only what actually ships.
+- Never push, publish, deploy, create releases, or change visibility without
+  explicit authorization.
+
+Read the root `CONTRIBUTING.md`, `SECURITY.md`, and `AGENTS.md` before changing
+the CLI, templates, release system, or compatibility claims.
