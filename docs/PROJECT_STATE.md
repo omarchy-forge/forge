@@ -12,9 +12,10 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Latest completed checkpoint: agent-ready hardening pull request `#30`, merged
-  as `d42bc38` after both Go and website CI passed. Its documentation source was
-  deployed to the production site and verified at the custom domain.
+- Current completed product checkpoint: agent-ready scaffolding and hardening,
+  merged through pull requests `#29` and `#30`. Both Go and website CI passed,
+  and the resulting documentation was deployed and verified at the custom
+  domain. Later documentation-only checkpoints do not change that capability.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -201,7 +202,7 @@ advisory allowlist remains. See `website/SECURITY.md`.
 The documentation site is live at `https://www.omarchyforge.com` in the Vercel
 project `omarchy-forge-docs`; `https://omarchyforge.com` redirects to that
 canonical origin. Production sets `NEXT_PUBLIC_SITE_URL` to the custom origin.
-The latest verified production checkpoint is deployment
+The agent-ready hardening production checkpoint is deployment
 `dpl_AMiBYWPoMx7oqG56Qut7QkiY3nGM`, built from clean Forge commit `d42bc38` on
 2026-08-22. Its Vercel build generated 40 routes and completed successfully.
 HTTP verification confirmed that the live template guide contains the
