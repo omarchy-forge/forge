@@ -65,7 +65,8 @@ use.
 
 ## Forge follow-ups from Handoff
 
-- Accept `.git`-only targets without requiring `--force`.
+- Accept `.git`-only targets without requiring `--force` (implemented after
+  `v0.1.0` dogfooding).
 - Evaluate a service-plus-widget template.
 - Evaluate a reusable isolated Quickshell entry-point harness.
 

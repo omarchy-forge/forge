@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `30c7b69`, merging the Milestone 5 checkpoint pull
-  request `#6`.
+- Latest merged commit: `b1faaf2`, merging the Handoff `v0.1.0` release
+  checkpoint pull request `#7`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -100,10 +100,11 @@ current.
 
 ## Forge feedback from Handoff
 
-Dogfooding recorded three follow-up opportunities; none is implemented yet:
+Dogfooding recorded three follow-up opportunities. The first is implemented on
+the current post-`v0.1.0` development checkpoint:
 
-1. Allow `omaforge init` to treat a freshly cloned, `.git`-only directory as an
-   empty target without requiring `--force`.
+1. `omaforge init` treats a freshly cloned, `.git`-only directory as an empty
+   target without requiring `--force`, while preserving the Git metadata.
 2. Consider a service-plus-widget template for stateful plugins.
 3. Provide a reusable isolated Quickshell entry-point harness for generated
    projects.
@@ -155,9 +156,10 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge the Handoff `v0.1.0` release checkpoint through the normal
-   pull-request workflow.
-2. Choose the next Forge follow-up from Handoff dogfooding.
+1. Review and merge the `.git`-only scaffold-target improvement through the
+   normal pull-request workflow.
+2. Choose the next remaining Forge follow-up from Handoff dogfooding after that
+   change is merged.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct
    approval-gated work.

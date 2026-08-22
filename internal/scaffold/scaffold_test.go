@@ -224,6 +224,41 @@ func TestGenerateCollisionRequiresForceAndPreservesUnrelatedFiles(t *testing.T) 
 	}
 }
 
+func TestGenerateAcceptsGitOnlyTargetWithoutForce(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "project-pulse")
+	gitDirectory := filepath.Join(target, ".git")
+	if err := os.MkdirAll(gitDirectory, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	marker := filepath.Join(gitDirectory, "HEAD")
+	if err := os.WriteFile(marker, []byte("ref: refs/heads/main\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := Generate(validOptions(target)); err != nil {
+		t.Fatalf("Generate() error = %v, want .git-only target to be accepted", err)
+	}
+	content, err := os.ReadFile(marker)
+	if err != nil || string(content) != "ref: refs/heads/main\n" {
+		t.Fatalf("Git metadata changed: content=%q err=%v", content, err)
+	}
+}
+
+func TestGenerateRefusesGitMetadataFileWithoutForce(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "project-pulse")
+	if err := os.MkdirAll(target, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(target, ".git"), []byte("gitdir: elsewhere\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err := Generate(validOptions(target))
+	if err == nil || !strings.Contains(err.Error(), "not empty") {
+		t.Fatalf("Generate() error = %v, want nonempty refusal", err)
+	}
+}
+
 func TestGenerateForceRefusesNestedSymlink(t *testing.T) {
 	target := filepath.Join(t.TempDir(), "project-pulse")
 	if err := os.MkdirAll(target, 0o755); err != nil {

@@ -28,6 +28,26 @@ func TestRunInitNonInteractive(t *testing.T) {
 	}
 }
 
+func TestRunInitAcceptsGitOnlyTarget(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "my-widget")
+	if err := os.MkdirAll(filepath.Join(target, ".git"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	var stdout, stderr bytes.Buffer
+	code := Run([]string{
+		"init", target,
+		"--id", "dev.example.my-widget",
+		"--author", "Example Developer",
+		"--non-interactive",
+	}, strings.NewReader(""), &stdout, &stderr, BuildInfo{})
+	if code != 0 {
+		t.Fatalf("Run() code = %d, stderr = %q", code, stderr.String())
+	}
+	if _, err := os.Stat(filepath.Join(target, "manifest.json")); err != nil {
+		t.Fatalf("manifest not generated: %v", err)
+	}
+}
+
 func TestRunInitHelpUsesStdout(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	code := Run([]string{"init", "--help"}, strings.NewReader(""), &stdout, &stderr, BuildInfo{})

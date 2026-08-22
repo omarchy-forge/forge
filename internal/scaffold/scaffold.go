@@ -150,7 +150,7 @@ func validate(options Options) (string, error) {
 		if readErr != nil {
 			return "", fmt.Errorf("inspect output directory: %w", readErr)
 		}
-		if len(entries) > 0 && !options.Force {
+		if len(entries) > 0 && !onlyGitDirectory(entries) && !options.Force {
 			return "", fmt.Errorf("output directory is not empty; inspect it and pass --force to overwrite generated file collisions: %s", target)
 		}
 		if options.Force {
@@ -199,6 +199,10 @@ func validate(options Options) (string, error) {
 		return "", fmt.Errorf("section %q must be left, center, or right", options.Section)
 	}
 	return target, nil
+}
+
+func onlyGitDirectory(entries []os.DirEntry) bool {
+	return len(entries) == 1 && entries[0].Name() == ".git" && entries[0].IsDir()
 }
 
 func rejectSymlinkAncestors(target string) error {
