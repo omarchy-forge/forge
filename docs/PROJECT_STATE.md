@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `e885565`, merging the Milestone 4 checkpoint pull
-  request `#5`.
+- Latest merged commit: `30c7b69`, merging the Milestone 5 checkpoint pull
+  request `#6`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -73,7 +73,9 @@ current.
 ### Milestone 5 — Handoff flagship plugin
 
 - Private separate repository: `omarchy-forge/handoff`.
-- Main-branch checkpoint: `90e5981` (`docs: add verified Handoff preview`).
+- Private release: `v0.1.0`, tagged at
+  `afa10733292e9d8f2acb9f197eb5802b1eb42422` and published at
+  `https://github.com/omarchy-forge/handoff/releases/tag/v0.1.0`.
 - Local-first Omarchy bar widget for pinning Git projects, saving one next-step
   note, showing branch/dirty/latest-commit context, and opening a terminal.
 - Atomic state under the user's XDG data directory, with no server, account,
@@ -85,8 +87,16 @@ current.
   panel-only preview.
 - Cleanup restored `shell.json` byte-for-byte, removed the plugin and test data,
   and left `omarchy-shell shell ping` healthy.
-- Handoff has not been tagged, released, installed for ongoing use, submitted
-  to a marketplace, or announced publicly.
+- The private `v0.1.0` source release was installed from an independent exact-tag
+  clone with the official Omarchy plugin command. The installed checkout matched
+  the released commit, the ready/empty/error demos passed, and shell IPC stayed
+  healthy.
+- Post-release cleanup removed the plugin and its test data, restored
+  `shell.json` byte-for-byte (SHA-256
+  `802fa2600cac1cd2971c48769661432a8f30eb5beb2eadb63f0356a913172f9f`),
+  and left `omarchy-shell shell ping` returning `ok`.
+- Handoff remains private, is not installed for ongoing use, and has not been
+  submitted to a marketplace or announced publicly.
 
 ## Forge feedback from Handoff
 
@@ -145,9 +155,9 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge this Milestone 5 documentation checkpoint through the
-   normal pull-request workflow.
-2. Decide separately whether Handoff is ready for a first versioned release.
-3. A tag, GitHub release, ongoing local installation, marketplace submission,
-   announcement, website deployment, and connection of `omarchyforge.com` each
-   remain distinct approval-gated work.
+1. Review and merge the Handoff `v0.1.0` release checkpoint through the normal
+   pull-request workflow.
+2. Choose the next Forge follow-up from Handoff dogfooding.
+3. Ongoing local installation, marketplace submission, announcement, website
+   deployment, and connection of `omarchyforge.com` remain distinct
+   approval-gated work.

@@ -58,7 +58,10 @@ Implemented in the private, separate `omarchy-forge/handoff` repository:
 - Pass official validation, Forge checks, private CI, isolated runtime tests,
   and a cleanup-verified Omarchy 4 live session.
 
-Handoff remains unreleased and unannounced.
+Handoff `v0.1.0` has been released from the private repository and verified by
+an exact-tag Omarchy installation followed by complete cleanup. It remains
+private, unannounced, absent from marketplaces, and not installed for ongoing
+use.
 
 ## Forge follow-ups from Handoff
 
@@ -70,7 +73,8 @@ Handoff remains unreleased and unannounced.
 
 - Documentation website deployment and domain connection, only with explicit
   approval.
-- A separately approved first Handoff release.
+- Any Handoff marketplace submission, public announcement, visibility change,
+  or ongoing local installation, each only with separate explicit approval.
 - Additional templates after the first template is proven.
 - Trusted local preview, demo, and screenshot tooling.
 
