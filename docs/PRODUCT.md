@@ -27,7 +27,11 @@ one-shot `dev` runtime check for one reviewed bar-widget-with-popout template.
 Generated projects include static tests, official-validator integration, and an
 opt-in isolated Quickshell harness with fictional ready, empty, and error state
 simulation, plugin-only screenshot capture, and isolated file-watching
-development sessions. Additional templates remain future work.
+development sessions. Agent-ready generation can additionally provide a
+structured product specification and project-scoped safety instructions for
+the user's chosen Omarchy coding agent; Forge itself does not select a model,
+contact an AI service, or launch an agent. Additional templates remain future
+work.
 
 ## Non-goals
 

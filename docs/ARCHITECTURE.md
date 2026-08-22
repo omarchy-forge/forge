@@ -35,6 +35,12 @@ Force mode overwrites only colliding generated paths, preserves unrelated
 files, rejects symlinks, and prints its complete plan before writing. Dry-run
 uses the same validation and rendering path but performs no writes.
 
+Agent-ready generation is an opt-in rendering branch in the same deterministic
+scaffolder. It adds `FORGE_SPEC.md` and `AGENTS.md`; it introduces no model SDK,
+credential, network call, subprocess, or provider-specific dependency. The
+specification describes intent and acceptance criteria, while the agent file
+constrains edits and reserves QML execution and installation for human review.
+
 `internal/checks` owns the versioned finding model, deterministic static rule
 engine, summary calculation, and text, JSON, and SARIF serialization. It never
 executes plugin code or accesses the network. Every finding has a stable rule

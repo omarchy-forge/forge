@@ -48,6 +48,30 @@ func TestRunInitAcceptsGitOnlyTarget(t *testing.T) {
 	}
 }
 
+func TestRunInitAgentReady(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "agent-widget")
+	var stdout, stderr bytes.Buffer
+	code := Run([]string{
+		"init", target,
+		"--id", "dev.example.agent-widget",
+		"--author", "Example Developer",
+		"--description", "A guided agent-built widget.",
+		"--agent-ready",
+		"--non-interactive",
+	}, strings.NewReader(""), &stdout, &stderr, BuildInfo{})
+	if code != 0 {
+		t.Fatalf("Run() code = %d, stderr = %q", code, stderr.String())
+	}
+	for _, name := range []string{"AGENTS.md", "FORGE_SPEC.md"} {
+		if _, err := os.Stat(filepath.Join(target, name)); err != nil {
+			t.Fatalf("%s not generated: %v", name, err)
+		}
+	}
+	if !strings.Contains(stdout.String(), "review FORGE_SPEC.md") {
+		t.Errorf("stdout missing agent-ready guidance: %q", stdout.String())
+	}
+}
+
 func TestRunInitHelpUsesStdout(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	code := Run([]string{"init", "--help"}, strings.NewReader(""), &stdout, &stderr, BuildInfo{})
@@ -56,6 +80,9 @@ func TestRunInitHelpUsesStdout(t *testing.T) {
 	}
 	if !strings.Contains(stdout.String(), "Usage: omaforge init") {
 		t.Errorf("stdout missing init usage: %q", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "-agent-ready") {
+		t.Errorf("stdout missing agent-ready option: %q", stdout.String())
 	}
 	if stderr.Len() != 0 {
 		t.Errorf("stderr = %q, want empty", stderr.String())

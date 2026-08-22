@@ -1,0 +1,70 @@
+# Forge specification: {{markdown .Name}}
+
+Complete this specification before asking an AI coding agent to implement the
+plugin. Replace every `TODO` with a concrete answer. If a section does not
+apply, write `Not required` and explain why.
+
+## Product goal
+
+{{markdown .Description}}
+
+## Bar widget
+
+- Information visible at a glance: TODO
+- Primary click behavior: TODO
+- Tooltip text and purpose: TODO
+
+## Popout
+
+- Information and controls shown: TODO
+- Primary user actions: TODO
+- Keyboard and focus behavior: TODO
+
+## Data and commands
+
+- Local data sources: TODO
+- Local commands or processes: TODO
+- Network access: TODO — default to none
+- Authentication or secrets: TODO — default to none
+- Persistent state and location: TODO — default to none
+- Refresh triggers and interval: TODO
+- Maximum command or request timeout: TODO
+
+Never place credentials, tokens, private keys, or personal data in this file.
+
+## Required states
+
+- Ready: TODO
+- Empty: TODO
+- Error: TODO
+- Loading, if needed: TODO
+
+## Privacy and failure behavior
+
+- Data that leaves the machine: TODO — default to none
+- Expected failures and user-facing messages: TODO
+- Safe behavior when dependencies are missing: TODO
+
+## Acceptance criteria
+
+- [ ] The plugin ID remains `{{.ID}}`.
+- [ ] The bar widget and popout match the behavior above.
+- [ ] Ready, empty, and error demo states are deterministic and fictional.
+- [ ] User-controlled text is displayed safely and remains readable.
+- [ ] Local processes use fixed programs and array-form arguments, never a
+      shell-built command string.
+- [ ] Every process and network operation has a documented timeout and failure
+      state.
+- [ ] No network access, secret storage, or persistence exists unless this
+      specification explicitly requires and documents it.
+- [ ] `omaforge check .` passes.
+- [ ] `omarchy plugin validate .` passes on the target Omarchy system.
+- [ ] A human reviews the diff before any QML is executed or the plugin is
+      installed.
+
+## Out of scope
+
+- Installing or enabling the plugin.
+- Editing Omarchy-owned files or shell configuration.
+- Running privileged commands or installing packages.
+- Executing QML without the user's explicit review and trust acknowledgement.

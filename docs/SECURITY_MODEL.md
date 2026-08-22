@@ -47,6 +47,15 @@ files. User configuration such as `~/.config/omarchy/shell.json` also remains
 outside Forge's write scope unless a user explicitly requests a documented
 operation.
 
+`omaforge init --agent-ready` generates instructions but never invokes an AI
+agent. Its project-scoped `AGENTS.md` prohibits QML execution, plugin
+installation, live-shell changes, privileged commands, package installation,
+and unapproved expansion into networking, persistence, authentication, or
+secret handling. `FORGE_SPEC.md` tells users not to record secrets and requires
+a human-reviewed acceptance boundary. These are defense-in-depth instructions,
+not a sandbox: users must review agent changes and retain a clean Git rollback
+point before running an unattended Omarchy agent.
+
 ## Required controls
 
 - No telemetry, secret collection, account, or cloud requirement.

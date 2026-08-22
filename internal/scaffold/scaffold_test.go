@@ -111,6 +111,52 @@ func TestGenerateDryRunWritesNothing(t *testing.T) {
 	}
 }
 
+func TestGenerateAgentReadyAddsSpecificationAndGuardrails(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "agent-widget")
+	options := validOptions(target)
+	options.AgentReady = true
+	result, err := Generate(options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Changes) != len(readGolden(t, "testdata/bar-widget.golden"))+2 {
+		t.Fatalf("agent-ready changes = %d, want standard project plus two files", len(result.Changes))
+	}
+	for _, test := range []struct {
+		path     string
+		required []string
+	}{
+		{
+			path: "FORGE_SPEC.md",
+			required: []string{
+				"Active project status at a glance",
+				"The plugin ID remains `dev.example.project-pulse`",
+				"Never place credentials",
+				"A human reviews the diff",
+			},
+		},
+		{
+			path: "AGENTS.md",
+			required: []string{
+				"Do not install, enable, remove, or publish the plugin",
+				"Do not run `omaforge dev`",
+				"omaforge check .",
+				"The user—not the agent—decides",
+			},
+		},
+	} {
+		content, readErr := os.ReadFile(filepath.Join(target, test.path))
+		if readErr != nil {
+			t.Fatalf("read %s: %v", test.path, readErr)
+		}
+		for _, required := range test.required {
+			if !bytes.Contains(content, []byte(required)) {
+				t.Errorf("%s missing %q", test.path, required)
+			}
+		}
+	}
+}
+
 func TestGenerateCanOmitCIAndInitializeGit(t *testing.T) {
 	if _, err := exec.LookPath("git"); err != nil {
 		t.Skip("git is not installed")

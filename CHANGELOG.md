@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add opt-in `omaforge init --agent-ready` scaffolding with a structured
+  `FORGE_SPEC.md`, acceptance criteria, and project-scoped `AGENTS.md` safety
+  contract. Forge does not contact or automatically launch an AI agent.
+
 ## [0.2.0] - 2026-08-22
 
 - Add `omaforge dev <directory> --trust-plugin-code` as a one-shot entry point

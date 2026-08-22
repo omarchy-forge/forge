@@ -86,6 +86,9 @@ and cleanup verification without changing those distribution boundaries.
 
 ## Later milestones
 
+- Milestone 7 agent-ready scaffolding: opt-in structured specifications,
+  acceptance criteria, and project-scoped agent safety guidance are implemented
+  without adding an AI provider or automatic agent launch.
 - Milestone 6 local development tooling: the first one-shot trusted
   `omaforge dev` runtime check and fictional ready/empty/error state simulation
   are implemented, along with deterministic plugin-only PNG capture and

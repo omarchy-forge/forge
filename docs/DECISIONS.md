@@ -290,3 +290,23 @@ and no-AI-chat boundaries recorded in D-013.
 This checkpoint does not announce the site, submit anything to a marketplace,
 or change the visibility of the private Handoff repository. Each remains a
 separate approval-gated action.
+
+## D-024: Provider-neutral agent-ready scaffolding
+
+Status: accepted, 2026-08-22.
+
+Forge integrates with Omarchy's first-class coding-agent workflow by generating
+a provider-neutral specification and project-scoped agent instructions. The
+opt-in `omaforge init --agent-ready` path adds `FORGE_SPEC.md` and `AGENTS.md`
+through the existing deterministic template renderer. It does not embed a model
+client, choose a provider, collect credentials, make a network request, or
+automatically launch an agent.
+
+The generated contract permits agents to edit product-specific code and run
+static Forge and official validation. It prohibits QML execution, plugin
+installation, live-shell mutation, privileged operations, and unapproved
+expansion into networking, persistence, authentication, or secret handling.
+Because instructions are not a sandbox and Omarchy prompt tasks may run
+unattended, a human must complete the specification, commit a rollback point,
+review the resulting diff, and explicitly decide whether to trust and execute
+the plugin.
