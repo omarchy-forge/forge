@@ -26,6 +26,9 @@ process.
 
 The harness is excluded from `omaforge check`, generated CI, and Forge's normal
 automated tests. Those paths remain static and do not execute plugin QML.
+`omaforge dev <directory> --trust-plugin-code` is an explicit convenience entry
+point for that same project-owned harness; it does not weaken or infer the trust
+acknowledgement.
 
 The installed Omarchy implementation is authoritative but owned externally.
 Forge may inspect it and invoke documented commands; it must never modify those

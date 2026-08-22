@@ -44,6 +44,19 @@ IPC, optional `qmllint`, and the official validator.
 omaforge doctor .
 ```
 
+## `omaforge dev`
+
+After reviewing the plugin's executable QML and local commands, run its
+project-owned isolated runtime harness:
+
+```bash
+omaforge dev . --trust-plugin-code
+```
+
+The trust flag is mandatory. This first development-tooling increment is a
+one-shot runtime check; it does not install or enable the plugin, change shell
+configuration, watch files, or capture screenshots.
+
 ## `omaforge version`
 
 Print version, commit, build date, and supported manifest schema information.

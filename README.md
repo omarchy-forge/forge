@@ -39,6 +39,16 @@ Quickshell, shell IPC, QML tooling, and the official validator, run:
 omaforge doctor .
 ```
 
+After reviewing a generated plugin's QML and local commands, run its isolated
+one-shot runtime harness with an explicit trust acknowledgement:
+
+```bash
+omaforge dev ./my-plugin --trust-plugin-code
+```
+
+This does not install or enable the plugin, modify shell configuration, or
+connect to the live Omarchy Shell process.
+
 ## GitHub Action and releases
 
 The repository contains a composite check Action and a tag-driven Linux release

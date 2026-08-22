@@ -3,7 +3,7 @@
 CHANGELOG.md -rw-r--r-- c128e108eb91781e2a5dd4081d1da6e6b398f721c4bb94016d8bf2b1e2bf7128
 LICENSE -rw-r--r-- 909927fb9a0d576846b3261d220b5af4effce30cdf63edaa3b1cdaa3046c541d
 Panel.qml -rw-r--r-- 322f46fe96b30f56f25c2aaf2385601ca89b5610e687a417741693b72186ebbe
-README.md -rw-r--r-- b4619beece8d491261669306bc6b67f31ee905c7181d7c6b4d7edd5d34abac29
+README.md -rw-r--r-- f994fa14d4e365d76a9947eaf1b83b689f8f33e23733eaaae52787a0ae36937e
 assets/icon.svg -rw-r--r-- 5ba73939c148416107732a0d4c530278c66a98af83d2991c9040e0f9aa8e633a
 components/DetailsPopout.qml -rw-r--r-- 0ee9fabfee6d1e0ba6a14d75fa42fee4b3fcd175b94207f9a29fa6d4ea203786
 components/EmptyState.qml -rw-r--r-- 33d1155754b1230ee25bfd6479ff0e5a4537fd2985bb63e0ff47b69b549350f3

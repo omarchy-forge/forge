@@ -213,3 +213,18 @@ separate `omarchy-forge/handoff` repository and release remain private.
 Forge visibility does not authorize a website deployment, connection of
 `omarchyforge.com`, marketplace submission, Handoff visibility change, or a
 public launch announcement. Those remain separate approval-gated actions.
+
+## D-019: Project-owned trusted development harness
+
+Status: accepted, 2026-08-22.
+
+The first `omaforge dev` increment delegates to the generated project's
+versioned `tests/runtime` harness. Forge requires the literal
+`--trust-plugin-code` acknowledgement, verifies that the project, manifest, and
+harness exist, rejects a symlinked harness, and invokes it without a shell-built
+command string.
+
+The harness retains responsibility for temporary HOME/XDG isolation, read-only
+Omarchy module links, process-group cleanup, and its timeout. This one-shot
+runtime check does not install or enable the plugin, mutate shell configuration,
+watch files, capture screenshots, or imply that arbitrary plugin QML is safe.
