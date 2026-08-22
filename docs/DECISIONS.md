@@ -280,11 +280,13 @@ access and does not write inside the project.
 Status: accepted, 2026-08-22.
 
 The documentation website is deployed from the verified Forge `main` branch to
-the dedicated Vercel project `omarchy-forge-docs`, with
-`https://omarchy-forge-docs.vercel.app` as its canonical production origin.
+the dedicated Vercel project `omarchy-forge-docs`. Its canonical production
+origin is `https://www.omarchyforge.com`, with `https://omarchyforge.com`
+redirecting to it. The production `NEXT_PUBLIC_SITE_URL` setting ensures
+generated metadata and machine-readable discovery files use that origin.
 The deployment retains the static-first, no-account, no-database, no-analytics,
 and no-AI-chat boundaries recorded in D-013.
 
-This checkpoint does not connect `omarchyforge.com`, announce the site, submit
-anything to a marketplace, or change the visibility of the private Handoff
-repository. Each remains a separate approval-gated action.
+This checkpoint does not announce the site, submit anything to a marketplace,
+or change the visibility of the private Handoff repository. Each remains a
+separate approval-gated action.

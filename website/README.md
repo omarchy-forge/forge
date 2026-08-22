@@ -1,7 +1,7 @@
 # Omarchy Forge documentation website
 
 This directory contains the Omarchy Forge documentation website, deployed at
-[omarchy-forge-docs.vercel.app](https://omarchy-forge-docs.vercel.app). It uses
+[www.omarchyforge.com](https://www.omarchyforge.com). It uses
 Next.js, TypeScript, MDX, and Geistdocs/Fumadocs.
 
 ```bash
@@ -16,6 +16,6 @@ tracking, and Next.js telemetry. It has no database, authentication, account,
 or server-side user-data feature. Search and Markdown/LLM-readable routes operate
 only on the checked-in documentation corpus.
 
-The production Vercel origin is the canonical origin. `NEXT_PUBLIC_SITE_URL`
-can override it for a separately authorized custom domain; no custom domain is
-currently connected.
+Production sets `NEXT_PUBLIC_SITE_URL=https://www.omarchyforge.com` so metadata,
+the sitemap, and robots file use the canonical custom origin. The apex domain
+redirects to `www`.

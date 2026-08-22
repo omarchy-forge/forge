@@ -196,14 +196,16 @@ advisory allowlist remains. See `website/SECURITY.md`.
 
 ## Documentation deployment checkpoint
 
-The documentation site is live at
-`https://omarchy-forge-docs.vercel.app` in the Vercel project
-`omarchy-forge-docs`. Production deployment `dpl_5kua82hJW5bvKmVJ5eBianvYEr9z`
-was built from verified Forge commit `75acb8f` on 2026-08-22. HTTP checks passed
-for the homepage, documentation pages, search endpoint, sitemap, robots file,
-and LLM-readable content. Browser verification confirmed meaningful rendered
-content, working documentation navigation, no framework error overlay, and no
-console or page errors. `omarchyforge.com` remains unconnected.
+The documentation site is live at `https://www.omarchyforge.com` in the Vercel
+project `omarchy-forge-docs`; `https://omarchyforge.com` redirects to that
+canonical origin. Production sets `NEXT_PUBLIC_SITE_URL` to the custom origin.
+Deployment `dpl_51BvXAM4Uf4BDLDfuSN2qwr2cfmG` was built from verified Forge
+commit `b643fc4` on 2026-08-22. HTTP checks passed for the homepage,
+documentation pages, search endpoint, sitemap, robots file, and LLM-readable
+content. The sitemap and robots file advertise the custom origin. Browser
+verification confirmed the apex redirect, meaningful rendered content, working
+documentation navigation, no framework error overlay, and no console or page
+errors.
 
 ## Standing boundaries
 
@@ -219,10 +221,9 @@ console or page errors. `omarchyforge.com` remains unconnected.
 
 ## Next checkpoint
 
-1. Keep Handoff private. The documentation website is deployed at
-   `https://omarchy-forge-docs.vercel.app`; `omarchyforge.com` remains
-   unconnected.
+1. Keep Handoff private. The documentation website and custom domain are live
+   at `https://www.omarchyforge.com`.
 2. Choose the next product milestone from real usage; do not expand the
    template set without the evidence recorded in the roadmap.
-3. Ongoing local installation, marketplace submission, announcement, and
-   connection of `omarchyforge.com` remain distinct approval-gated work.
+3. Ongoing local installation, marketplace submission, announcement, and any
+   Handoff visibility change remain distinct approval-gated work.
