@@ -10,6 +10,12 @@ deterministic scaffold for an Omarchy bar widget with a popout. Generated
 projects complement the official `omarchy plugin validate` command rather than
 replacing it.
 
+![Omarchy system architecture showing Forge as the developer toolchain for plugins](images/omarchy-system-architecture.jpg)
+
+_Forge builds tooling around the Omarchy plugin layer; it is not part of the
+desktop runtime. The workflow labels illustrate the product direction—see the
+[roadmap](docs/ROADMAP.md) for what is currently implemented._
+
 ## Check a plugin
 
 Forge checks are deterministic, local, and do not execute plugin QML or use the
