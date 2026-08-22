@@ -126,8 +126,6 @@ Agent-ready scaffolding is implemented on `main` for the next Forge release. It
 is not present in the public `v0.2.0` binary yet. Contributors evaluating a
 source build can add `--agent-ready` when creating a project:
 
-Add `--agent-ready` when creating a project:
-
 ```bash
 omaforge init project-pulse --git --agent-ready
 cd project-pulse
