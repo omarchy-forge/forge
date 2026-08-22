@@ -51,11 +51,13 @@ project-owned isolated runtime harness:
 
 ```bash
 omaforge dev . --trust-plugin-code
+omaforge dev . --trust-plugin-code --state ready
 ```
 
 The trust flag is mandatory. This first development-tooling increment is a
-one-shot runtime check; it does not install or enable the plugin, change shell
-configuration, watch files, or capture screenshots.
+one-shot runtime check. `--state ready|empty|error` applies a fictional state in
+memory before the harness completes. It does not install or enable the plugin,
+change shell configuration, watch files, or capture screenshots.
 
 ## `omaforge version`
 

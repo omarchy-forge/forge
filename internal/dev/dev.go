@@ -9,8 +9,11 @@ import (
 	"path/filepath"
 )
 
-// Run executes the generated isolated runtime harness for directory.
-func Run(directory string, stdin io.Reader, stdout, stderr io.Writer) error {
+// Run executes the generated isolated runtime harness for directory and state.
+func Run(directory, state string, stdin io.Reader, stdout, stderr io.Writer) error {
+	if state != "" && state != "ready" && state != "empty" && state != "error" {
+		return fmt.Errorf("unsupported demo state %q", state)
+	}
 	root, err := filepath.Abs(directory)
 	if err != nil {
 		return fmt.Errorf("resolve plugin directory: %w", err)
@@ -34,7 +37,11 @@ func Run(directory string, stdin io.Reader, stdout, stderr io.Writer) error {
 		return fmt.Errorf("tests/runtime must be a regular file")
 	}
 
-	command := exec.Command("bash", harness, "--trust-plugin-code")
+	arguments := []string{harness, "--trust-plugin-code"}
+	if state != "" {
+		arguments = append(arguments, "--state", state)
+	}
+	command := exec.Command("bash", arguments...)
 	command.Dir = root
 	command.Stdin = stdin
 	command.Stdout = stdout

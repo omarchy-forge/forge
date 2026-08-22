@@ -58,12 +58,15 @@ Quickshell entry-point test on an Omarchy machine:
 ./tests/runtime --trust-plugin-code
 # Or, with Forge on PATH:
 omaforge dev . --trust-plugin-code
+omaforge dev . --trust-plugin-code --state ready
 ```
 
 The runtime test executes the plugin's QML in a temporary HOME/XDG environment
 against the installed Omarchy QML modules. It requires `jq`, `quickshell`, an
 active Wayland session, and the standard `setsid` and `timeout` commands. It is
 deliberately separate from normal checks and generated CI.
+The optional `--state ready|empty|error` path exercises fictional in-memory UI
+states in the same isolated runtime without persisting data.
 
 Saving files below the installed user-plugin directory triggers shell reload in
 the verified Omarchy 4 contract. `omarchy-shell shell rescanPlugins` forces a

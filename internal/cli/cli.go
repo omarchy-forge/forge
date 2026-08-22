@@ -25,7 +25,7 @@ Usage:
   omaforge init <directory> [options]
   omaforge check <directory> [options]
   omaforge doctor [directory]
-  omaforge dev <directory> --trust-plugin-code
+  omaforge dev <directory> --trust-plugin-code [--state ready|empty|error]
 
 Commands:
   init       Create a bar-widget plugin project
@@ -81,14 +81,16 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	for _, argument := range args {
 		if argument == "-h" || argument == "--help" {
-			fmt.Fprintln(stdout, "Usage: omaforge dev <directory> --trust-plugin-code")
+			fmt.Fprintln(stdout, "Usage: omaforge dev <directory> --trust-plugin-code [--state ready|empty|error]")
 			fmt.Fprintln(stdout, "Runs the project's isolated one-shot runtime harness after explicit trust acknowledgement.")
 			return 0
 		}
 	}
 	trusted := false
 	directory := ""
-	for _, argument := range args {
+	state := ""
+	for index := 0; index < len(args); index++ {
+		argument := args[index]
 		switch argument {
 		case "--trust-plugin-code":
 			if trusted {
@@ -96,6 +98,13 @@ func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 				return 2
 			}
 			trusted = true
+		case "--state":
+			if index+1 >= len(args) || state != "" {
+				fmt.Fprintln(stderr, "omaforge dev --state requires one value")
+				return 2
+			}
+			index++
+			state = args[index]
 		default:
 			if strings.HasPrefix(argument, "-") || directory != "" {
 				fmt.Fprintln(stderr, "omaforge dev accepts exactly one plugin directory and --trust-plugin-code")
@@ -109,7 +118,11 @@ func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, "Review the plugin QML and local commands before running it.")
 		return 2
 	}
-	if err := dev.Run(directory, stdin, stdout, stderr); err != nil {
+	if state != "" && state != "ready" && state != "empty" && state != "error" {
+		fmt.Fprintf(stderr, "omaforge dev: unknown state %q; available: ready, empty, error\n", state)
+		return 2
+	}
+	if err := dev.Run(directory, state, stdin, stdout, stderr); err != nil {
 		fmt.Fprintf(stderr, "omaforge dev: %v\n", err)
 		return 1
 	}

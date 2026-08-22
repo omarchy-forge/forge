@@ -29,6 +29,9 @@ automated tests. Those paths remain static and do not execute plugin QML.
 `omaforge dev <directory> --trust-plugin-code` is an explicit convenience entry
 point for that same project-owned harness; it does not weaken or infer the trust
 acknowledgement.
+The optional `--state` value is restricted to `ready`, `empty`, or `error` and
+is passed as a fixed argument into the harness. Generated plugins apply it only
+to their fictional in-memory demo contract inside the temporary runtime.
 
 The installed Omarchy implementation is authoritative but owned externally.
 Forge may inspect it and invoke documented commands; it must never modify those
