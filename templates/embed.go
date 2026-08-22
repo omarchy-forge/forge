@@ -24,6 +24,7 @@ type Data struct {
 	Author      string
 	Section     string
 	IncludeCI   bool
+	AgentReady  bool
 }
 
 // File is one rendered project file.
@@ -61,6 +62,9 @@ func Render(data Data) ([]File, error) {
 	for _, name := range names {
 		relative := strings.TrimPrefix(name, "bar-widget/files/")
 		if relative == ".github/workflows/forge.yml.tmpl" && !data.IncludeCI {
+			continue
+		}
+		if (relative == "AGENTS.md.tmpl" || relative == "FORGE_SPEC.md.tmpl") && !data.AgentReady {
 			continue
 		}
 		content, readErr := templateFiles.ReadFile(name)

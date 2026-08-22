@@ -29,6 +29,7 @@ type Options struct {
 	License     string
 	Section     string
 	IncludeCI   bool
+	AgentReady  bool
 	InitGit     bool
 	DryRun      bool
 	Force       bool
@@ -74,6 +75,7 @@ func Generate(options Options) (Result, error) {
 		Author:      options.Author,
 		Section:     options.Section,
 		IncludeCI:   options.IncludeCI,
+		AgentReady:  options.AgentReady,
 	})
 	if err != nil {
 		return Result{}, fmt.Errorf("render template: %w", err)

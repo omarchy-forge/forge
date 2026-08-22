@@ -222,6 +222,19 @@ contributor-only path. Pull request `#27` passed both copies of the Go and
 website CI suites, merged as `fbaa31c`, and the rendered production Quickstart
 was browser-verified with no framework overlay, console errors, or page errors.
 
+## Agent-ready scaffolding checkpoint
+
+The next-release `omaforge init --agent-ready` option conditionally adds exactly
+two files to the unchanged bar-widget scaffold: `FORGE_SPEC.md` captures the
+product, data, privacy, state, failure, timeout, and acceptance boundary;
+`AGENTS.md` constrains a coding agent to the project and prohibits QML execution,
+installation, privileged operations, and unapproved capability expansion.
+Forge does not select or invoke an agent and adds no provider dependency,
+credential, or network path. Focused CLI and scaffold tests pass, and a real
+agent-ready output passed both `omaforge check` and the installed official
+Omarchy validator. This capability is implemented on `main` for the next
+release and is not part of public `v0.2.0`.
+
 ## Standing boundaries
 
 - Keep the CLI local-first, deterministic, and network-independent by default.
@@ -238,7 +251,8 @@ was browser-verified with no framework overlay, console errors, or page errors.
 
 1. Keep Handoff private. The documentation website and custom domain are live
    at `https://www.omarchyforge.com`.
-2. Choose the next product milestone from real usage; do not expand the
-   template set without the evidence recorded in the roadmap.
+2. Review and publish the next Forge release before documenting agent-ready
+   scaffolding as available in a public binary; then dogfood it with a concrete
+   plugin specification.
 3. Ongoing local installation, marketplace submission, announcement, and any
    Handoff visibility change remain distinct approval-gated work.

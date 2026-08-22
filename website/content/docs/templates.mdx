@@ -31,6 +31,7 @@ Generated projects include:
 | `--dry-run` | Render and validate the plan without writing. |
 | `--force` | Preview and overwrite only colliding generated files. |
 | `--git` | Initialize a local Git repository without creating a remote. |
+| `--agent-ready` | Add a structured specification and agent safety guidance. |
 | `--no-ci` | Omit the generated GitHub Actions workflow. |
 | `--non-interactive` | Fail instead of prompting for missing required values. |
 | `--section` | Choose `left`, `center`, or `right`. |
@@ -40,6 +41,34 @@ User-provided strings never determine generated filenames.
 An existing target containing only a real `.git` directory is accepted without
 `--force`, and normal generation leaves that repository metadata untouched.
 Any other existing entry still requires the explicit collision workflow.
+
+## Agent-ready projects
+
+Agent-ready scaffolding is implemented on Forge `main` for the next release; it
+is not included in the public `v0.2.0` binary yet. When using a current source
+build, create the same reviewed template for Omarchy's configured coding agent:
+
+```bash
+omaforge init my-widget --git --agent-ready
+cd my-widget
+```
+
+The opt-in flag adds `FORGE_SPEC.md` and `AGENTS.md`. Complete every `TODO` in
+the specification before involving an agent. The generated guardrails restrict
+the agent to the project, preserve the manifest and runtime contracts, allow
+static validation, and reserve QML execution and installation for the user.
+
+Forge does not choose a model, contact an AI service, collect a prompt, or
+launch an agent. After reviewing the two files and committing the clean
+scaffold, an Omarchy user may explicitly hand it to their configured agent:
+
+```bash
+omarchy agent prompt \
+  "Build the plugin described in FORGE_SPEC.md. Follow AGENTS.md exactly."
+```
+
+Omarchy may run prompt tasks unattended. Keep a Git rollback point and review
+the resulting diff before trusting or executing plugin QML.
 
 ## Trusted runtime check
 

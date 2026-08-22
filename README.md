@@ -120,6 +120,40 @@ For more detail, see the
 [command reference](https://www.omarchyforge.com/docs/commands), and
 [plugin anatomy guide](https://www.omarchyforge.com/docs/plugin-anatomy).
 
+## Build with your Omarchy AI agent (unreleased)
+
+Agent-ready scaffolding is implemented on `main` for the next Forge release. It
+is not present in the public `v0.2.0` binary yet. Contributors evaluating a
+source build can add `--agent-ready` when creating a project:
+
+Add `--agent-ready` when creating a project:
+
+```bash
+omaforge init project-pulse --git --agent-ready
+cd project-pulse
+```
+
+This adds two deterministic files without contacting an AI service:
+
+- `FORGE_SPEC.md` turns the plugin idea into explicit UI, data, state, privacy,
+  failure, timeout, and acceptance requirements.
+- `AGENTS.md` restricts an agent to the project, preserves Forge contracts, and
+  prohibits installation, privileged operations, and QML execution.
+
+Complete every `TODO` in `FORGE_SPEC.md`, review both files, and commit the clean
+scaffold before starting an agent. Omarchy can then hand the task to the user's
+configured agent:
+
+```bash
+omarchy agent prompt \
+  "Build the plugin described in FORGE_SPEC.md. Follow AGENTS.md exactly."
+```
+
+Omarchy may launch prompt tasks unattended, so use this only after reviewing
+the specification and committing a rollback point. The agent may edit code and
+run static validation; the user must still review the diff and explicitly
+decide whether to run `omaforge dev` or install the plugin.
+
 ## Check an existing plugin
 
 Forge checks are deterministic, local, and do not execute plugin QML or use the

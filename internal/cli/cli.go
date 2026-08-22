@@ -292,6 +292,7 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	flags.BoolVar(&options.DryRun, "dry-run", false, "show the write plan without creating files")
 	flags.BoolVar(&options.Force, "force", false, "overwrite colliding generated files after showing the plan")
 	flags.BoolVar(&options.InitGit, "git", false, "initialize a local Git repository")
+	flags.BoolVar(&options.AgentReady, "agent-ready", false, "add a structured specification and agent safety guidance")
 	flags.BoolVar(&noCI, "no-ci", false, "omit the generated GitHub Actions workflow")
 	flags.BoolVar(&nonInteractive, "non-interactive", false, "fail instead of prompting for missing values")
 	flags.Usage = func() {
@@ -384,6 +385,9 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 		fmt.Fprintf(stdout, "Dry run complete: %d files planned; nothing written.\n", len(result.Changes))
 	} else {
 		fmt.Fprintf(stdout, "Created %s with %d files.\n", result.Directory, len(result.Changes))
+		if options.AgentReady {
+			fmt.Fprintln(stdout, "Agent-ready files: review FORGE_SPEC.md, then ask your agent to follow AGENTS.md.")
+		}
 		fmt.Fprintln(stdout, "Next: omarchy plugin validate "+result.Directory)
 	}
 	return 0
