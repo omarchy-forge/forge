@@ -188,17 +188,11 @@ Re-run applicable checks after any change; this list is evidence, not a waiver.
 
 ## Dependency-security checkpoint
 
-`website/SECURITY.md` documents three reviewed transitive advisories:
-
-- `GHSA-w3rx-r6r6-pgpr`
-- `GHSA-5p2g-fcmc-qvqq`
-- `GHSA-g7r4-m6w7-qqqr`
-
-The first two affect `image-size@2.0.2`, for which no compatible patched release
-was available at the checkpoint. The third affects esbuild's Windows
-development server, which this project does not invoke. `pnpm audit:known`
-allows only these exact advisory IDs and fails for any additional finding.
-Remove allowlist entries as patched compatible dependencies become available.
+The three previously reviewed transitive advisories are resolved by overriding
+the Geistdocs-pinned Fumadocs family to current compatible releases. This
+replaces vulnerable `image-size` and upgrades esbuild. The production audit
+reports zero advisories, and `pnpm audit:known` now fails on any finding; no
+advisory allowlist remains. See `website/SECURITY.md`.
 
 ## Standing boundaries
 

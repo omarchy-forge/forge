@@ -1,4 +1,8 @@
 allowBuilds:
   esbuild: true
+overrides:
+  esbuild: 0.28.2
+  fumadocs-core: 16.14.5
+  fumadocs-mdx: 15.3.0
 minimumReleaseAgeExclude:
   - '@vercel/geistdocs@1.22.0'
