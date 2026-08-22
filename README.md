@@ -25,12 +25,12 @@ not need Go, `sudo`, or prior Linux development experience to use the release.
 ### 1. Install Forge
 
 Copy this entire block into the Omarchy terminal. It detects the machine's CPU,
-downloads the matching Forge `v0.2.0` release, verifies its checksum, and
+downloads the matching Forge `v0.3.0` release, verifies its checksum, and
 installs it for your user only:
 
 ```bash
 set -eu
-version="0.2.0"
+version="0.3.0"
 case "$(uname -m)" in
   x86_64) arch="amd64" ;;
   aarch64|arm64) arch="arm64" ;;
@@ -120,11 +120,10 @@ For more detail, see the
 [command reference](https://www.omarchyforge.com/docs/commands), and
 [plugin anatomy guide](https://www.omarchyforge.com/docs/plugin-anatomy).
 
-## Build with your Omarchy AI agent (unreleased)
+## Build with your Omarchy AI agent
 
-Agent-ready scaffolding is implemented on `main` for the next Forge release. It
-is not present in the public `v0.2.0` binary yet. Contributors evaluating a
-source build can add `--agent-ready` when creating a project:
+Forge `v0.3.0` includes opt-in agent-ready scaffolding. Add `--agent-ready` when
+creating a project:
 
 ```bash
 omaforge init project-pulse --git --agent-ready
