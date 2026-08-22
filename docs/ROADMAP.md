@@ -48,7 +48,8 @@ Implemented and merged:
 - Quickstart, templates, commands, anatomy, manifest, and compatibility guides.
 - Roadmap and contributing pages grounded in current shipped behavior.
 - Static-first architecture without accounts, tracking, or AI chat.
-- No deployment or domain connection without explicit approval.
+- Production deployment at `omarchy-forge-docs.vercel.app`; no custom domain
+  connection without separate explicit approval.
 
 ## Milestone 5: Handoff flagship plugin
 
@@ -88,8 +89,8 @@ and cleanup verification without changing those distribution boundaries.
   `omaforge dev` runtime check and fictional ready/empty/error state simulation
   are implemented, along with deterministic plugin-only PNG capture and
   isolated file-watching sessions.
-- Documentation website deployment and domain connection, only with explicit
-  approval.
+- Connection of `omarchyforge.com`, only with explicit approval; the Vercel
+  documentation deployment is complete.
 - Any Handoff marketplace submission, public announcement, visibility change,
   or ongoing local installation, each only with separate explicit approval.
 - Additional templates after the first template is proven.

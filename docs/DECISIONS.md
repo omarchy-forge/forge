@@ -274,3 +274,17 @@ One explicit trust acknowledgement covers the session. Failed QML runs are
 reported without terminating the watcher so the developer can repair source;
 Ctrl-C or termination ends the session cleanly. The watcher performs no network
 access and does not write inside the project.
+
+## D-023: Vercel-hosted documentation checkpoint
+
+Status: accepted, 2026-08-22.
+
+The documentation website is deployed from the verified Forge `main` branch to
+the dedicated Vercel project `omarchy-forge-docs`, with
+`https://omarchy-forge-docs.vercel.app` as its canonical production origin.
+The deployment retains the static-first, no-account, no-database, no-analytics,
+and no-AI-chat boundaries recorded in D-013.
+
+This checkpoint does not connect `omarchyforge.com`, announce the site, submit
+anything to a marketplace, or change the visibility of the private Handoff
+repository. Each remains a separate approval-gated action.

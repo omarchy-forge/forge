@@ -76,7 +76,9 @@ Handoff remains a separate private project. See the
 
 ## Documentation website
 
-The undeployed website lives in `website/` and covers the homepage, quickstart,
+The documentation website is live at
+[omarchy-forge-docs.vercel.app](https://omarchy-forge-docs.vercel.app). Its
+source lives in `website/` and covers the homepage, quickstart,
 templates, commands, plugin anatomy, manifest, compatibility, roadmap, and
 contributing guides. It uses a static-first Next.js/MDX architecture without AI
 chat, analytics, tracking, accounts, authentication, or a database.
@@ -89,7 +91,8 @@ pnpm typecheck
 pnpm build
 ```
 
-Deployment and domain connection require separate explicit approval.
+The Vercel deployment is intentionally separate from `omarchyforge.com`; custom
+domain connection remains approval-gated.
 
 ## Create a plugin
 

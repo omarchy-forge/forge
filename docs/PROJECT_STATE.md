@@ -194,6 +194,17 @@ replaces vulnerable `image-size` and upgrades esbuild. The production audit
 reports zero advisories, and `pnpm audit:known` now fails on any finding; no
 advisory allowlist remains. See `website/SECURITY.md`.
 
+## Documentation deployment checkpoint
+
+The documentation site is live at
+`https://omarchy-forge-docs.vercel.app` in the Vercel project
+`omarchy-forge-docs`. Production deployment `dpl_5kua82hJW5bvKmVJ5eBianvYEr9z`
+was built from verified Forge commit `75acb8f` on 2026-08-22. HTTP checks passed
+for the homepage, documentation pages, search endpoint, sitemap, robots file,
+and LLM-readable content. Browser verification confirmed meaningful rendered
+content, working documentation navigation, no framework error overlay, and no
+console or page errors. `omarchyforge.com` remains unconnected.
+
 ## Standing boundaries
 
 - Keep the CLI local-first, deterministic, and network-independent by default.
@@ -208,10 +219,10 @@ advisory allowlist remains. See `website/SECURITY.md`.
 
 ## Next checkpoint
 
-1. Keep the website undeployed and Handoff private until those boundaries are
-   approved separately.
+1. Keep Handoff private. The documentation website is deployed at
+   `https://omarchy-forge-docs.vercel.app`; `omarchyforge.com` remains
+   unconnected.
 2. Choose the next product milestone from real usage; do not expand the
    template set without the evidence recorded in the roadmap.
-3. Ongoing local installation, marketplace submission, announcement, website
-   deployment, and connection of `omarchyforge.com` remain distinct
-   approval-gated work.
+3. Ongoing local installation, marketplace submission, announcement, and
+   connection of `omarchyforge.com` remain distinct approval-gated work.
