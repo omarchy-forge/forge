@@ -25,10 +25,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
 
-The next release candidate is Forge `v0.2.0`, containing the completed
-Milestone 6 trusted development workflow. Its reviewed notes live in
-`docs/RELEASE_NOTES_0.2.0.md`; do not describe it as published until the tag
-workflow and independent artifact verification complete.
+Forge `v0.2.0` is published from exact commit
+`f8f5cb9971ac4966afc418229d9e9902dbb5e09d`. Its tag workflow passed, and
+independent downloads verified both archive checksums, amd64 and arm64 ELF
+architectures, archive contents, and embedded amd64 build metadata. The public
+release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.2.0` and
+uses the reviewed `docs/RELEASE_NOTES_0.2.0.md` description.
 
 ## Delivered milestones
 

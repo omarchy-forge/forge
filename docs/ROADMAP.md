@@ -37,6 +37,8 @@ Implemented and merged:
 - Release and Action documentation plus end-to-end packaging tests.
 - Public Forge `v0.1.0` release with verified Linux `amd64` and `arm64`
   archives and checksums.
+- Public Forge `v0.2.0` release with the completed Milestone 6 trusted local
+  development workflow and independently verified Linux archives.
 
 ## Milestone 4: documentation website
 
