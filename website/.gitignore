@@ -13,7 +13,7 @@ dist
 *.tsbuildinfo
 
 # local environment
-.env*.local
+.env*
 .vercel
 
 # logs

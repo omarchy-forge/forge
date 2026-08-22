@@ -57,8 +57,9 @@ static Linux `amd64` and `arm64` binaries, injects version provenance, creates
 normalized archives, and emits SHA-256 checksums. The tag workflow separates a
 read-only build job from the write-authorized release publication job.
 
-`website/` is an undeployed Next.js 16 and MDX application backed by Geistdocs and
-Fumadocs. Checked-in content is the source of truth. The website retains static
+`website/` is a Next.js 16 and MDX application deployed to Vercel at
+`omarchy-forge-docs.vercel.app` and backed by Geistdocs and Fumadocs. Checked-in
+content is the source of truth. The website retains static
 documentation rendering, navigation, local corpus search, raw Markdown, and
 edit links while explicitly disabling AI chat, feedback submission, analytics,
 Markdown-request tracking, and Next.js telemetry. It has no database,
