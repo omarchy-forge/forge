@@ -1,0 +1,40 @@
+import QtQuick
+import Quickshell
+import "Plugin" as Plugin
+
+ShellRoot {
+  id: root
+
+  function fail(message) {
+    console.error("OMAFORGE_RUNTIME_FAIL=" + message)
+  }
+
+  function inspectPlugin() {
+    if (typeof plugin.refresh !== "function") {
+      fail("entry point has no refresh function")
+      return
+    }
+    if (typeof plugin.close !== "function") {
+      fail("entry point has no close function")
+      return
+    }
+    if (!isFinite(plugin.implicitWidth) || !isFinite(plugin.implicitHeight)) {
+      fail("entry point has non-finite implicit geometry")
+      return
+    }
+    plugin.settings = ({})
+    plugin.refresh()
+    plugin.close()
+    console.log("OMAFORGE_RUNTIME_PASS")
+  }
+
+  Plugin.Panel {
+    id: plugin
+  }
+
+  Timer {
+    interval: 250
+    running: true
+    onTriggered: root.inspectPlugin()
+  }
+}

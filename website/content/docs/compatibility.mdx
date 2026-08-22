@@ -29,5 +29,10 @@ states, hot reload, and exact restoration of user shell configuration.
 Static heuristics are not runtime proof. Pattern matches are labeled as
 heuristics and require human review.
 
+Generated projects also contain a separately invoked, explicitly trusted
+Quickshell smoke test. It uses the installed Omarchy QML modules inside a
+temporary HOME/XDG environment and is intentionally excluded from static checks
+and CI.
+
 See the repository's `docs/UPSTREAM_COMPATIBILITY.md` for commands, inspected
 paths, limitations, and the complete evidence log.

@@ -15,5 +15,5 @@ jobs:
       - name: Validate repository structure
         run: |
           jq -e . manifest.json >/dev/null
-          bash -n demo/run tests/run
+          bash -n demo/run tests/run tests/runtime
           test -z "$(find . -name .git -prune -o -type l -print -quit)"

@@ -41,4 +41,18 @@ An existing target containing only a real `.git` directory is accepted without
 `--force`, and normal generation leaves that repository metadata untouched.
 Any other existing entry still requires the explicit collision workflow.
 
+## Trusted runtime check
+
+Generated projects include an opt-in Omarchy runtime smoke test:
+
+```bash
+./tests/runtime --trust-plugin-code
+```
+
+Run it only after reviewing the plugin's QML and local commands. It loads a
+temporary copy of the entry point against the installed Omarchy QML contract,
+checks lifecycle methods and geometry, and isolates HOME plus XDG state. It does
+not install or enable the plugin, modify `shell.json`, or contact the live shell.
+Static Forge checks and generated CI never execute this harness.
+
 Additional templates remain roadmap items until this shape has proven reusable.
