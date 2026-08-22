@@ -67,3 +67,26 @@ Template design was checked against official Omarchy `quattro` revision
 `ed7bae4ac5a570e9df307486e0202fdafcc6ee24` and the official Basecamp plugin
 revision `abc1ba72aaf47db530d2a0c6901d99f0f98e6aa7`. The installed Omarchy package
 remains authoritative for local validation and runtime contract checks.
+
+## D-009: Versioned findings and exit codes
+
+Status: accepted, 2026-08-22.
+
+Check reports use schema version 1 and stable rule IDs. Rules explicitly name
+their source as `official-parity` or `forge`; heuristic Forge rules say so in
+their explanation. Findings are sorted independently of filesystem traversal.
+Text, JSON, and SARIF serialize the same report.
+
+`omaforge check` returns 0 when there are no error-severity findings, including
+when warnings exist; 1 for project errors or report-write failures; and 2 for
+invalid usage. This allows publish-readiness warnings to remain visible without
+making early CI adoption unexpectedly blocking.
+
+## D-010: Static check and local doctor boundary
+
+Status: accepted, 2026-08-22.
+
+`check` is reproducible, noninteractive, network-free, and never runs QML or
+external validators. `doctor` is intentionally environment-aware and may run
+read-only installed commands with bounded timeouts, including the authoritative
+Omarchy validator. Both share Forge's project rule report.

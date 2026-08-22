@@ -10,6 +10,29 @@ deterministic scaffold for an Omarchy bar widget with a popout. Generated
 projects complement the official `omarchy plugin validate` command rather than
 replacing it.
 
+## Check a plugin
+
+Forge checks are deterministic, local, and do not execute plugin QML or use the
+network:
+
+```bash
+omaforge check .
+omaforge check . --format json
+omaforge check . --format sarif
+```
+
+Findings identify whether a rule mirrors the inspected official validator or
+is a Forge quality rule. Exit code 0 means no error-severity findings, 1 means
+the project has errors, and 2 means command usage is invalid. Warnings are
+reported without failing the check.
+
+For human-readable local environment diagnostics, including Omarchy,
+Quickshell, shell IPC, QML tooling, and the official validator, run:
+
+```bash
+omaforge doctor .
+```
+
 ## Create a plugin
 
 ```bash
@@ -31,6 +54,7 @@ Go 1.23 or newer is required for development.
 go build -o ./tmp/omaforge ./cmd/omaforge
 ./tmp/omaforge --help
 ./tmp/omaforge version
+./tmp/omaforge check .
 ```
 
 ## Development
@@ -45,7 +69,8 @@ go build ./cmd/omaforge
 ```
 
 See [the product definition](docs/PRODUCT.md), [roadmap](docs/ROADMAP.md),
-and [contribution guide](CONTRIBUTING.md) for the current scope.
+[rule reference](docs/RULES.md), and [contribution guide](CONTRIBUTING.md) for
+the current scope.
 
 ## License
 
