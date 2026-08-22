@@ -22,12 +22,22 @@ Force mode overwrites only colliding generated paths, preserves unrelated
 files, rejects symlinks, and prints its complete plan before writing. Dry-run
 uses the same validation and rendering path but performs no writes.
 
+`internal/checks` owns the versioned finding model, deterministic static rule
+engine, summary calculation, and text, JSON, and SARIF serialization. It never
+executes plugin code or accesses the network. Every finding has a stable rule
+ID, severity, evidence path when available, remediation, and a source boundary:
+`official-parity` or `forge`.
+
+`internal/doctor` composes the same project report with read-only local
+environment probes. External commands have short timeouts. Doctor may invoke
+the installed official validator, but deterministic `check` never depends on
+locally installed tooling.
+
 ## Future boundaries
 
-As milestones require them, focused internal packages may own manifest parsing,
-compatibility capabilities, checks, diagnostics, and report serialization.
-Those packages should not depend on terminal interaction so the
-same deterministic behavior can serve the CLI and CI.
+As later milestones require them, focused internal packages may own additional
+compatibility capabilities. Core packages do not depend on terminal
+interaction, so the same deterministic behavior can serve the CLI and CI.
 
 Official Omarchy validation remains authoritative for installed environments.
 Any internal structural rules needed for network-free CI must be versioned,

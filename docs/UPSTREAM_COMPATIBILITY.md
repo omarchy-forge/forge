@@ -174,3 +174,17 @@ The manual session backed up `shell.json` before each mutation and restored it
 byte-for-byte afterward. The pre- and post-test SHA-256 values were identical,
 the plugin was absent after cleanup, the original Aether theme and workspace
 were restored, and `omarchy-shell shell ping` returned `ok`.
+
+## Milestone 2 diagnostic verification
+
+The deterministic Forge rule engine was checked against the same manifest
+schema and kind-to-entry-point mapping implemented by the installed official
+validator. Forge labels these structural findings `official-parity`; stricter
+quality, security, UX, and publish-readiness findings are labeled `forge` and
+heuristic matches explicitly require human review.
+
+On 2026-08-22, the read-only doctor probes detected `omarchy 4.0.0-1`, found
+Quickshell, received `ok` from shell IPC, and passed a generated sample through
+`omarchy plugin validate`. `qmllint` remained unavailable and was accurately
+reported as an optional-tool warning. Doctor did not modify user or packaged
+configuration, install software, execute plugin QML, or use the network.

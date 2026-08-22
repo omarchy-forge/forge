@@ -11,21 +11,21 @@ Roadmap items describe intent, not shipped functionality.
 
 ## Milestone 1: bar-widget scaffolder
 
-Implemented on the `feat/bar-widget-scaffolder` development branch:
+Implemented and merged:
 
 - Interactive and fully noninteractive `omaforge init`.
 - Safe collision and output-path behavior, plus `--dry-run`.
 - One polished bar-widget-with-popout template.
 - Deterministic golden tests and official-validator integration.
 
-The milestone is not released until the branch is reviewed and merged.
-
 ## Milestone 2: check and doctor
 
-- Shared versioned rule model.
-- Human-readable local diagnostics.
-- Deterministic CI checks with text and JSON output.
-- A clear boundary between upstream structural validation and Forge rules.
+In development on `feat/check-doctor`:
+
+- Shared versioned rule model with stable IDs and severities.
+- Human-readable, read-only local diagnostics.
+- Deterministic CI checks with text, JSON, and SARIF output.
+- A clear boundary between official-parity structural validation and Forge rules.
 
 ## Milestone 3: action and releases
 

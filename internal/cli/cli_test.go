@@ -59,7 +59,7 @@ func TestRunErrors(t *testing.T) {
 		args []string
 		want string
 	}{
-		{name: "unknown command", args: []string{"doctor"}, want: `unknown command "doctor"`},
+		{name: "unknown command", args: []string{"unknown"}, want: `unknown command "unknown"`},
 		{name: "version arguments", args: []string{"version", "extra"}, want: "does not accept arguments"},
 		{name: "help arguments", args: []string{"--help", "extra"}, want: `unknown command "--help"`},
 	}

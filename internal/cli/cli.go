@@ -10,6 +10,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/omarchy-forge/forge/internal/checks"
+	"github.com/omarchy-forge/forge/internal/doctor"
 	"github.com/omarchy-forge/forge/internal/scaffold"
 )
 
@@ -20,15 +22,19 @@ Usage:
   omaforge [--help]
   omaforge version
   omaforge init <directory> [options]
+  omaforge check <directory> [options]
+  omaforge doctor [directory]
 
 Commands:
   init       Create a bar-widget plugin project
+  check      Run deterministic, non-executing plugin checks
+  doctor     Diagnose the local Omarchy environment and plugin
   version    Print build and compatibility information
 
 Options:
   -h, --help Print this help
 
-Run 'omaforge init --help' for scaffolding options.
+Run 'omaforge <command> --help' for command-specific options.
 `
 
 // BuildInfo contains release metadata supplied at link time.
@@ -48,6 +54,10 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 	switch args[0] {
 	case "init":
 		return runInit(args[1:], stdin, stdout, stderr)
+	case "check":
+		return runCheck(args[1:], stdout, stderr)
+	case "doctor":
+		return runDoctor(args[1:], stdout, stderr)
 	case "version":
 		if len(args) != 1 {
 			fmt.Fprintln(stderr, "omaforge version does not accept arguments")
@@ -61,6 +71,85 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 		fmt.Fprintln(stderr, "Run 'omaforge --help' for usage.")
 		return 2
 	}
+}
+
+func runCheck(args []string, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("check", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+	format := flags.String("format", "text", "report format: text, json, or sarif")
+	compatibility := flags.String("omarchy-version", "4", "target Omarchy compatibility version")
+	flags.Usage = func() {
+		fmt.Fprintln(flags.Output(), "Usage: omaforge check <directory> [--format text|json|sarif] [--omarchy-version 4]")
+	}
+	for _, argument := range args {
+		if argument == "-h" || argument == "--help" {
+			flags.SetOutput(stdout)
+			flags.Usage()
+			return 0
+		}
+	}
+	ordered, err := reorderCommandArgs(args, map[string]bool{"--format": true, "--omarchy-version": true})
+	if err != nil {
+		fmt.Fprintf(stderr, "omaforge check: %v\n", err)
+		return 2
+	}
+	if err := flags.Parse(ordered); err != nil {
+		return 2
+	}
+	if flags.NArg() != 1 {
+		fmt.Fprintln(stderr, "omaforge check requires exactly one plugin directory")
+		return 2
+	}
+	if *compatibility != "4" {
+		fmt.Fprintf(stderr, "unsupported Omarchy compatibility version %q; supported: 4\n", *compatibility)
+		return 2
+	}
+	report := checks.RunFor(flags.Arg(0), "omarchy-"+*compatibility)
+	switch *format {
+	case "text":
+		err = checks.WriteText(stdout, report)
+	case "json":
+		err = checks.WriteJSON(stdout, report)
+	case "sarif":
+		err = checks.WriteSARIF(stdout, report)
+	default:
+		fmt.Fprintf(stderr, "unknown format %q; available: text, json, sarif\n", *format)
+		return 2
+	}
+	if err != nil {
+		fmt.Fprintf(stderr, "omaforge check: write report: %v\n", err)
+		return 1
+	}
+	if report.Summary.Errors > 0 {
+		return 1
+	}
+	return 0
+}
+
+func runDoctor(args []string, stdout, stderr io.Writer) int {
+	for _, argument := range args {
+		if argument == "-h" || argument == "--help" {
+			fmt.Fprintln(stdout, "Usage: omaforge doctor [directory]")
+			return 0
+		}
+	}
+	if len(args) > 1 {
+		fmt.Fprintln(stderr, "omaforge doctor accepts at most one plugin directory")
+		return 2
+	}
+	target := "."
+	if len(args) == 1 {
+		target = args[0]
+	}
+	report := doctor.Run(target, doctor.ExecRunner{})
+	if err := doctor.WriteText(stdout, report); err != nil {
+		fmt.Fprintf(stderr, "omaforge doctor: write report: %v\n", err)
+		return 1
+	}
+	if report.Failed() {
+		return 1
+	}
+	return 0
 }
 
 func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
@@ -182,6 +271,10 @@ func reorderInitArgs(args []string) ([]string, error) {
 		"--id": true, "--name": true, "--description": true, "--author": true,
 		"--license": true, "--section": true, "--template": true,
 	}
+	return reorderCommandArgs(args, valueFlags)
+}
+
+func reorderCommandArgs(args []string, valueFlags map[string]bool) ([]string, error) {
 	var options, positional []string
 	for index := 0; index < len(args); index++ {
 		argument := args[index]
