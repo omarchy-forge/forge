@@ -44,8 +44,9 @@ output="$(action/run.sh "$binary" "$sample" "$report" "$repo_root/action/annotat
 status=$?
 set -e
 test "$status" -eq 0
-grep -F "::warning file=README.md,title=OF205 (forge)::" <<<"$output"
 grep -F '"schemaVersion": "1"' "$report"
+grep -F '"errors": 0' "$report"
+grep -F '"warnings": 0' "$report"
 
 escape_report="$test_root/escape-report.json"
 printf '%s\n' '{"findings":[{"ruleId":"OF999","source":"forge","severity":"error","message":"bad\n%message","path":"bad,file:qml","line":7,"remediation":"review"}],"summary":{"errors":1}}' > "$escape_report"

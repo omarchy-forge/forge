@@ -57,7 +57,18 @@ omaforge dev . --trust-plugin-code --state ready
 The trust flag is mandatory. This first development-tooling increment is a
 one-shot runtime check. `--state ready|empty|error` applies a fictional state in
 memory before the harness completes. It does not install or enable the plugin,
-change shell configuration, watch files, or capture screenshots.
+change shell configuration or watch files.
+
+## `omaforge screenshot`
+
+Capture a fictional state from the plugin's explicitly declared panel item:
+
+```bash
+omaforge screenshot . --trust-plugin-code --state ready --output assets/preview.png
+```
+
+The command captures no desktop pixels and refuses to overwrite an existing
+PNG. Plugins without an explicit `forgeScreenshotTarget` fail closed.
 
 ## `omaforge version`
 

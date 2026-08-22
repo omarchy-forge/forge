@@ -33,6 +33,11 @@ The optional `--state` value is restricted to `ready`, `empty`, or `error` and
 is passed as a fixed argument into the harness. Generated plugins apply it only
 to their fictional in-memory demo contract inside the temporary runtime.
 
+`omaforge screenshot` uses Qt Quick item-level rendering against a
+template-declared `forgeScreenshotTarget`. It never invokes monitor or window
+screen-copy tools. Output must be a new `.png` path, preventing accidental
+replacement of an existing asset.
+
 The installed Omarchy implementation is authoritative but owned externally.
 Forge may inspect it and invoke documented commands; it must never modify those
 files. User configuration such as `~/.config/omarchy/shell.json` also remains

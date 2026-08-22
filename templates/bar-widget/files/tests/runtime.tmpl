@@ -8,16 +8,24 @@ if [[ ${1:-} != "--trust-plugin-code" ]]; then
 fi
 
 state=""
-if [[ ${2:-} == "--state" ]]; then
-  state="${3:-}"
-  case "$state" in
-    ready|empty|error) ;;
-    *) echo "runtime state must be ready, empty, or error" >&2; exit 2 ;;
+screenshot=""
+shift
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --state) state="${2:-}"; shift 2 ;;
+    --screenshot) screenshot="${2:-}"; shift 2 ;;
+    *) echo "unexpected runtime argument: $1" >&2; exit 2 ;;
   esac
-  [[ $# -eq 3 ]] || { echo "unexpected runtime arguments" >&2; exit 2; }
-elif [[ $# -ne 1 ]]; then
-  echo "unexpected runtime arguments" >&2
-  exit 2
+done
+case "$state" in
+  ""|ready|empty|error) ;;
+  *) echo "runtime state must be ready, empty, or error" >&2; exit 2 ;;
+esac
+if [[ -n "$screenshot" ]]; then
+  [[ "$state" != "" && "$screenshot" = /* && "$screenshot" == *.png ]] || {
+    echo "screenshot requires a state and an absolute .png output" >&2; exit 2;
+  }
+  [[ ! -e "$screenshot" ]] || { echo "screenshot output already exists" >&2; exit 2; }
 fi
 
 for command in jq quickshell setsid timeout; do
@@ -90,6 +98,7 @@ XDG_CACHE_HOME="$runtime_root/cache" \
 XDG_RUNTIME_DIR="$runtime_root/runtime" \
 WAYLAND_DISPLAY="$wayland_display" \
 OMAFORGE_DEV_STATE="$state" \
+OMAFORGE_SCREENSHOT_PATH="$screenshot" \
 NO_COLOR=1 \
 setsid timeout 12 quickshell --no-color --path "$runtime_root/config/shell.qml" >"$output_file" 2>&1 &
 runtime_pid=$!
@@ -99,7 +108,10 @@ for _ in {1..100}; do
     kill -- "-$runtime_pid" 2>/dev/null || true
     wait "$runtime_pid" 2>/dev/null || true
     runtime_pid=""
-    if [[ -n "$state" ]]; then
+    if [[ -n "$screenshot" ]]; then
+      test -s "$screenshot" || { echo "runtime did not create screenshot" >&2; exit 1; }
+      echo "isolated plugin screenshot passed: $state"
+    elif [[ -n "$state" ]]; then
       echo "isolated Quickshell runtime state passed: $state"
     else
       echo "isolated Quickshell runtime test passed"

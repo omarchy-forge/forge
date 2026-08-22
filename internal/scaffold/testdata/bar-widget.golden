@@ -2,8 +2,8 @@
 .gitignore -rw-r--r-- f06b59a77e67459b566b960717db9adb0f0bd704ef2462674c0faf52acac00db
 CHANGELOG.md -rw-r--r-- c128e108eb91781e2a5dd4081d1da6e6b398f721c4bb94016d8bf2b1e2bf7128
 LICENSE -rw-r--r-- 909927fb9a0d576846b3261d220b5af4effce30cdf63edaa3b1cdaa3046c541d
-Panel.qml -rw-r--r-- 322f46fe96b30f56f25c2aaf2385601ca89b5610e687a417741693b72186ebbe
-README.md -rw-r--r-- 3c50e940a047150eb4fe63c534e48174a5708fe365da73973dea2ed46469bdf7
+Panel.qml -rw-r--r-- dedb25500adac6055388f974ac46fc4a48b9d844152bb7e47fa23ebcb6826aae
+README.md -rw-r--r-- df1d8fd05ce4647f93cacaee00737f61464ae5dbc61d9b3015050decc3adec24
 assets/icon.svg -rw-r--r-- 5ba73939c148416107732a0d4c530278c66a98af83d2991c9040e0f9aa8e633a
 components/DetailsPopout.qml -rw-r--r-- 0ee9fabfee6d1e0ba6a14d75fa42fee4b3fcd175b94207f9a29fa6d4ea203786
 components/EmptyState.qml -rw-r--r-- 33d1155754b1230ee25bfd6479ff0e5a4537fd2985bb63e0ff47b69b549350f3
@@ -14,5 +14,5 @@ demo/run -rwxr-xr-x 2a39f73eaa60c86ff39a34e7ce16b1000b95f824919e31ec34fe0de65f37
 manifest.json -rw-r--r-- 9b31852e9f00ef44c44aa3d13ed5201eedb4e76994d709812e3eebbe80c33655
 services/DataService.qml -rw-r--r-- 05cea24148d05fded3361c82b7f846d9e7428c5521cb37fbb8d9d60b14e78149
 tests/run -rwxr-xr-x ac917ad0b9db685656e3935358f96144e418b922b5a1dd0456e9fa5b230f26b8
-tests/runtime -rwxr-xr-x ef4d82ca6dfc74417d83134a20488a5fe4a82adf9bfd994cc6a3ecc87ce47ce5
-tests/runtime-shell.qml -rw-r--r-- 4833edd4bccfe3834c3a851efd1514451af6142a07728d8dfc617f419a411e49
+tests/runtime -rwxr-xr-x 905d78afbc6554cde620c4d21f6d8e88078924ba6aba13d6820f728fc5a722b4
+tests/runtime-shell.qml -rw-r--r-- b28a2383734e7428a595a430da7ad9bd6636dda82f56499f60204116c50a5ddd

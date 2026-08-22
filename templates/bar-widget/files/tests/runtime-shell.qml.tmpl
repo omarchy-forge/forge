@@ -42,6 +42,25 @@ ShellRoot {
   }
 
   function finish() {
+    var screenshot = Quickshell.env("OMAFORGE_SCREENSHOT_PATH") || ""
+    if (screenshot !== "") {
+      var target = plugin.forgeScreenshotTarget
+      if (!target || typeof target.grabToImage !== "function") {
+        fail("entry point has no forgeScreenshotTarget item")
+        return
+      }
+      var width = Math.max(1, Math.ceil(target.width || target.implicitWidth || 1))
+      var height = Math.max(1, Math.ceil(target.height || target.implicitHeight || 1))
+      target.grabToImage(function(result) {
+        if (!result || !result.saveToFile(screenshot)) {
+          fail("could not save plugin screenshot")
+          return
+        }
+        plugin.close()
+        console.log("OMAFORGE_RUNTIME_PASS")
+      }, Qt.size(width, height))
+      return
+    }
     plugin.close()
     console.log("OMAFORGE_RUNTIME_PASS")
   }

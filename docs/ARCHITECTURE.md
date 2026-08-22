@@ -23,6 +23,9 @@ harness, then delegates to that project-owned harness only after the CLI has
 received the literal trust acknowledgement. Isolation, timeout, and cleanup
 remain owned by the generated harness so its behavior is reviewable alongside
 the plugin version it executes.
+Screenshot capture follows the same path and renders only the plugin's explicit
+`forgeScreenshotTarget` with Qt Quick `grabToImage`; it has no compositor or
+desktop-capture dependency.
 
 Force mode overwrites only colliding generated paths, preserves unrelated
 files, rejects symlinks, and prints its complete plan before writing. Dry-run

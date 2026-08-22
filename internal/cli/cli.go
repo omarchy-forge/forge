@@ -26,12 +26,14 @@ Usage:
   omaforge check <directory> [options]
   omaforge doctor [directory]
   omaforge dev <directory> --trust-plugin-code [--state ready|empty|error]
+  omaforge screenshot <directory> --trust-plugin-code --state ready|empty|error --output <file.png>
 
 Commands:
   init       Create a bar-widget plugin project
   check      Run deterministic, non-executing plugin checks
   doctor     Diagnose the local Omarchy environment and plugin
   dev        Run a trusted plugin in its isolated runtime harness
+  screenshot Capture a fictional plugin state without capturing the desktop
   version    Print build and compatibility information
 
 Options:
@@ -63,6 +65,8 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 		return runDoctor(args[1:], stdout, stderr)
 	case "dev":
 		return runDev(args[1:], stdin, stdout, stderr)
+	case "screenshot":
+		return runScreenshot(args[1:], stdin, stdout, stderr)
 	case "version":
 		if len(args) != 1 {
 			fmt.Fprintln(stderr, "omaforge version does not accept arguments")
@@ -76,6 +80,50 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 		fmt.Fprintln(stderr, "Run 'omaforge --help' for usage.")
 		return 2
 	}
+}
+
+func runScreenshot(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
+	for _, argument := range args {
+		if argument == "-h" || argument == "--help" {
+			fmt.Fprintln(stdout, "Usage: omaforge screenshot <directory> --trust-plugin-code --state ready|empty|error --output <file.png>")
+			return 0
+		}
+	}
+	trusted, directory, state, output := false, "", "", ""
+	for index := 0; index < len(args); index++ {
+		switch args[index] {
+		case "--trust-plugin-code":
+			trusted = true
+		case "--state", "--output":
+			name := args[index]
+			if index+1 >= len(args) {
+				fmt.Fprintf(stderr, "omaforge screenshot: %s requires a value\n", name)
+				return 2
+			}
+			index++
+			if name == "--state" {
+				state = args[index]
+			} else {
+				output = args[index]
+			}
+		default:
+			if strings.HasPrefix(args[index], "-") || directory != "" {
+				fmt.Fprintln(stderr, "omaforge screenshot: invalid arguments")
+				return 2
+			}
+			directory = args[index]
+		}
+	}
+	if !trusted || directory == "" || output == "" || (state != "ready" && state != "empty" && state != "error") {
+		fmt.Fprintln(stderr, "omaforge screenshot requires a directory, explicit trust, a ready|empty|error state, and PNG output")
+		return 2
+	}
+	if err := dev.Screenshot(directory, state, output, stdin, stdout, stderr); err != nil {
+		fmt.Fprintf(stderr, "omaforge screenshot: %v\n", err)
+		return 1
+	}
+	fmt.Fprintln(stdout, "Saved plugin-only screenshot to "+output)
+	return 0
 }
 
 func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {

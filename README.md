@@ -53,6 +53,15 @@ The optional state is applied only in memory inside the temporary runtime. This
 does not install or enable the plugin, modify shell configuration, or connect
 to the live Omarchy Shell process.
 
+Capture only the template-declared panel content—never the desktop—into a new
+PNG file:
+
+```bash
+omaforge screenshot ./my-plugin --trust-plugin-code --state ready --output preview.png
+```
+
+Forge refuses to overwrite an existing screenshot.
+
 ## GitHub Action and releases
 
 The repository contains a composite check Action and a tag-driven Linux release

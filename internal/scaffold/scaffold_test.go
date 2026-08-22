@@ -76,10 +76,17 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, required := range []string{"--trust-plugin-code", "--state", "XDG_RUNTIME_DIR", "OMAFORGE_DEV_STATE", "OMAFORGE_RUNTIME_PASS"} {
+	for _, required := range []string{"--trust-plugin-code", "--state", "--screenshot", "XDG_RUNTIME_DIR", "OMAFORGE_DEV_STATE", "OMAFORGE_SCREENSHOT_PATH", "OMAFORGE_RUNTIME_PASS"} {
 		if !bytes.Contains(runtimeScript, []byte(required)) {
 			t.Errorf("tests/runtime missing %q", required)
 		}
+	}
+	panel, err := os.ReadFile(filepath.Join(first, "Panel.qml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Contains(panel, []byte("forgeScreenshotTarget")) {
+		t.Error("Panel.qml missing explicit screenshot target")
 	}
 	for _, forbidden := range []string{"omarchy plugin add", "omarchy plugin enable", "omarchy-shell"} {
 		if bytes.Contains(runtimeScript, []byte(forbidden)) {
