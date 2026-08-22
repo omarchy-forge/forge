@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add `omaforge dev <directory> --trust-plugin-code` as a one-shot entry point
+  for a reviewed generated plugin's isolated Quickshell runtime harness.
+
 ## [0.1.0] - 2026-08-22
 
 - Add an undeployed documentation-first Next.js/MDX website with the complete

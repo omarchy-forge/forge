@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/omarchy-forge/forge/internal/checks"
+	"github.com/omarchy-forge/forge/internal/dev"
 	"github.com/omarchy-forge/forge/internal/doctor"
 	"github.com/omarchy-forge/forge/internal/scaffold"
 )
@@ -24,11 +25,13 @@ Usage:
   omaforge init <directory> [options]
   omaforge check <directory> [options]
   omaforge doctor [directory]
+  omaforge dev <directory> --trust-plugin-code
 
 Commands:
   init       Create a bar-widget plugin project
   check      Run deterministic, non-executing plugin checks
   doctor     Diagnose the local Omarchy environment and plugin
+  dev        Run a trusted plugin in its isolated runtime harness
   version    Print build and compatibility information
 
 Options:
@@ -58,6 +61,8 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 		return runCheck(args[1:], stdout, stderr)
 	case "doctor":
 		return runDoctor(args[1:], stdout, stderr)
+	case "dev":
+		return runDev(args[1:], stdin, stdout, stderr)
 	case "version":
 		if len(args) != 1 {
 			fmt.Fprintln(stderr, "omaforge version does not accept arguments")
@@ -71,6 +76,44 @@ func Run(args []string, stdin io.Reader, stdout, stderr io.Writer, info BuildInf
 		fmt.Fprintln(stderr, "Run 'omaforge --help' for usage.")
 		return 2
 	}
+}
+
+func runDev(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
+	for _, argument := range args {
+		if argument == "-h" || argument == "--help" {
+			fmt.Fprintln(stdout, "Usage: omaforge dev <directory> --trust-plugin-code")
+			fmt.Fprintln(stdout, "Runs the project's isolated one-shot runtime harness after explicit trust acknowledgement.")
+			return 0
+		}
+	}
+	trusted := false
+	directory := ""
+	for _, argument := range args {
+		switch argument {
+		case "--trust-plugin-code":
+			if trusted {
+				fmt.Fprintln(stderr, "omaforge dev accepts --trust-plugin-code only once")
+				return 2
+			}
+			trusted = true
+		default:
+			if strings.HasPrefix(argument, "-") || directory != "" {
+				fmt.Fprintln(stderr, "omaforge dev accepts exactly one plugin directory and --trust-plugin-code")
+				return 2
+			}
+			directory = argument
+		}
+	}
+	if directory == "" || !trusted {
+		fmt.Fprintln(stderr, "omaforge dev requires exactly one <directory> and --trust-plugin-code")
+		fmt.Fprintln(stderr, "Review the plugin QML and local commands before running it.")
+		return 2
+	}
+	if err := dev.Run(directory, stdin, stdout, stderr); err != nil {
+		fmt.Fprintf(stderr, "omaforge dev: %v\n", err)
+		return 1
+	}
+	return 0
 }
 
 func runCheck(args []string, stdout, stderr io.Writer) int {

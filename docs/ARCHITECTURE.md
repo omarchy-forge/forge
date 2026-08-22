@@ -18,6 +18,12 @@ before writing. `templates` embeds the reviewed bar-widget template and renders
 validated values with format-specific escaping. Generated paths are fixed by
 the template rather than derived from user strings.
 
+`internal/dev` validates the requested project and its regular-file runtime
+harness, then delegates to that project-owned harness only after the CLI has
+received the literal trust acknowledgement. Isolation, timeout, and cleanup
+remain owned by the generated harness so its behavior is reviewable alongside
+the plugin version it executes.
+
 Force mode overwrites only colliding generated paths, preserves unrelated
 files, rejects symlinks, and prints its complete plan before writing. Dry-run
 uses the same validation and rendering path but performs no writes.

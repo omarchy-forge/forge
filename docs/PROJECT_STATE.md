@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Latest completed checkpoint before this update: README architecture image pull
-  request `#14`, merged as `ff7bcf9`.
+- Latest completed checkpoint before this update: public-visibility documentation
+  pull request `#15`, merged as `dec9469`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -105,6 +105,18 @@ current.
   and left `omarchy-shell shell ping` returning `ok`.
 - Handoff remains private, is not installed for ongoing use, and has not been
   submitted to a marketplace or announced publicly.
+
+### Milestone 6 — local development and visual tooling
+
+- The first increment adds `omaforge dev <directory> --trust-plugin-code` as a
+  one-shot entry point for the generated project's isolated Quickshell harness.
+- The CLI validates the project, manifest, and regular-file harness before
+  executing it with argument-safe process invocation.
+- A freshly generated plugin passed static Forge checks and the real isolated
+  runtime through the new command on the verified local Wayland session.
+- File watching, richer state simulation, and screenshot capture remain later
+  increments; the command does not install or enable plugins or mutate live
+  shell configuration.
 
 ## Forge feedback from Handoff
 

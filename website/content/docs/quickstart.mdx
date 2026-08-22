@@ -60,6 +60,13 @@ omarchy plugin validate project-pulse
 `check` is deterministic and never executes plugin QML. `doctor` adds read-only
 local environment probes and invokes the installed official validator.
 
+After reviewing the generated QML and local commands, run its isolated runtime
+check without installing it into the live shell:
+
+```bash
+./tmp/omaforge dev project-pulse --trust-plugin-code
+```
+
 ## Try the plugin
 
 Review the generated source before enabling it; plugins run unsandboxed inside

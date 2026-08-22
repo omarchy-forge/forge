@@ -22,10 +22,11 @@ compatibility, testability, security, accessibility, and release readiness.
 
 ## Current state
 
-The development branch provides `omaforge init` for one reviewed
-bar-widget-with-popout template, alongside `--help` and `version`. Generated
-projects include local tests and official-validator integration. Broader Forge
-checking and diagnostics remain planned rather than implemented.
+Forge provides `init`, deterministic `check`, local `doctor`, and a trusted
+one-shot `dev` runtime check for one reviewed bar-widget-with-popout template.
+Generated projects include static tests, official-validator integration, and an
+opt-in isolated Quickshell harness. File watching, screenshot capture, and
+additional templates remain future work.
 
 ## Non-goals
 
