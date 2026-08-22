@@ -55,9 +55,9 @@ Saving files below the installed user-plugin directory triggers shell reload in
 the verified Omarchy 4 contract. `omarchy-shell shell rescanPlugins` forces a
 rescan when needed.
 
-The demo script uses fictional local data and does not modify configuration by
-itself. Follow its printed instructions only in a disposable or deliberately
-prepared shell session.
+The demo script uses fictional local data and applies the requested state only
+to the running plugin instance through Omarchy Shell IPC. It does not restart
+the shell or modify configuration. The plugin must be installed and enabled.
 
 ## Update
 

@@ -58,6 +58,20 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 			t.Errorf("%s mode = %o, want 755", executable, info.Mode().Perm())
 		}
 	}
+	demoScript, err := os.ReadFile(filepath.Join(first, "demo", "run"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, required := range []string{"omarchy-shell", "setDemoState", "Applied %s without changing shell configuration"} {
+		if !bytes.Contains(demoScript, []byte(required)) {
+			t.Errorf("demo/run missing %q", required)
+		}
+	}
+	for _, forbidden := range []string{"OMAFORGE_DEMO_STATE", "omarchy-restart-shell"} {
+		if bytes.Contains(demoScript, []byte(forbidden)) {
+			t.Errorf("demo/run contains obsolete runtime mechanism %q", forbidden)
+		}
+	}
 }
 
 func TestGenerateDryRunWritesNothing(t *testing.T) {

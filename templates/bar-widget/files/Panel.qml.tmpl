@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Io
 import qs.Commons
 import qs.Ui
 import "components"
@@ -8,6 +9,7 @@ Panel {
   id: root
   moduleName: {{jsonString .ID}}
   ipcTarget: {{jsonString .ID}}
+  manageIpc: false
 
   readonly property color foreground: bar ? bar.foreground : Color.foreground
   readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
@@ -16,6 +18,7 @@ Panel {
   implicitHeight: button.implicitHeight
 
   function refresh() { dataService.refresh() }
+  function setDemoState(state) { return dataService.setDemoState(state) }
 
   onOpenedChanged: if (opened) {
     dataService.refreshIfStale()
@@ -25,6 +28,18 @@ Panel {
   DataService {
     id: dataService
     settings: root.settings
+  }
+
+  IpcHandler {
+    target: root.ipcTarget
+
+    function open(): void { root.open() }
+    function close(): void { root.close() }
+    function show(): void { root.open() }
+    function hide(): void { root.close() }
+    function toggle(): void { root.toggle() }
+    function refresh(): void { root.refresh() }
+    function setDemoState(state: string): string { return root.setDemoState(state) }
   }
 
   BarIconButton {

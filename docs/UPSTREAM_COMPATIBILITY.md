@@ -139,8 +139,8 @@ IPC command remains an explicit fallback. The shell persists customization in
 - The richer official Basecamp third-party plugin was not present locally and
   was not needed for the Milestone 0 executable. It should be inspected at a
   pinned official revision before designing the first template.
-- Runtime compatibility of a future generated plugin remains untested because
-  Milestone 0 intentionally contained no template and executed no QML.
+- Milestone 0 intentionally contained no template and executed no QML. The
+  Milestone 1 checks below supersede that earlier runtime limitation.
 
 ## Milestone 1 follow-up inspection
 
@@ -160,5 +160,17 @@ A Forge-generated sample passed the installed `omarchy plugin validate`
 command. Its actual entry point was then instantiated using the pinned
 Omarchy bar-widget contract harness with an isolated temporary home and config.
 The harness confirmed delayed bar/settings injection, finite dimensions, safe
-refresh/close calls, and horizontal-to-vertical geometry changes. No plugin was
-installed and no persistent shell configuration was changed.
+refresh/close calls, and horizontal-to-vertical geometry changes.
+
+A guarded manual session then installed a generated Git-backed sample through
+`omarchy plugin add`, exercised top, bottom, left, and right bar positions,
+keyboard refresh and close behavior, a light theme, disable/re-enable, and
+removal. The generated `demo/run` script was also verified visually in its
+ready, empty, and error states. Its demo state is applied to the live widget
+through the widget's `IpcHandler`; it does not rely on transient environment
+variables, restart the shell, or persist demo configuration.
+
+The manual session backed up `shell.json` before each mutation and restored it
+byte-for-byte afterward. The pre- and post-test SHA-256 values were identical,
+the plugin was absent after cleanup, the original Aether theme and workspace
+were restored, and `omarchy-shell shell ping` returned `ok`.

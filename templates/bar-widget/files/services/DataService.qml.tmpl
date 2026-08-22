@@ -19,7 +19,7 @@ Item {
     : state === "ready" ? "Updated locally"
     : "Loading"
   readonly property int refreshIntervalSec: boundedInteger("refreshIntervalSec", 60, 10, 3600)
-  readonly property string demoState: Quickshell.env("OMAFORGE_DEMO_STATE")
+  property string demoState: ""
 
   function setting(name, fallback) {
     var candidate = settings ? settings[name] : undefined
@@ -34,6 +34,14 @@ Item {
 
   function refreshIfStale() {
     if (Date.now() - lastRefreshMs >= refreshIntervalSec * 1000) refresh()
+  }
+
+  function setDemoState(nextState) {
+    var candidate = String(nextState || "")
+    if (candidate !== "ready" && candidate !== "empty" && candidate !== "error") return "invalid"
+    demoState = candidate
+    refresh()
+    return "ok"
   }
 
   function refresh() {
