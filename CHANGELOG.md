@@ -5,6 +5,8 @@
 - Add opt-in `omaforge init --agent-ready` scaffolding with a structured
   `FORGE_SPEC.md`, acceptance criteria, and project-scoped `AGENTS.md` safety
   contract. Forge does not contact or automatically launch an AI agent.
+- Gate agent implementation on an explicit human-reviewed specification status
+  and permit the generated static test entry point in the agent safety contract.
 
 ## [0.2.0] - 2026-08-22
 

@@ -67,7 +67,7 @@ func TestRunInitAgentReady(t *testing.T) {
 			t.Fatalf("%s not generated: %v", name, err)
 		}
 	}
-	if !strings.Contains(stdout.String(), "review FORGE_SPEC.md") {
+	if !strings.Contains(stdout.String(), "set its status to Ready for implementation") {
 		t.Errorf("stdout missing agent-ready guidance: %q", stdout.String())
 	}
 }

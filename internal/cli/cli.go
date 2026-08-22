@@ -386,7 +386,7 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	} else {
 		fmt.Fprintf(stdout, "Created %s with %d files.\n", result.Directory, len(result.Changes))
 		if options.AgentReady {
-			fmt.Fprintln(stdout, "Agent-ready files: review FORGE_SPEC.md, then ask your agent to follow AGENTS.md.")
+			fmt.Fprintln(stdout, "Agent-ready files: complete FORGE_SPEC.md, set its status to Ready for implementation, then ask your agent to follow AGENTS.md.")
 		}
 		fmt.Fprintln(stdout, "Next: omarchy plugin validate "+result.Directory)
 	}

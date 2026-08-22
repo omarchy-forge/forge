@@ -140,9 +140,10 @@ This adds two deterministic files without contacting an AI service:
 - `AGENTS.md` restricts an agent to the project, preserves Forge contracts, and
   prohibits installation, privileged operations, and QML execution.
 
-Complete every `TODO` in `FORGE_SPEC.md`, review both files, and commit the clean
-scaffold before starting an agent. Omarchy can then hand the task to the user's
-configured agent:
+Replace every placeholder answer in `FORGE_SPEC.md`, review both files, change
+its status from `Draft` to `Ready for implementation`, and commit the completed
+specification as a rollback point before starting an agent. Omarchy can then
+hand the task to the user's configured agent:
 
 ```bash
 omarchy agent prompt \
