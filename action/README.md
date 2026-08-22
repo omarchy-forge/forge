@@ -4,8 +4,8 @@ This composite Action downloads an exact Forge release, verifies its SHA-256
 checksum, runs deterministic static checks, and emits GitHub error, warning, or
 notice annotations. It never executes plugin QML.
 
-> No stable Forge release or Action tag exists yet. The version below documents
-> the intended contract for the first authorized release.
+The Action and downloaded CLI must use the same reviewed release tag. For the
+first release:
 
 ```yaml
 permissions:
@@ -13,15 +13,15 @@ permissions:
 
 steps:
   - uses: actions/checkout@v6
-  - uses: omarchy-forge/forge/action@v1
+  - uses: omarchy-forge/forge/action@v0.1.0
     with:
-      version: v1.0.0
+      version: v0.1.0
       path: .
 ```
 
-Pin both the Action reference and `version` to reviewed releases. Moving tags
-such as `latest` are rejected. While the Forge repository is private, pass a
-token that can read its release assets:
+Pin both the Action reference and `version` to the same reviewed release.
+Moving tags such as `latest` are rejected. While the Forge repository is
+private, pass a token that can read its release assets:
 
 ```yaml
       github-token: ${{ secrets.GITHUB_TOKEN }}

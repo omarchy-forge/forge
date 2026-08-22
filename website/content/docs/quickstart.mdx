@@ -1,10 +1,10 @@
 ---
 title: Quickstart
-description: Build Forge from source, scaffold a plugin, and run both Forge and official validation.
+description: Install or build Forge, scaffold a plugin, and run both Forge and official validation.
 ---
 
-Forge is still unreleased. Until an authorized release exists, build the CLI
-from its private source checkout rather than inventing an installation URL.
+Forge `v0.1.0` is distributed as a private GitHub release. Access requires an
+authorized GitHub account while the repository remains private.
 
 ## Prerequisites
 
@@ -12,7 +12,21 @@ from its private source checkout rather than inventing an installation URL.
 - Go 1.23 or newer.
 - Git for local plugin installation and development.
 
-## Build the CLI
+## Download the private release
+
+```bash
+mkdir -p omaforge-v0.1.0
+cd omaforge-v0.1.0
+gh release download v0.1.0 --repo omarchy-forge/forge
+sha256sum --check checksums.txt
+tar -xzf omaforge_0.1.0_linux_amd64.tar.gz
+./omaforge version
+```
+
+Use `linux_arm64` instead on an ARM64 machine. Keep the binary in a user-owned
+location; Forge does not require `sudo` or install packages automatically.
+
+## Or build from source
 
 ```bash
 git clone https://github.com/omarchy-forge/forge.git

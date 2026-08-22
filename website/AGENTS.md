@@ -1,8 +1,8 @@
 # Website guidance
 
 - The root `AGENTS.md` applies to this directory.
-- Keep the website documentation-first, mostly static, and honest about the
-  unreleased state of Forge.
+- Keep the website documentation-first, mostly static, and honest about Forge's
+  current release and deployment state.
 - Do not add AI chat, analytics, tracking, feedback submission, authentication,
   databases, telemetry, or server-side user data without explicit approval.
 - All MDX pages require `title` and `description` frontmatter.

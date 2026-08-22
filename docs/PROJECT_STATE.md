@@ -18,8 +18,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
   checks passed).
-- No website deployment, domain connection, release, package publication, or
-  repository-visibility change has been authorized or performed.
+- No website deployment, domain connection, repository-visibility change, or
+  public announcement has been authorized or performed.
 
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
@@ -54,7 +54,8 @@ current.
 - Tag-driven Linux `amd64` and `arm64` release archives and checksums.
 - Least-privilege workflows with immutable Action references.
 - Release/Action integration tests and documentation.
-- Infrastructure exists, but no tag or release has been published.
+- Before the `v0.1.0` release candidate, the tag-driven infrastructure had been
+  verified without publishing a tag or release.
 
 ### Milestone 4 — documentation website
 
@@ -162,10 +163,10 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Keep the template set intentionally narrow until the service-plus-widget
-   revisit criteria are met or a different real-user need emerges.
-2. Decide separately whether Forge itself is ready for a first versioned
-   release; release creation remains approval-gated.
+1. Review and merge the Forge `v0.1.0` release-candidate metadata.
+2. Run the complete release baseline against the exact merged candidate commit.
+3. Create the `v0.1.0` tag and private GitHub release only after confirming the
+   exact tag target; visibility changes and announcements remain separate.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct
    approval-gated work.

@@ -7,9 +7,9 @@ security reporting feature for this repository. Include affected versions,
 reproduction steps, impact, and any suggested mitigation. Do not include real
 credentials or sensitive personal data.
 
-No released version is supported yet. Maintainers will acknowledge a report as
-soon as practical, investigate it, and coordinate disclosure after a fix or
-mitigation is available.
+The current `v0.1.x` release line receives security fixes. Maintainers will
+acknowledge a report as soon as practical, investigate it, and coordinate
+disclosure after a fix or mitigation is available.
 
 ## Security posture
 

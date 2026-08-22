@@ -11,6 +11,10 @@ branches and pull requests never publish releases.
 3. Run the complete local baseline, including `tests/release-action.sh`.
 4. Review the tag target and obtain explicit authorization to create a release.
 
+For `v0.1.0`, also verify `docs/RELEASE_NOTES_0.1.0.md` and confirm that the
+Action guide pins both the Action reference and downloaded version to
+`v0.1.0`.
+
 ## Artifacts
 
 The workflow cross-compiles static Linux binaries for `amd64` and `arm64` and
