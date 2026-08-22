@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `6e91409`, merging the isolated Quickshell harness
-  checkpoint pull request `#10`.
+- Latest merged commit: `4c9dc57`, merging the Forge `v0.1.0`
+  release-candidate pull request `#12`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -54,8 +54,14 @@ current.
 - Tag-driven Linux `amd64` and `arm64` release archives and checksums.
 - Least-privilege workflows with immutable Action references.
 - Release/Action integration tests and documentation.
-- Before the `v0.1.0` release candidate, the tag-driven infrastructure had been
-  verified without publishing a tag or release.
+- Private release `v0.1.0` is tagged at
+  `4c9dc57f753b1ba4d2167e3ce7022de1ae106f50` and published at
+  `https://github.com/omarchy-forge/forge/releases/tag/v0.1.0`.
+- The tag workflow built and published static Linux `amd64` and `arm64`
+  archives plus `checksums.txt`. Independent downloads passed checksum,
+  archive-content, architecture, and embedded build-metadata verification.
+- The release is neither draft nor prerelease and uses the reviewed release
+  notes in `docs/RELEASE_NOTES_0.1.0.md`.
 
 ### Milestone 4 — documentation website
 
@@ -163,10 +169,11 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge the Forge `v0.1.0` release-candidate metadata.
-2. Run the complete release baseline against the exact merged candidate commit.
-3. Create the `v0.1.0` tag and private GitHub release only after confirming the
-   exact tag target; visibility changes and announcements remain separate.
+1. Review and merge this Forge `v0.1.0` release checkpoint.
+2. Keep the website undeployed and both repositories private until those
+   boundaries are approved separately.
+3. Choose the next product milestone from real usage; do not expand the
+   template set without the evidence recorded in the roadmap.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct
    approval-gated work.
