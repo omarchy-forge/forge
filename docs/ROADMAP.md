@@ -39,6 +39,9 @@ Implemented and merged:
   archives and checksums.
 - Public Forge `v0.2.0` release with the completed Milestone 6 trusted local
   development workflow and independently verified Linux archives.
+- Public Forge `v0.3.0` release with provider-neutral agent-ready scaffolding,
+  a human-controlled specification gate, and independently verified Linux
+  archives.
 
 ## Milestone 4: documentation website
 
@@ -87,8 +90,8 @@ and cleanup verification without changing those distribution boundaries.
 ## Later milestones
 
 - Milestone 7 agent-ready scaffolding: opt-in structured specifications,
-  acceptance criteria, and project-scoped agent safety guidance are implemented
-  without adding an AI provider or automatic agent launch.
+  acceptance criteria, and project-scoped agent safety guidance are released
+  in Forge `v0.3.0` without adding an AI provider or automatic agent launch.
 - Milestone 6 local development tooling: the first one-shot trusted
   `omaforge dev` runtime check and fictional ready/empty/error state simulation
   are implemented, along with deterministic plugin-only PNG capture and

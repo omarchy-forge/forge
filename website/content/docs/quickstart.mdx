@@ -19,12 +19,12 @@ You do not need Go or `sudo` to use the published Forge release.
 ## Install Forge
 
 Copy this entire block into the Omarchy terminal. It detects whether the machine
-uses an AMD/Intel or ARM processor, downloads only the matching Forge `v0.2.0`
+uses an AMD/Intel or ARM processor, downloads only the matching Forge `v0.3.0`
 archive, verifies its checksum, and installs it for your user:
 
 ```bash
 set -eu
-version="0.2.0"
+version="0.3.0"
 case "$(uname -m)" in
   x86_64) arch="amd64" ;;
   aarch64|arm64) arch="arm64" ;;
@@ -46,9 +46,18 @@ This changes only `~/.local/bin/omaforge`. If a new terminal says that
 
 ## Create a bar widget
 
+For the normal scaffold:
+
 ```bash
 cd "$HOME"
 omaforge init project-pulse --git
+```
+
+Or, for the agent-ready scaffold instead:
+
+```bash
+cd "$HOME"
+omaforge init project-pulse --git --agent-ready
 ```
 
 Forge asks for the remaining information. Use a unique reverse-domain plugin ID
@@ -57,6 +66,13 @@ defaults.
 
 Forge refuses dangerous targets, symlinked output trees, and unexpected files.
 Use `--dry-run` to preview the complete write plan without creating anything.
+
+The optional `--agent-ready` path creates a structured `FORGE_SPEC.md` and
+project-scoped `AGENTS.md` without contacting or launching an AI service.
+Complete the specification, change its status from `Draft` to
+`Ready for implementation`, commit that rollback point, and follow the
+[agent-ready workflow](/docs/templates#agent-ready-projects) before executing
+any agent-written QML.
 
 ## Check and validate
 

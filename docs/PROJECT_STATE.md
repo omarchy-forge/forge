@@ -28,12 +28,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
 
-Forge `v0.2.0` is published from exact commit
-`f8f5cb9971ac4966afc418229d9e9902dbb5e09d`. Its tag workflow passed, and
+Forge `v0.3.0` is published from exact commit
+`39be22071c569c8e8d1bb40df8e7a0cdeebbafe5`. Its tag workflow passed, and
 independent downloads verified both archive checksums, amd64 and arm64 ELF
 architectures, archive contents, and embedded amd64 build metadata. The public
-release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.2.0` and
-uses the reviewed `docs/RELEASE_NOTES_0.2.0.md` description.
+release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.3.0` and
+uses the reviewed `docs/RELEASE_NOTES_0.3.0.md` description.
 
 ## Delivered milestones
 
@@ -227,7 +227,7 @@ was browser-verified with no framework overlay, console errors, or page errors.
 
 ## Agent-ready scaffolding checkpoint
 
-The next-release `omaforge init --agent-ready` option conditionally adds exactly
+The released `omaforge init --agent-ready` option conditionally adds exactly
 two files to the unchanged bar-widget scaffold: `FORGE_SPEC.md` captures the
 product, data, privacy, state, failure, timeout, and acceptance boundary;
 `AGENTS.md` constrains a coding agent to the project and prohibits QML execution,
@@ -235,8 +235,7 @@ installation, privileged operations, and unapproved capability expansion.
 Forge does not select or invoke an agent and adds no provider dependency,
 credential, or network path. Focused CLI and scaffold tests pass, and a real
 agent-ready output passed both `omaforge check` and the installed official
-Omarchy validator. This capability is implemented on `main` for the next
-release and is not part of public `v0.2.0`.
+Omarchy validator. This capability is published in Forge `v0.3.0`.
 
 An end-to-end static dogfood pass generated a disposable local-only disk-space
 widget specification and implemented it while following the generated agent
@@ -249,6 +248,11 @@ uses an explicit human-controlled `Draft` to `Ready for implementation` status
 gate, and its allowed static commands include the generated `./tests/run`
 entry point. The installed `omarchy agent prompt` command was inspected but no
 agent was launched automatically.
+
+The public `v0.3.0` amd64 binary independently generated an agent-ready sample
+from the downloaded release archive. Both generated contract files contained
+the expected readiness gate, and the sample passed `omaforge check` plus the
+installed official validator without executing QML.
 
 ## Standing boundaries
 
@@ -266,8 +270,8 @@ agent was launched automatically.
 
 1. Keep Handoff private. The documentation website and custom domain are live
    at `https://www.omarchyforge.com`.
-2. Prepare and review the next Forge release, including release notes and the
-   full baseline, before documenting agent-ready scaffolding as available in a
-   public binary. Tagging and publication still require explicit authorization.
+2. Choose the next product milestone from real usage. Do not expand the
+   template set without the evidence and revisit criteria recorded in the
+   roadmap.
 3. Ongoing local installation, marketplace submission, announcement, and any
    Handoff visibility change remain distinct approval-gated work.
