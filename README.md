@@ -47,6 +47,7 @@ omaforge dev ./my-plugin --trust-plugin-code
 omaforge dev ./my-plugin --trust-plugin-code --state ready
 omaforge dev ./my-plugin --trust-plugin-code --state empty
 omaforge dev ./my-plugin --trust-plugin-code --state error
+omaforge dev ./my-plugin --trust-plugin-code --state ready --watch
 ```
 
 The optional state is applied only in memory inside the temporary runtime. This
@@ -61,6 +62,9 @@ omaforge screenshot ./my-plugin --trust-plugin-code --state ready --output previ
 ```
 
 Forge refuses to overwrite an existing screenshot.
+
+Watch mode hashes regular project files except `.git`, reruns the isolated
+harness after changes, survives failed development runs, and stops on Ctrl-C.
 
 ## GitHub Action and releases
 

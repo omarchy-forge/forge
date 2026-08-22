@@ -59,6 +59,7 @@ Quickshell entry-point test on an Omarchy machine:
 # Or, with Forge on PATH:
 omaforge dev . --trust-plugin-code
 omaforge dev . --trust-plugin-code --state ready
+omaforge dev . --trust-plugin-code --state ready --watch
 omaforge screenshot . --trust-plugin-code --state ready --output assets/preview.png
 ```
 
@@ -70,6 +71,8 @@ The optional `--state ready|empty|error` path exercises fictional in-memory UI
 states in the same isolated runtime without persisting data.
 Screenshot capture uses the template-declared panel content item and never
 captures the desktop. It refuses to overwrite an existing PNG.
+Watch mode reruns the same isolated harness after project changes and stops on
+Ctrl-C; it does not install the plugin into the live shell.
 
 Saving files below the installed user-plugin directory triggers shell reload in
 the verified Omarchy 4 contract. `omarchy-shell shell rescanPlugins` forces a

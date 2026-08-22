@@ -8,6 +8,8 @@
   `omaforge dev` without installing the plugin or persisting state.
 - Add deterministic plugin-only PNG capture through a template-declared Qt
   Quick item, with no desktop capture and no overwrite behavior.
+- Add debounced `omaforge dev --watch` sessions that rerun fresh isolated
+  harnesses after local project changes and stop cleanly on Ctrl-C.
 
 ## [0.1.0] - 2026-08-22
 

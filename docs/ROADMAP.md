@@ -78,8 +78,8 @@ use.
 
 - Milestone 6 local development tooling: the first one-shot trusted
   `omaforge dev` runtime check and fictional ready/empty/error state simulation
-  are implemented, along with deterministic plugin-only PNG capture; file
-  watching remains a later increment.
+  are implemented, along with deterministic plugin-only PNG capture and
+  isolated file-watching sessions.
 - Documentation website deployment and domain connection, only with explicit
   approval.
 - Any Handoff marketplace submission, public announcement, visibility change,

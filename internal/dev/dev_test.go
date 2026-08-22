@@ -2,10 +2,13 @@ package dev
 
 import (
 	"bytes"
+	"context"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestRunExecutesTrustedHarness(t *testing.T) {
@@ -28,6 +31,50 @@ func TestRunExecutesTrustedHarness(t *testing.T) {
 	if output.String() != want {
 		t.Fatalf("output = %q, want %q", output.String(), want)
 	}
+}
+
+func TestWatchRerunsAfterChangeAndStops(t *testing.T) {
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "tests"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "manifest.json"), []byte("{}\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	counter := filepath.Join(t.TempDir(), "runs")
+	script := "printf x >> " + counter + "\n"
+	if err := os.WriteFile(filepath.Join(root, "tests", "runtime"), []byte(script), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	done := make(chan error, 1)
+	go func() { done <- Watch(ctx, root, "ready", strings.NewReader(""), io.Discard, io.Discard) }()
+	waitForSize(t, counter, 1)
+	if err := os.WriteFile(filepath.Join(root, "Panel.qml"), []byte("Item {}\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	waitForSize(t, counter, 2)
+	cancel()
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("watch did not stop")
+	}
+}
+
+func waitForSize(t *testing.T, path string, minimum int64) {
+	t.Helper()
+	deadline := time.Now().Add(3 * time.Second)
+	for time.Now().Before(deadline) {
+		if info, err := os.Stat(path); err == nil && info.Size() >= minimum {
+			return
+		}
+		time.Sleep(25 * time.Millisecond)
+	}
+	t.Fatalf("%s did not reach size %d", path, minimum)
 }
 
 func TestRunRejectsMissingHarness(t *testing.T) {
