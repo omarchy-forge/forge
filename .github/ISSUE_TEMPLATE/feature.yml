@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a focused improvement to Omarchy Forge
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What plugin-development problem should Forge solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the local CLI workflow and expected output.
+    validations:
+      required: true
+  - type: textarea
+    id: upstream
+    attributes:
+      label: Upstream relationship
+      description: Explain any overlap with official Omarchy commands or contracts.
