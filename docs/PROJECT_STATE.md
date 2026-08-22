@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `ec15382`, merging Milestone 4 pull request `#4`.
-- Post-merge checkpoint branch: `docs/m4-merge-checkpoint`.
+- Latest merged commit: `e885565`, merging the Milestone 4 checkpoint pull
+  request `#5`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -70,6 +70,34 @@ current.
 - Desktop and mobile Chromium renders, route content, dev-server output, and the
   production build were verified locally.
 
+### Milestone 5 — Handoff flagship plugin
+
+- Private separate repository: `omarchy-forge/handoff`.
+- Main-branch checkpoint: `90e5981` (`docs: add verified Handoff preview`).
+- Local-first Omarchy bar widget for pinning Git projects, saving one next-step
+  note, showing branch/dirty/latest-commit context, and opening a terminal.
+- Atomic state under the user's XDG data directory, with no server, account,
+  API key, telemetry, analytics, or required network access.
+- Official validation, Forge checking, private CI, isolated Quickshell tests,
+  and a controlled Omarchy 4 live session passed.
+- The live session found and fixed missing-state handling in `1a71b44`, tested
+  ready/empty/error states and keyboard behavior, and produced a fictional
+  panel-only preview.
+- Cleanup restored `shell.json` byte-for-byte, removed the plugin and test data,
+  and left `omarchy-shell shell ping` healthy.
+- Handoff has not been tagged, released, installed for ongoing use, submitted
+  to a marketplace, or announced publicly.
+
+## Forge feedback from Handoff
+
+Dogfooding recorded three follow-up opportunities; none is implemented yet:
+
+1. Allow `omaforge init` to treat a freshly cloned, `.git`-only directory as an
+   empty target without requiring `--force`.
+2. Consider a service-plus-widget template for stateful plugins.
+3. Provide a reusable isolated Quickshell entry-point harness for generated
+   projects.
+
 ## Current verification baseline
 
 The Milestone 4 branch passed:
@@ -117,8 +145,9 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge this post-M4 documentation checkpoint through the normal
-   pull-request workflow.
-2. Plan the next milestone separately from the completed documentation build.
-3. Website deployment and connection of
-   `omarchyforge.com` remain distinct approval-gated work.
+1. Review and merge this Milestone 5 documentation checkpoint through the
+   normal pull-request workflow.
+2. Decide separately whether Handoff is ready for a first versioned release.
+3. A tag, GitHub release, ongoing local installation, marketplace submission,
+   announcement, website deployment, and connection of `omarchyforge.com` each
+   remain distinct approval-gated work.

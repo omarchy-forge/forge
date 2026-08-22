@@ -46,11 +46,31 @@ Implemented and merged:
 - Static-first architecture without accounts, tracking, or AI chat.
 - No deployment or domain connection without explicit approval.
 
+## Milestone 5: Handoff flagship plugin
+
+Implemented in the private, separate `omarchy-forge/handoff` repository:
+
+- Pin a local Git project and save one next-step note.
+- Record branch, clean/dirty state, latest commit, and timestamps.
+- Open the selected project in the configured terminal.
+- Store state atomically under the user's XDG data directory.
+- Run without a server, account, telemetry, API key, or required network.
+- Pass official validation, Forge checks, private CI, isolated runtime tests,
+  and a cleanup-verified Omarchy 4 live session.
+
+Handoff remains unreleased and unannounced.
+
+## Forge follow-ups from Handoff
+
+- Accept `.git`-only targets without requiring `--force`.
+- Evaluate a service-plus-widget template.
+- Evaluate a reusable isolated Quickshell entry-point harness.
+
 ## Later milestones
 
 - Documentation website deployment and domain connection, only with explicit
   approval.
-- A separately released Handoff reference plugin.
+- A separately approved first Handoff release.
 - Additional templates after the first template is proven.
 - Trusted local preview, demo, and screenshot tooling.
 

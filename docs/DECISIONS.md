@@ -140,3 +140,22 @@ The planned `omarchyforge.com` origin is not hard-coded as a deployed fact. A
 canonical URL is supplied through `NEXT_PUBLIC_SITE_URL` when deployment is
 separately authorized; local builds fall back to localhost. Building the site
 does not create a Vercel project, deployment, domain, or environment variable.
+
+## D-014: Separate, local-first Handoff repository
+
+Status: accepted, 2026-08-22.
+
+The flagship Handoff plugin lives in the separate private repository
+`omarchy-forge/handoff`. It has an independent installation and eventual
+release boundary and does not belong inside the Forge monorepo.
+
+The MVP is one Omarchy `bar-widget` with a native popout. It invokes Git and
+the terminal through array-form process arguments, never interpolated shell
+commands. It stores canonical project paths, one note, and Git metadata in an
+atomically written versioned JSON file under the user's XDG data directory.
+It does not execute pinned-project code, hooks, build scripts, or QML and has
+no server, account, API key, telemetry, analytics, or required network access.
+
+Repository implementation and private CI do not imply release. Tags, GitHub
+releases, marketplace submission, installation for ongoing use, visibility
+changes, and announcements remain separate explicit actions.
