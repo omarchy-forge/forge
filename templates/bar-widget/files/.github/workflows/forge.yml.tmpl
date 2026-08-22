@@ -1,0 +1,19 @@
+name: Plugin checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate repository structure
+        run: |
+          jq -e . manifest.json >/dev/null
+          bash -n demo/run tests/run
+          test -z "$(find . -name .git -prune -o -type l -print -quit)"

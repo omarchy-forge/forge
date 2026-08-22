@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": {{jsonString .ID}},
+  "name": {{jsonString .Name}},
+  "version": "0.1.0",
+  "author": {{jsonString .Author}},
+  "license": "MIT",
+  "description": {{jsonString .Description}},
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": {{jsonString .Name}},
+    "description": {{jsonString .Description}},
+    "category": "Development",
+    "allowMultiple": false,
+    "defaultSection": {{jsonString .Section}},
+    "defaults": {
+      "refreshIntervalSec": 60
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 10,
+        "max": 3600,
+        "step": 10,
+        "defaultValue": 60
+      }
+    ]
+  }
+}

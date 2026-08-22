@@ -1,0 +1,16 @@
+.github/workflows/forge.yml -rw-r--r-- 3006cb25d7331520ade3b2f49884d34d2d6f93102d5cb370f92ab49c62dd23dc
+.gitignore -rw-r--r-- f06b59a77e67459b566b960717db9adb0f0bd704ef2462674c0faf52acac00db
+CHANGELOG.md -rw-r--r-- c128e108eb91781e2a5dd4081d1da6e6b398f721c4bb94016d8bf2b1e2bf7128
+LICENSE -rw-r--r-- 909927fb9a0d576846b3261d220b5af4effce30cdf63edaa3b1cdaa3046c541d
+Panel.qml -rw-r--r-- 322f46fe96b30f56f25c2aaf2385601ca89b5610e687a417741693b72186ebbe
+README.md -rw-r--r-- 550ae29e525a6fe67a12ee7a996384ac6575c9759a332f2910c615c718a0e926
+assets/icon.svg -rw-r--r-- 5ba73939c148416107732a0d4c530278c66a98af83d2991c9040e0f9aa8e633a
+components/DetailsPopout.qml -rw-r--r-- 0ee9fabfee6d1e0ba6a14d75fa42fee4b3fcd175b94207f9a29fa6d4ea203786
+components/EmptyState.qml -rw-r--r-- 33d1155754b1230ee25bfd6479ff0e5a4537fd2985bb63e0ff47b69b549350f3
+components/ErrorState.qml -rw-r--r-- 1068f67fca7b006abd79755c69c8802b21938d3e8a6e1d5b05e5243b697e8364
+components/LoadingState.qml -rw-r--r-- 5938acef3c610a3675806a89f55005d82daf23d83676dd2d20e28a6718c0c740
+demo/fixtures.json -rw-r--r-- 6faaeaf17f66df9f0bfa22a9829604a1e0c57d9a817c6214b206a3b6f918b750
+demo/run -rwxr-xr-x 2a39f73eaa60c86ff39a34e7ce16b1000b95f824919e31ec34fe0de65f37e3b6
+manifest.json -rw-r--r-- 9b31852e9f00ef44c44aa3d13ed5201eedb4e76994d709812e3eebbe80c33655
+services/DataService.qml -rw-r--r-- 05cea24148d05fded3361c82b7f846d9e7428c5521cb37fbb8d9d60b14e78149
+tests/run -rwxr-xr-x 96cf6755de1771b6ffdc2e169916ebff77d328f24c3e53c30513b63e4350655c

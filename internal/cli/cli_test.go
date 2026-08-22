@@ -10,7 +10,7 @@ func TestRunHelp(t *testing.T) {
 	for _, args := range [][]string{nil, {"--help"}, {"-h"}} {
 		t.Run(strings.Join(args, "_"), func(t *testing.T) {
 			var stdout, stderr bytes.Buffer
-			code := Run(args, &stdout, &stderr, BuildInfo{})
+			code := Run(args, strings.NewReader(""), &stdout, &stderr, BuildInfo{})
 			if code != 0 {
 				t.Fatalf("Run() code = %d, want 0", code)
 			}
@@ -27,7 +27,7 @@ func TestRunHelp(t *testing.T) {
 func TestRunVersion(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	info := BuildInfo{Version: "v1.2.3", Commit: "abc123", BuildDate: "2026-08-22"}
-	code := Run([]string{"version"}, &stdout, &stderr, info)
+	code := Run([]string{"version"}, strings.NewReader(""), &stdout, &stderr, info)
 
 	if code != 0 {
 		t.Fatalf("Run() code = %d, want 0", code)
@@ -43,7 +43,7 @@ func TestRunVersion(t *testing.T) {
 
 func TestRunDevelopmentVersion(t *testing.T) {
 	var stdout bytes.Buffer
-	code := Run([]string{"version"}, &stdout, ioDiscard{}, BuildInfo{})
+	code := Run([]string{"version"}, strings.NewReader(""), &stdout, ioDiscard{}, BuildInfo{})
 
 	if code != 0 {
 		t.Fatalf("Run() code = %d, want 0", code)
@@ -67,7 +67,7 @@ func TestRunErrors(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			var stdout, stderr bytes.Buffer
-			code := Run(test.args, &stdout, &stderr, BuildInfo{})
+			code := Run(test.args, strings.NewReader(""), &stdout, &stderr, BuildInfo{})
 			if code == 0 {
 				t.Fatal("Run() code = 0, want nonzero")
 			}

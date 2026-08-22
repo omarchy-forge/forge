@@ -13,6 +13,8 @@ For code changes:
 1. Add or update tests for behavior.
 2. Run `gofmt` on Go files.
 3. Run `go test ./...`, `go vet ./...`, and `go build ./cmd/omaforge`.
+   Template changes must also update and review the golden tree and validate a
+   generated sample with the official Omarchy validator when available.
 4. Update compatibility evidence or decision records when applicable.
 5. Keep documentation honest about what is implemented.
 

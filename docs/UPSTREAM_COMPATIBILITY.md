@@ -139,5 +139,38 @@ IPC command remains an explicit fallback. The shell persists customization in
 - The richer official Basecamp third-party plugin was not present locally and
   was not needed for the Milestone 0 executable. It should be inspected at a
   pinned official revision before designing the first template.
-- Runtime compatibility of a future generated plugin remains untested because
-  Milestone 0 intentionally contains no template and executes no QML.
+- Milestone 0 intentionally contained no template and executed no QML. The
+  Milestone 1 checks below supersede that earlier runtime limitation.
+
+## Milestone 1 follow-up inspection
+
+On 2026-08-22, template work also inspected these pinned official revisions:
+
+- Omarchy `quattro`: `ed7bae4ac5a570e9df307486e0202fdafcc6ee24`.
+- Basecamp plugin: `abc1ba72aaf47db530d2a0c6901d99f0f98e6aa7`.
+
+The upstream checkout supplied the validator, registry, manifest entry-point,
+and bar-widget contract tests missing from the installed package. The Basecamp
+plugin confirmed current practices for `Panel`, `BarIconButton`,
+`KeyboardPanel`, `PanelKeyCatcher`, array-form `Process.command` values, inline
+settings, fictional demo data, local-path installation, privacy documentation,
+and QML tests.
+
+A Forge-generated sample passed the installed `omarchy plugin validate`
+command. Its actual entry point was then instantiated using the pinned
+Omarchy bar-widget contract harness with an isolated temporary home and config.
+The harness confirmed delayed bar/settings injection, finite dimensions, safe
+refresh/close calls, and horizontal-to-vertical geometry changes.
+
+A guarded manual session then installed a generated Git-backed sample through
+`omarchy plugin add`, exercised top, bottom, left, and right bar positions,
+keyboard refresh and close behavior, a light theme, disable/re-enable, and
+removal. The generated `demo/run` script was also verified visually in its
+ready, empty, and error states. Its demo state is applied to the live widget
+through the widget's `IpcHandler`; it does not rely on transient environment
+variables, restart the shell, or persist demo configuration.
+
+The manual session backed up `shell.json` before each mutation and restored it
+byte-for-byte afterward. The pre- and post-test SHA-256 values were identical,
+the plugin was absent after cleanup, the original Aether theme and workspace
+were restored, and `omarchy-shell shell ping` returned `ok`.

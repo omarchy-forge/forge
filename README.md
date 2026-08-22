@@ -5,13 +5,23 @@ Developer tools for building, testing, and shipping Omarchy plugins.
 > Omarchy Forge is an independent community project. It is not affiliated with
 > or endorsed by Omarchy, Basecamp, 37signals, or DHH.
 
-Omarchy Forge is in early development. The first goal is a reliable plugin
-scaffold and validation workflow that complements the official
-`omarchy plugin validate` command.
+Omarchy Forge is in early development. Its first working artifact is a safe,
+deterministic scaffold for an Omarchy bar widget with a popout. Generated
+projects complement the official `omarchy plugin validate` command rather than
+replacing it.
 
-Milestone 0 provides the repository foundation and a minimal `omaforge` CLI.
-At this stage, the CLI only exposes help and development build information; it
-does not yet generate or validate plugins.
+## Create a plugin
+
+```bash
+omaforge init project-pulse \
+  --id dev.example.project-pulse \
+  --author "Example Developer"
+```
+
+Run `omaforge init --help` for interactive and noninteractive options,
+including `--dry-run`, section selection, optional CI, and local Git
+initialization. Forge refuses dangerous targets and nonempty directories unless
+the generated-file collisions are explicitly previewed with `--force`.
 
 ## Build and run
 
