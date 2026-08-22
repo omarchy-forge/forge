@@ -38,7 +38,7 @@ Implemented and merged:
 
 ## Milestone 4: documentation website
 
-In development on `feat/documentation-website`:
+Implemented and merged:
 
 - Distinct homepage and complete initial documentation navigation.
 - Quickstart, templates, commands, anatomy, manifest, and compatibility guides.

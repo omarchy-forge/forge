@@ -12,11 +12,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `548260d`, merging Milestone 3.
-- Active branch: `feat/documentation-website`.
+- Latest merged commit: `ec15382`, merging Milestone 4 pull request `#4`.
+- Post-merge checkpoint branch: `docs/m4-merge-checkpoint`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
-- Milestone 4 pull request: `#4` (open at the latest checkpoint; not merged).
+- Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
+  checks passed).
 - No website deployment, domain connection, release, package publication, or
   repository-visibility change has been authorized or performed.
 
@@ -55,7 +56,7 @@ current.
 - Release/Action integration tests and documentation.
 - Infrastructure exists, but no tag or release has been published.
 
-### Milestone 4 — documentation website (branch complete)
+### Milestone 4 — documentation website
 
 - Static-first Next.js 16, React 19, Geistdocs, Fumadocs, and MDX website under
   `website/`.
@@ -116,9 +117,8 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Let the required checks on Milestone 4 pull request `#4` complete;
-   investigate failures before merge.
-2. Merge only with explicit user approval.
-3. After merge, update this file and `ROADMAP.md` to record the merged commit.
-4. Plan the next milestone separately. Website deployment and connection of
+1. Review and merge this post-M4 documentation checkpoint through the normal
+   pull-request workflow.
+2. Plan the next milestone separately from the completed documentation build.
+3. Website deployment and connection of
    `omarchyforge.com` remain distinct approval-gated work.
