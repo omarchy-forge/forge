@@ -202,3 +202,14 @@ shape.
 The evaluation in `SERVICE_WIDGET_EVALUATION.md` records the evidence and
 revisit criteria. Until one criterion is met, the supported bar-widget template
 remains intentionally singular.
+
+## D-018: Public Forge, private Handoff
+
+Status: accepted, 2026-08-22.
+
+The `omarchy-forge/forge` repository and its `v0.1.0` release are public. The
+separate `omarchy-forge/handoff` repository and release remain private.
+
+Forge visibility does not authorize a website deployment, connection of
+`omarchyforge.com`, marketplace submission, Handoff visibility change, or a
+public launch announcement. Those remain separate approval-gated actions.

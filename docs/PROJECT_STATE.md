@@ -10,16 +10,17 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 ## Repository state
 
-- Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
+- Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Latest merged commit: `4c9dc57`, merging the Forge `v0.1.0`
-  release-candidate pull request `#12`.
+- Latest completed checkpoint before this update: README architecture image pull
+  request `#14`, merged as `ff7bcf9`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
   checks passed).
-- No website deployment, domain connection, repository-visibility change, or
-  public announcement has been authorized or performed.
+- Forge's public visibility has been authorized and applied. No website
+  deployment, domain connection, Handoff visibility change, marketplace
+  submission, or public launch announcement has been authorized or performed.
 
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
@@ -54,7 +55,7 @@ current.
 - Tag-driven Linux `amd64` and `arm64` release archives and checksums.
 - Least-privilege workflows with immutable Action references.
 - Release/Action integration tests and documentation.
-- Private release `v0.1.0` is tagged at
+- Public release `v0.1.0` is tagged at
   `4c9dc57f753b1ba4d2167e3ce7022de1ae106f50` and published at
   `https://github.com/omarchy-forge/forge/releases/tag/v0.1.0`.
 - The tag workflow built and published static Linux `amd64` and `arm64`
@@ -169,10 +170,9 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge this Forge `v0.1.0` release checkpoint.
-2. Keep the website undeployed and both repositories private until those
-   boundaries are approved separately.
-3. Choose the next product milestone from real usage; do not expand the
+1. Keep the website undeployed and Handoff private until those boundaries are
+   approved separately.
+2. Choose the next product milestone from real usage; do not expand the
    template set without the evidence recorded in the roadmap.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct

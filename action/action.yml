@@ -15,7 +15,7 @@ inputs:
     required: false
     default: omarchy-forge/forge
   github-token:
-    description: Token for downloading releases from a private repository.
+    description: Optional token for downloading releases from a private fork.
     required: false
     default: ""
 

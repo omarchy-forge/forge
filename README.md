@@ -43,8 +43,8 @@ omaforge doctor .
 
 The repository contains a composite check Action and a tag-driven Linux release
 pipeline. The Action downloads an exact release version, verifies its checksum,
-and emits pull-request annotations. Forge releases remain private unless a
-separate visibility change is explicitly approved. See the
+and emits pull-request annotations. Forge and its release assets are public;
+Handoff remains a separate private project. See the
 [Action guide](action/README.md) and [release process](docs/RELEASING.md).
 
 ## Documentation website

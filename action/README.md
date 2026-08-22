@@ -20,8 +20,9 @@ steps:
 ```
 
 Pin both the Action reference and `version` to the same reviewed release.
-Moving tags such as `latest` are rejected. While the Forge repository is
-private, pass a token that can read its release assets:
+Moving tags such as `latest` are rejected. Public Forge release assets require
+no token. If using the Action from a private fork, pass a token that can read
+that fork's release assets:
 
 ```yaml
       github-token: ${{ secrets.GITHUB_TOKEN }}
