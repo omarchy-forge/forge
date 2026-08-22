@@ -40,6 +40,16 @@ read-only inspection of installed third-party manifests
 returned an unknown-command message. `OMARCHY_PATH` was already set to
 `/usr/share/omarchy`.
 
+## Omarchy coding-agent command
+
+Agent-ready scaffolding work on 2026-08-22 verified the installed command
+contract without launching an agent. `omarchy agent --help` lists
+`omarchy agent prompt [--inline] <prompt...>`, and the installed
+`/usr/share/omarchy/bin/omarchy-agent-prompt` requires a nonempty prompt before
+delegating to the user's default `omarchy-agent` configuration. Forge can
+document that local handoff command without selecting a provider, handling
+credentials, or invoking it automatically.
+
 ## Source files inspected
 
 - `/usr/share/omarchy/shell/README.md`

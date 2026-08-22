@@ -1,9 +1,10 @@
 # Agent instructions for {{markdown .Name}}
 
 Build the plugin described in `FORGE_SPEC.md` while preserving the generated
-Forge and Omarchy safety contracts. Stop and ask the user if the specification
-still contains `TODO`, conflicts with these instructions, or requires behavior
-outside the generated bar-widget template.
+Forge and Omarchy safety contracts. Stop and ask the user unless its
+`Specification status` is exactly `Ready for implementation`. Also stop if the
+specification has unanswered placeholders, conflicts with these instructions,
+or requires behavior outside the generated bar-widget template.
 
 ## Scope
 
@@ -47,6 +48,7 @@ outside the generated bar-widget template.
 Run these static checks after editing:
 
 ```bash
+./tests/run
 omaforge check .
 omarchy plugin validate .
 ```

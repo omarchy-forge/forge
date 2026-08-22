@@ -129,6 +129,8 @@ func TestGenerateAgentReadyAddsSpecificationAndGuardrails(t *testing.T) {
 		{
 			path: "FORGE_SPEC.md",
 			required: []string{
+				"Specification status: Draft",
+				"change the status above to `Ready for implementation`",
 				"Active project status at a glance",
 				"The plugin ID remains `dev.example.project-pulse`",
 				"Never place credentials",
@@ -138,8 +140,10 @@ func TestGenerateAgentReadyAddsSpecificationAndGuardrails(t *testing.T) {
 		{
 			path: "AGENTS.md",
 			required: []string{
+				"`Specification status` is exactly `Ready for implementation`",
 				"Do not install, enable, remove, or publish the plugin",
 				"Do not run `omaforge dev`",
+				"./tests/run",
 				"omaforge check .",
 				"The user—not the agent—decides",
 			},

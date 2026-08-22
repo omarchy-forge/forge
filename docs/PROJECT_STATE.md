@@ -235,6 +235,18 @@ agent-ready output passed both `omaforge check` and the installed official
 Omarchy validator. This capability is implemented on `main` for the next
 release and is not part of public `v0.2.0`.
 
+An end-to-end static dogfood pass generated a disposable local-only disk-space
+widget specification and implemented it while following the generated agent
+contract. The project tests, Forge check, and installed official validator all
+passed without executing QML, installing the plugin, or changing shell
+configuration. Dogfooding found that the original instruction to stop while
+`FORGE_SPEC.md` contained the word `TODO` was self-contradictory because the
+file's explanatory text retained that word after completion. The template now
+uses an explicit human-controlled `Draft` to `Ready for implementation` status
+gate, and its allowed static commands include the generated `./tests/run`
+entry point. The installed `omarchy agent prompt` command was inspected but no
+agent was launched automatically.
+
 ## Standing boundaries
 
 - Keep the CLI local-first, deterministic, and network-independent by default.

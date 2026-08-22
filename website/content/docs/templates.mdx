@@ -53,14 +53,17 @@ omaforge init my-widget --git --agent-ready
 cd my-widget
 ```
 
-The opt-in flag adds `FORGE_SPEC.md` and `AGENTS.md`. Complete every `TODO` in
-the specification before involving an agent. The generated guardrails restrict
-the agent to the project, preserve the manifest and runtime contracts, allow
-static validation, and reserve QML execution and installation for the user.
+The opt-in flag adds `FORGE_SPEC.md` and `AGENTS.md`. Replace every placeholder
+answer in the specification, review both files, and change its status from
+`Draft` to `Ready for implementation` before involving an agent. The generated
+guardrails restrict the agent to the project, preserve the manifest and runtime
+contracts, allow static validation, and reserve QML execution and installation
+for the user.
 
 Forge does not choose a model, contact an AI service, collect a prompt, or
-launch an agent. After reviewing the two files and committing the clean
-scaffold, an Omarchy user may explicitly hand it to their configured agent:
+launch an agent. After reviewing the two files and committing the completed
+specification as a rollback point, an Omarchy user may explicitly hand it to
+their configured agent:
 
 ```bash
 omarchy agent prompt \

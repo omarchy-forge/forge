@@ -306,6 +306,9 @@ The generated contract permits agents to edit product-specific code and run
 static Forge and official validation. It prohibits QML execution, plugin
 installation, live-shell mutation, privileged operations, and unapproved
 expansion into networking, persistence, authentication, or secret handling.
+The specification starts with an explicit `Draft` status; the generated agent
+must not implement it until a human changes that status to
+`Ready for implementation` after resolving and reviewing every placeholder.
 Because instructions are not a sandbox and Omarchy prompt tasks may run
 unattended, a human must complete the specification, commit a rollback point,
 review the resulting diff, and explicitly decide whether to trust and execute
