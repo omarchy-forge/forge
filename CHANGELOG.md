@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.3.0] - 2026-08-22
+
 - Add opt-in `omaforge init --agent-ready` scaffolding with a structured
   `FORGE_SPEC.md`, acceptance criteria, and project-scoped `AGENTS.md` safety
   contract. Forge does not contact or automatically launch an AI agent.
@@ -45,3 +47,4 @@
 
 [0.1.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.1.0
 [0.2.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.2.0
+[0.3.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.3.0
