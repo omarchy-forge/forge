@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `4ec5783`, merging the `.git`-only scaffold-target pull
-  request `#8`.
+- Latest merged commit: `a131c0c`, merging the isolated Quickshell harness pull
+  request `#9`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -100,8 +100,8 @@ current.
 
 ## Forge feedback from Handoff
 
-Dogfooding recorded three follow-up opportunities. The first is merged and the
-third is implemented on the current development branch:
+Dogfooding recorded three follow-up opportunities. The first and third are
+merged:
 
 1. `omaforge init` treats a freshly cloned, `.git`-only directory as an empty
    target without requiring `--force`, while preserving the Git metadata.
@@ -156,10 +156,9 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Review and merge the isolated Quickshell harness through the normal
-   pull-request workflow.
-2. Evaluate the remaining service-plus-widget template opportunity after that
-   change is merged.
+1. Evaluate the remaining service-plus-widget template opportunity.
+2. Decide whether the evidence justifies adding that second template or keeping
+   it deferred.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct
    approval-gated work.
