@@ -1,6 +1,6 @@
 # Omarchy Forge 0.1.0 release notes
 
-Omarchy Forge `v0.1.0` is the first private source release of the local-first
+Omarchy Forge `v0.1.0` is the first public release of the local-first
 developer toolchain for building, checking, and shipping Omarchy plugins.
 
 ## Included
@@ -29,9 +29,8 @@ plugin QML. The optional generated runtime test requires the literal
 `--trust-plugin-code` acknowledgement and isolates HOME, XDG state, logs, and
 the process group.
 
-The release does not deploy the website, connect `omarchyforge.com`, change
-repository visibility, submit anything to a marketplace, or announce Forge
-publicly.
+The release does not deploy the website, connect `omarchyforge.com`, submit
+anything to a marketplace, or constitute a public launch announcement.
 
 ## Compatibility
 
@@ -39,8 +38,7 @@ This release targets the inspected Omarchy 4 manifest schema and was verified
 against installed package `omarchy 4.0.0-1`. Compatibility evidence and known
 uncertainties are recorded in `docs/UPSTREAM_COMPATIBILITY.md`.
 
-## Private release use
+## Release use
 
-While the repository remains private, downloading release assets and using the
-composite Action requires GitHub credentials with access to
-`omarchy-forge/forge`. Verify `checksums.txt` before using a downloaded archive.
+Release assets and the composite Action are publicly accessible. Verify
+`checksums.txt` before using a downloaded archive.

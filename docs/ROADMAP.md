@@ -35,7 +35,7 @@ Implemented and merged:
 - Tag-driven Linux `amd64` and `arm64` archives with checksums.
 - Least-privilege release workflow with immutable Action references.
 - Release and Action documentation plus end-to-end packaging tests.
-- Private Forge `v0.1.0` release with verified Linux `amd64` and `arm64`
+- Public Forge `v0.1.0` release with verified Linux `amd64` and `arm64`
   archives and checksums.
 
 ## Milestone 4: documentation website
