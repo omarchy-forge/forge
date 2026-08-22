@@ -37,5 +37,8 @@ Generated projects include:
 
 The same validated inputs always produce the same file contents and modes.
 User-provided strings never determine generated filenames.
+An existing target containing only a real `.git` directory is accepted without
+`--force`, and normal generation leaves that repository metadata untouched.
+Any other existing entry still requires the explicit collision workflow.
 
 Additional templates remain roadmap items until this shape has proven reusable.

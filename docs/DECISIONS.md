@@ -159,3 +159,16 @@ no server, account, API key, telemetry, analytics, or required network access.
 Repository implementation and private CI do not imply release. Tags, GitHub
 releases, marketplace submission, installation for ongoing use, visibility
 changes, and announcements remain separate explicit actions.
+
+## D-015: Git-only scaffold targets
+
+Status: accepted, 2026-08-22.
+
+`omaforge init` treats an existing directory containing exactly one real
+`.git` directory as an empty scaffold target. This supports the normal workflow
+of creating or cloning an empty repository before generating its plugin files.
+
+A `.git` file, symlink, or any additional directory entry still makes the
+target nonempty and requires `--force`. Normal generation does not write inside
+existing Git metadata; `--git` remains the explicit option for running Git
+initialization when requested.

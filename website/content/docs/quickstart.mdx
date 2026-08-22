@@ -35,7 +35,9 @@ access.
 
 Forge refuses dangerous targets, symlinked output trees, and nonempty
 directories unless generated-file collisions are explicitly previewed with
-`--force`. Use `--dry-run` to inspect the complete write plan.
+`--force`. A freshly created or cloned directory containing only `.git` is
+accepted without `--force`, and its Git metadata is preserved. Use `--dry-run`
+to inspect the complete write plan.
 
 ## Check and validate
 
