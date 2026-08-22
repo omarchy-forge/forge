@@ -12,8 +12,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (private at the latest verified checkpoint).
 - Default branch: `main`.
-- Latest merged commit: `a131c0c`, merging the isolated Quickshell harness pull
-  request `#9`.
+- Latest merged commit: `6e91409`, merging the isolated Quickshell harness
+  checkpoint pull request `#10`.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -109,6 +109,12 @@ merged:
 3. Generated projects provide an opt-in isolated Quickshell entry-point harness
    with an explicit trusted-code gate and no live-shell installation.
 
+The service-plus-widget opportunity was evaluated after the harness merge and
+deferred. The installed package has only one combined example, it is
+first-party, and its widget-to-service lookup is not documented as a stable
+third-party contract. See `SERVICE_WIDGET_EVALUATION.md` for the evidence and
+revisit criteria.
+
 ## Current verification baseline
 
 The Milestone 4 branch passed:
@@ -156,9 +162,10 @@ Remove allowlist entries as patched compatible dependencies become available.
 
 ## Next checkpoint
 
-1. Evaluate the remaining service-plus-widget template opportunity.
-2. Decide whether the evidence justifies adding that second template or keeping
-   it deferred.
+1. Keep the template set intentionally narrow until the service-plus-widget
+   revisit criteria are met or a different real-user need emerges.
+2. Decide separately whether Forge itself is ready for a first versioned
+   release; release creation remains approval-gated.
 3. Ongoing local installation, marketplace submission, announcement, website
    deployment, and connection of `omarchyforge.com` remain distinct
    approval-gated work.

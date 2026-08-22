@@ -188,3 +188,17 @@ The harness is never called by static checks, generated CI, or the normal test
 script. This preserves the rule that untrusted pull-request QML is not executed
 automatically while giving a developer an explicit local runtime check after
 reviewing their own code.
+
+## D-017: Defer the service-plus-widget template
+
+Status: accepted, 2026-08-22.
+
+Forge will not add a service-plus-widget template from the single installed
+first-party example. The service lifecycle is distinct and valuable for shared
+multi-monitor state, but the widget-to-service access path is not documented as
+a stable third-party contract and no second independent plugin proves a common
+shape.
+
+The evaluation in `SERVICE_WIDGET_EVALUATION.md` records the evidence and
+revisit criteria. Until one criterion is met, the supported bar-widget template
+remains intentionally singular.

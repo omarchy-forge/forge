@@ -67,7 +67,8 @@ use.
 
 - Accept `.git`-only targets without requiring `--force` (implemented after
   `v0.1.0` dogfooding).
-- Evaluate a service-plus-widget template.
+- Evaluate a service-plus-widget template (completed and deferred pending a
+  documented third-party service-access contract or a second proven example).
 - Provide a reusable isolated Quickshell entry-point harness (implemented after
   `v0.1.0` dogfooding with an explicit trust gate).
 
