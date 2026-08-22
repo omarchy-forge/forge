@@ -12,8 +12,9 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Latest completed checkpoint: beginner-first onboarding pull request `#27`,
-  merged as `fbaa31c` and deployed to the production documentation site.
+- Latest completed checkpoint: agent-ready hardening pull request `#30`, merged
+  as `d42bc38` after both Go and website CI passed. Its documentation source was
+  deployed to the production site and verified at the custom domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -200,13 +201,14 @@ advisory allowlist remains. See `website/SECURITY.md`.
 The documentation site is live at `https://www.omarchyforge.com` in the Vercel
 project `omarchy-forge-docs`; `https://omarchyforge.com` redirects to that
 canonical origin. Production sets `NEXT_PUBLIC_SITE_URL` to the custom origin.
-Deployment `dpl_GefkAvgLAqgiUhE2oQPYmsn713ca` was built from verified Forge
-commit `fbaa31c` on 2026-08-22. HTTP checks passed for the homepage,
-documentation pages, search endpoint, sitemap, robots file, and LLM-readable
-content. The sitemap and robots file advertise the custom origin. Browser
-verification confirmed the apex redirect, meaningful rendered content, working
-documentation navigation, no framework error overlay, and no console or page
-errors.
+The latest verified production checkpoint is deployment
+`dpl_AMiBYWPoMx7oqG56Qut7QkiY3nGM`, built from clean Forge commit `d42bc38` on
+2026-08-22. Its Vercel build generated 40 routes and completed successfully.
+HTTP verification confirmed that the live template guide contains the
+human-controlled `Draft` to `Ready for implementation` agent handoff and that
+the apex domain redirects to the canonical `www` origin. The prior broader
+homepage, search, sitemap, robots, LLM-readable content, and browser checks
+remain recorded evidence for the same site architecture.
 
 ## Beginner onboarding checkpoint
 
@@ -263,8 +265,8 @@ agent was launched automatically.
 
 1. Keep Handoff private. The documentation website and custom domain are live
    at `https://www.omarchyforge.com`.
-2. Review and publish the next Forge release before documenting agent-ready
-   scaffolding as available in a public binary; then dogfood it with a concrete
-   plugin specification.
+2. Prepare and review the next Forge release, including release notes and the
+   full baseline, before documenting agent-ready scaffolding as available in a
+   public binary. Tagging and publication still require explicit authorization.
 3. Ongoing local installation, marketplace submission, announcement, and any
    Handoff visibility change remain distinct approval-gated work.
