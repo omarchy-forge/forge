@@ -47,6 +47,7 @@ Implemented and merged:
 - Distinct homepage and complete initial documentation navigation.
 - Quickstart, templates, commands, anatomy, manifest, and compatibility guides.
 - Roadmap and contributing pages grounded in current shipped behavior.
+- Beginner-first installation and first-plugin flow for users new to Linux.
 - Static-first architecture without accounts, tracking, or AI chat.
 - Production deployment at `www.omarchyforge.com`, with the apex domain
   redirecting to the canonical `www` origin.
