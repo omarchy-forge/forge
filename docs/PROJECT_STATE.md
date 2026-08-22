@@ -128,6 +128,11 @@ uses the reviewed `docs/RELEASE_NOTES_0.2.0.md` description.
   predates the generated harness. A disposable exact working-tree copy using
   the current harness exercised all three states without modifying the private
   repository, installing the plugin, or touching live shell configuration.
+- Handoff subsequently adopted the released Forge `v0.2.0` harness, explicit
+  screenshot target, refresh contract, and public Forge Action on its private
+  `main` branch at `84a7a791f23099ae19e877f61ea830fcaca57301`.
+  Its private CI and local ready/empty/error runtime plus panel-only screenshot
+  verification passed without creating a new Handoff release.
 - The third increment adds `omaforge screenshot` using a template-declared Qt
   Quick item. Ready, empty, and error produced plugin-only RGBA PNGs in the real
   isolated runtime; no compositor or desktop capture API is used and existing

@@ -75,6 +75,8 @@ use.
   documented third-party service-access contract or a second proven example).
 - Provide a reusable isolated Quickshell entry-point harness (implemented after
   `v0.1.0` dogfooding with an explicit trust gate).
+- Adopt the released Forge `v0.2.0` development harness and Action in private
+  Handoff (implemented; no Handoff visibility or release change).
 
 ## Later milestones
 
