@@ -225,6 +225,14 @@ contributor-only path. Pull request `#27` passed both copies of the Go and
 website CI suites, merged as `fbaa31c`, and the rendered production Quickstart
 was browser-verified with no framework overlay, console errors, or page errors.
 
+Post-release installation dogfooding found that the copy-paste block left the
+interactive terminal inside its `mktemp` download directory. The root README
+and website Quickstart now isolate installation in a subshell, remove that
+directory through an exit trap on both success and failure, and finish in
+`$HOME`. The exact public `v0.3.0` block was verified with an isolated home;
+the installed binary reported the expected release metadata, temporary files
+were removed, and both successful and forced-failure paths returned home.
+
 ## Agent-ready scaffolding checkpoint
 
 The released `omaforge init --agent-ready` option conditionally adds exactly

@@ -29,25 +29,31 @@ downloads the matching Forge `v0.3.0` release, verifies its checksum, and
 installs it for your user only:
 
 ```bash
-set -eu
-version="0.3.0"
-case "$(uname -m)" in
-  x86_64) arch="amd64" ;;
-  aarch64|arm64) arch="arm64" ;;
-  *) echo "Unsupported CPU: $(uname -m)" >&2; exit 1 ;;
-esac
-workdir="$(mktemp -d)"
-cd "$workdir"
-curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/omaforge_${version}_linux_${arch}.tar.gz"
-curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/checksums.txt"
-sha256sum --ignore-missing --check checksums.txt
-tar -xzf "omaforge_${version}_linux_${arch}.tar.gz"
-install -Dm755 omaforge "$HOME/.local/bin/omaforge"
-"$HOME/.local/bin/omaforge" version
+(
+  set -eu
+  version="0.3.0"
+  case "$(uname -m)" in
+    x86_64) arch="amd64" ;;
+    aarch64|arm64) arch="arm64" ;;
+    *) echo "Unsupported CPU: $(uname -m)" >&2; exit 1 ;;
+  esac
+  install_tmp="$(mktemp -d)"
+  trap 'rm -rf -- "$install_tmp"' EXIT
+  cd "$install_tmp"
+  curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/omaforge_${version}_linux_${arch}.tar.gz"
+  curl -fLO "https://github.com/omarchy-forge/forge/releases/download/v${version}/checksums.txt"
+  sha256sum --ignore-missing --check checksums.txt
+  tar -xzf "omaforge_${version}_linux_${arch}.tar.gz"
+  install -Dm755 omaforge "$HOME/.local/bin/omaforge"
+  "$HOME/.local/bin/omaforge" version
+)
+cd "$HOME"
 ```
 
-This changes only `~/.local/bin/omaforge`. If `omaforge` is not found in a new
-terminal, use `$HOME/.local/bin/omaforge` or add `~/.local/bin` to your `PATH`.
+This changes only `~/.local/bin/omaforge`, removes its temporary download
+directory, and returns the terminal to your home directory. If `omaforge` is
+not found in a new terminal, use `$HOME/.local/bin/omaforge` or add
+`~/.local/bin` to your `PATH`.
 
 ### 2. Create a plugin
 
