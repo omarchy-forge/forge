@@ -65,5 +65,8 @@ jobs:
       - name: Audit production dependencies
         run: pnpm audit:known
 
+      - name: Verify public installer route boundary
+        run: pnpm check:installer
+
       - name: Build website
         run: pnpm build

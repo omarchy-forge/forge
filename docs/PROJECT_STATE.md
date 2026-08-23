@@ -288,6 +288,12 @@ the full exact-version block and add short, inspect-first, and pinned-version
 options. The script does not run automatically or weaken Forge's normal
 network-independent behavior.
 
+Production verification initially found that the Geistdocs locale proxy
+intercepted the otherwise deployed `/install.sh` static asset and returned 404.
+The proxy now explicitly bypasses that canonical public path, and website CI
+checks the executable asset, strict Bash header, proxy exclusion, and Quickstart
+URL together before building.
+
 GitHub `main` protection now requires pull requests, an up-to-date branch, the
 `test` and `website` status checks, and resolved review conversations. The rules
 apply to administrators and prohibit force pushes and branch deletion. Required

@@ -10,6 +10,7 @@
     "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
     "start": "NEXT_TELEMETRY_DISABLED=1 next start",
     "postinstall": "fumadocs-mdx",
+    "check:installer": "node scripts/verify-installer-route.mjs",
     "typecheck": "NEXT_TELEMETRY_DISABLED=1 next typegen && tsc --noEmit"
   },
   "dependencies": {
