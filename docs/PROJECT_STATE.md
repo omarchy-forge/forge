@@ -12,12 +12,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Current completed product checkpoint: the two-project owner catalog with
-  Handoff and Omaudit. Pull request `#45` merged the CLI catalog support at
-  `66454902c6837394a59130855af4e5dfc4c39ebc`; protected pull-request CI run
-  `32632592730` passed both Go and website jobs. Production deployment
-  `dpl_7QZhA5idhfCpGuMFTVVGV8i2rptN` completed all 42 generated routes and was
-  verified at the custom domain.
+- Current completed product checkpoint: public Forge `v0.4.0`, including the
+  explicit installer/update path, two-project Handoff/Omaudit owner catalog,
+  `OF305` NUL-byte rejection, and Qt-directory `qmllint` discovery. Release
+  metadata pull request `#48` merged at
+  `3584e769e490f9bcf3ed773d9f142a191af046d3`; release workflow run
+  `32633386500` passed both build and publish jobs.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -31,15 +31,16 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
 
-Forge `v0.3.0` is published from exact commit
-`39be22071c569c8e8d1bb40df8e7a0cdeebbafe5`. Its tag workflow passed, and
+Forge `v0.4.0` is published from exact commit
+`3584e769e490f9bcf3ed773d9f142a191af046d3`. Its tag workflow passed, and
 independent downloads verified both archive checksums, amd64 and arm64 ELF
 architectures, archive contents, and embedded amd64 build metadata. The public
-release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.3.0` and
-uses the reviewed `docs/RELEASE_NOTES_0.3.0.md` description.
-Release workflow run `32595463905` passed both build and publish jobs. Pull
-request `#34` merged the post-release installation, Action, and website guidance
-as `ddc387e` after all CI checks passed.
+release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.4.0` and
+uses the reviewed `docs/RELEASE_NOTES_0.4.0.md` description. The canonical
+installer resolved and installed this release successfully in both an isolated
+home and the user's normal installation. A generated project then passed
+`omaforge doctor`, including exact `qmllint` discovery and official Omarchy
+validation.
 
 ## Delivered milestones
 

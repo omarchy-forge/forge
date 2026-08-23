@@ -83,9 +83,8 @@ or modifying live shell configuration.
 
 Human review remained essential: it caught and corrected an invalid NUL byte
 in generated agent code that the checks available during the trial initially
-missed. The follow-up checker fix is merged into Forge `main` as error rule
-`OF305` and will ship in the next release; the installed `v0.3.0` checker does
-not contain that rule. This evidence verifies the
+missed. Forge `v0.4.0` includes the follow-up checker fix as error rule `OF305`;
+the earlier `v0.3.0` checker did not contain that rule. This evidence verifies the
 specification-to-static-validation workflow; it does not imply that arbitrary
 agent-written QML is safe to execute without review.
 

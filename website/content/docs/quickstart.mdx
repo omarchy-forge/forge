@@ -42,11 +42,11 @@ rm -f /tmp/omaforge-install.sh
 To install an exact release instead of the latest:
 
 ```bash
-curl -fsSL https://www.omarchyforge.com/install.sh | bash -s -- --version v0.3.0
+curl -fsSL https://www.omarchyforge.com/install.sh | bash -s -- --version v0.4.0
 ```
 
 <details>
-<summary>Fully manual v0.3.0 installation</summary>
+<summary>Fully manual v0.4.0 installation</summary>
 
 This expanded form performs the same architecture detection, checksum
 verification, user-only installation, and temporary cleanup without relying on
@@ -55,7 +55,7 @@ the hosted script:
 ```bash
 (
   set -eu
-  version="0.3.0"
+  version="0.4.0"
   case "$(uname -m)" in
     x86_64) arch="amd64" ;;
     aarch64|arm64) arch="arm64" ;;

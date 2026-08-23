@@ -13,9 +13,9 @@ permissions:
 
 steps:
   - uses: actions/checkout@v6
-  - uses: omarchy-forge/forge/action@v0.3.0
+  - uses: omarchy-forge/forge/action@v0.4.0
     with:
-      version: v0.3.0
+      version: v0.4.0
       path: .
 ```
 
