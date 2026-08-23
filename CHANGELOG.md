@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Detect `qmllint` in Qt 6's standard tool directory when it is installed but
+  not exposed through the user's `PATH`.
 - Add a generated owner-project catalog and website Projects page, beginning
   with the public Handoff plugin and Omaudit CLI security tool, plus a daily
   protected pull-request sync. CLI entries use validated package metadata and

@@ -39,7 +39,7 @@ func TestRunCombinesEnvironmentAndProjectChecks(t *testing.T) {
 	}
 	write("manifest.json", `{"schemaVersion":1,"id":"dev.example.test","name":"Test","version":"0.1.0","kinds":["bar-widget"],"entryPoints":{"barWidget":"Panel.qml"}}`)
 	write("Panel.qml", "import QtQuick\nItem{}")
-	runner := fakeRunner{missing: map[string]bool{"qmllint": true}, outputs: map[string]string{"pacman -Q omarchy": "omarchy 4.0.0-1\n", "omarchy-shell shell ping": "ok\n"}, failures: map[string]bool{}}
+	runner := fakeRunner{missing: map[string]bool{"qmllint": true, qt6QMLLintPath: true}, outputs: map[string]string{"pacman -Q omarchy": "omarchy 4.0.0-1\n", "omarchy-shell shell ping": "ok\n"}, failures: map[string]bool{}}
 	report := Run(root, runner)
 	if !report.Failed() {
 		t.Fatal("missing README/LICENSE project should fail")
@@ -54,9 +54,26 @@ func TestRunCombinesEnvironmentAndProjectChecks(t *testing.T) {
 }
 
 func TestRunReportsUnavailableEnvironment(t *testing.T) {
-	runner := fakeRunner{missing: map[string]bool{"omarchy": true, "quickshell": true, "omarchy-shell": true, "qmllint": true}, outputs: map[string]string{}, failures: map[string]bool{}}
+	runner := fakeRunner{missing: map[string]bool{"omarchy": true, "quickshell": true, "omarchy-shell": true, "qmllint": true, qt6QMLLintPath: true}, outputs: map[string]string{}, failures: map[string]bool{}}
 	report := Run(t.TempDir(), runner)
 	if !report.Failed() {
 		t.Fatal("unavailable environment should fail")
 	}
+}
+
+func TestRunFindsQMLLintInQt6ToolDirectory(t *testing.T) {
+	runner := fakeRunner{
+		missing: map[string]bool{"omarchy": true, "quickshell": true, "omarchy-shell": true, "qmllint": true},
+		outputs: map[string]string{}, failures: map[string]bool{},
+	}
+	report := Run(t.TempDir(), runner)
+	for _, diagnostic := range report.Diagnostics {
+		if diagnostic.RuleID == "OD104" {
+			if diagnostic.Status != Pass || !strings.Contains(diagnostic.Message, qt6QMLLintPath) {
+				t.Fatalf("OD104=%+v", diagnostic)
+			}
+			return
+		}
+	}
+	t.Fatal("OD104 diagnostic was not reported")
 }
