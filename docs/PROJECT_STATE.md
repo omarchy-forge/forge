@@ -12,9 +12,9 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Current completed product checkpoint: public Forge `v0.4.0`, including the
-  explicit installer/update path, two-project Handoff/Omaudit owner catalog,
-  `OF305` NUL-byte rejection, and Qt-directory `qmllint` discovery. Release
+- Current released CLI checkpoint: public Forge `v0.4.0`, including the
+  explicit installer/update path, Handoff/Omaudit owner catalog, `OF305`
+  NUL-byte rejection, and Qt-directory `qmllint` discovery. Release
   metadata pull request `#48` merged at
   `3584e769e490f9bcf3ed773d9f142a191af046d3`; release workflow run
   `32633386500` passed both build and publish jobs. Pull request `#49` updated
@@ -22,6 +22,18 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   `6b5c4ab18aabfa7d9840cbc68141c125533ee434`; production deployment
   `dpl_7HppBciD4boi1SUbjfmy23W7WQx8` completed all 42 routes and was verified at
   the canonical domain.
+- Current merged unreleased checkpoint: pull request `#51` squash-merged at
+  `df1513de78630bc5f973c53fc1fc8411bb675221`. It adds the confirmed
+  `omaforge init --agent` workflow, bounded reference inputs, visual-fidelity
+  requirements, generated agent handoff, website dependency compatibility
+  fixes, and the three-project catalog entry for Control Center. All four
+  protected `test` and `website` checks passed before merge.
+- Current production website deployment:
+  `dpl_6AvWrFsP1tTQLsUoocPAsqjJfrDN`, built from merged `main` on 2026-08-23.
+  Vercel built all 42 routes with Turbopack and reported READY. The canonical
+  `/projects` page and the 749×1102 Control Center preview returned HTTP 200 at
+  both `www.omarchyforge.com` and `www.omaforge.com`; the post-deploy error-log
+  scan returned no errors.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -425,22 +437,20 @@ not locked out by an impossible self-approval requirement.
 
 ## Next checkpoint
 
-1. No owner-catalog implementation work remains. Keep both public releases and
-   repository protections healthy. The documentation website and custom domain
-   are live at `https://www.omarchyforge.com`; `/projects`, the exact Omaudit
-   install command, its 753×544 local preview and optimized image route, and the
-   sitemap entry were verified after the production deployment.
-2. The hands-on `v0.3.0` onboarding and supervised agent-ready implementation
-   trial are complete. Keep future agent-produced plugin execution subject to
-   explicit human review and the existing trust acknowledgement. Forge does
-   not automatically install the separate Handoff plugin.
-3. The user's ongoing local installation is now the verified `v0.4.0` release.
-   Marketplace submission and announcement remain distinct approval-gated work.
-4. Review the complete guided-agent working-tree diff, rerun the release-sized
-   baseline if accepted, and commit it locally before opening any pull request
-   or beginning release work.
-5. Control Center is public with the `omaforge-project` topic and stable
-   `v0.1.0` release at
-   `cbf45874c2a344c7fba78837eb19c91343dbaf51`. Forge's generated catalog now
-   includes its checked-in 749×1102 preview and derived official plugin install
-   command. This catalog update remains local until its Forge commit is pushed.
+1. Decide whether the merged guided-agent work should become Forge `v0.5.0`.
+   Release preparation, tagging, publishing, installer update verification, and
+   announcement remain separately approval-gated.
+2. The user's ongoing local Forge installation remains the verified `v0.4.0`
+   release, so `omaforge init --agent` is present on merged `main` and the live
+   documentation but is not in the installed release until a new version ships.
+3. Keep agent-produced plugin execution subject to explicit human review and
+   the existing trust acknowledgement. Forge must not automatically install,
+   enable, or execute generated plugin QML.
+4. Control Center is public with topic `omaforge-project` and stable `v0.1.0`
+   at `cbf45874c2a344c7fba78837eb19c91343dbaf51`. Its generated catalog card,
+   preview, release link, source link, and derived official installation command
+   are live. Marketplace submission and public announcement remain distinct
+   approval-gated work.
+5. Investigate why the Vercel Git integration did not automatically deploy the
+   merged pull request. The successful production update required an explicit
+   `vercel deploy --prod --yes`; do not assume future merges deploy themselves.
