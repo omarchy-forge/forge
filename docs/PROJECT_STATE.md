@@ -12,10 +12,10 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Current completed product checkpoint before the active owner-project catalog
-  work: agent-ready scaffolding and hardening, merged through pull requests
-  `#29` and `#30`. Both Go and website CI passed, and the resulting
-  documentation was deployed and verified at the custom domain.
+- Current completed product checkpoint: the owner-project catalog and public
+  Handoff listing, merged through pull requests `#41`, `#42`, and `#43` at
+  `5fb8989`. Protected Go and website CI passed, and production deployment
+  `dpl_dSnrqmrPdU8qSJhVkro4UfRmGV1s` was verified at the custom domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -156,6 +156,27 @@ as `ddc387e` after all CI checks passed.
 - Milestone 6's planned dev-state, screenshot, and watch slices are now
   implemented. None installs or enables plugins or mutates live shell
   configuration.
+
+### Milestone 7 — public owner-project catalog
+
+- Handoff is public with protected `main`, secret scanning, public release
+  `v0.1.1`, `omaforge-project` metadata, and the official Omarchy installation
+  command derived by Forge rather than supplied as arbitrary project text.
+- The website Projects page lists Handoff with a checked-in local preview,
+  version, compatibility, source and release links, and a copyable install
+  command. The homepage, top navigation, sitemap, README, roadmap, and catalog
+  documentation link to or describe the feature.
+- A strict generator accepts only public, active, non-fork repositories owned
+  by `omarchy-forge` with the explicit topic, valid manifest and metadata, and
+  a matching stable release. JSON and preview downloads are bounded; no QML is
+  installed or executed.
+- A daily and manually dispatched workflow regenerates checked-in artifacts,
+  opens a protected pull request only when they change, starts CI explicitly,
+  and requests auto-merge. Manual run `32630618972` passed as a no-op against
+  the initial catalog.
+- Live verification returned 200 for `/projects`, the 704×787 Handoff preview,
+  and Next's optimized image route; it also confirmed page content, exact
+  installation command, sitemap entry, and public Handoff repository access.
 
 ## Forge feedback from Handoff
 
