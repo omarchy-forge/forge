@@ -35,6 +35,9 @@ jobs:
       - name: Test release and Action integration
         run: tests/release-action.sh
 
+      - name: Test user install and update script
+        run: tests/install-script.sh
+
   website:
     runs-on: ubuntu-latest
     defaults:

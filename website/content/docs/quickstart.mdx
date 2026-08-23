@@ -18,9 +18,39 @@ You do not need Go or `sudo` to use the published Forge release.
 
 ## Install Forge
 
-Copy this entire block into the Omarchy terminal. It detects whether the machine
-uses an AMD/Intel or ARM processor, downloads only the matching Forge `v0.3.0`
-archive, verifies its checksum, and installs it for your user:
+The short installer detects whether the machine uses an AMD/Intel or ARM
+processor, resolves the latest published release, verifies its checksum, and
+installs Forge for your user:
+
+```bash
+curl -fsSL https://www.omarchyforge.com/install.sh | bash
+```
+
+Run the same command later to check for and install a newer release. It exits
+without downloading an archive when the installed version is already current.
+Updates are always explicit; Forge never checks or updates in the background.
+
+To inspect the script before running it:
+
+```bash
+curl -fsSLo /tmp/omaforge-install.sh https://www.omarchyforge.com/install.sh
+less /tmp/omaforge-install.sh
+bash /tmp/omaforge-install.sh
+rm -f /tmp/omaforge-install.sh
+```
+
+To install an exact release instead of the latest:
+
+```bash
+curl -fsSL https://www.omarchyforge.com/install.sh | bash -s -- --version v0.3.0
+```
+
+<details>
+<summary>Fully manual v0.3.0 installation</summary>
+
+This expanded form performs the same architecture detection, checksum
+verification, user-only installation, and temporary cleanup without relying on
+the hosted script:
 
 ```bash
 (
@@ -44,9 +74,11 @@ archive, verifies its checksum, and installs it for your user:
 cd "$HOME"
 ```
 
-This changes only `~/.local/bin/omaforge`, removes its temporary download
-directory, and returns the terminal to your home directory. If a new terminal
-says that `omaforge` is not found, run it as `$HOME/.local/bin/omaforge` or add
+</details>
+
+Both paths change only `~/.local/bin/omaforge`, remove temporary downloads, and
+leave the terminal in its original directory. If a new terminal says that
+`omaforge` is not found, run it as `$HOME/.local/bin/omaforge` or add
 `~/.local/bin` to your `PATH`.
 
 ## Create a bar widget

@@ -69,6 +69,15 @@ point before running an unattended Omarchy agent.
 - Report unknown compatibility as unknown, not success.
 - Never run untrusted pull-request code on a persistent personal Omarchy host.
 
+The public `install.sh` is an explicit networked installation boundary, not
+part of normal local-first checking. It resolves a published release only when
+the user invokes it, accepts only an exact semantic-version tag, downloads the
+single matching architecture archive, verifies its SHA-256 value against the
+release checksum manifest, and replaces only `~/.local/bin/omaforge` by default.
+It uses no `sudo`, package manager, shell startup mutation, telemetry, scheduled
+task, or background update check. The same audited path handles a later
+user-requested update and exits early when the installed version is current.
+
 ## Current implementation
 
 The CLI's check path remains static, deterministic, and network-free. Local

@@ -313,3 +313,23 @@ Because instructions are not a sandbox and Omarchy prompt tasks may run
 unattended, a human must complete the specification, commit a rollback point,
 review the resulting diff, and explicitly decide whether to trust and execute
 the plugin.
+
+## D-025: One explicit checksum-verifying install and update path
+
+Status: accepted, 2026-08-23.
+
+Forge publishes one readable Bash script at the canonical documentation origin
+for both first installation and later user-requested updates. With no version
+argument it follows GitHub's latest-release redirect, validates the resulting
+exact semantic-version tag, and compares it with the installed binary before
+downloading. `--version` retains immutable release pinning for reproducible
+installation.
+
+The script selects only a supported Linux architecture, verifies the selected
+archive against the published SHA-256 manifest, stages the binary in the user
+installation directory, and replaces only `~/.local/bin/omaforge` by default.
+It never uses privilege escalation, a package manager, shell configuration,
+telemetry, scheduled execution, or background network checks. Documentation
+keeps an inspect-first path and the full manual exact-version block alongside
+the short convenience command because piping a remote script requires explicit
+user trust.

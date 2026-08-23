@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-08-22
+Last updated: 2026-08-23
 
 This is the durable execution checkpoint for future maintainers and coding
 agents. `handoff.md` remains the product and safety source of truth; this file
@@ -276,6 +276,23 @@ project, Forge, and official checks passed. Forge now reports error rule
 `OF305`, including the source path and line, whenever a checked QML, JavaScript,
 or shell source file contains a NUL byte. The regression test uses inert file
 bytes and does not execute plugin QML.
+
+## Installer and repository protection checkpoint
+
+The canonical website now owns one explicit `install.sh` path for first install
+and later user-requested updates. Its isolated test builds local release
+fixtures and verifies fresh installation, current-version no-op behavior,
+upgrade replacement, invalid-version rejection, checksum failure without
+clobbering the working binary, and symlink-target refusal. The public docs keep
+the full exact-version block and add short, inspect-first, and pinned-version
+options. The script does not run automatically or weaken Forge's normal
+network-independent behavior.
+
+GitHub `main` protection now requires pull requests, an up-to-date branch, the
+`test` and `website` status checks, and resolved review conversations. The rules
+apply to administrators and prohibit force pushes and branch deletion. Required
+approvals remain zero while the repository has one maintainer, so the owner is
+not locked out by an impossible self-approval requirement.
 
 ## Standing boundaries
 
