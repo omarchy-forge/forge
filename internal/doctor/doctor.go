@@ -37,10 +37,22 @@ type Runner interface {
 }
 type ExecRunner struct{}
 
+const qt6QMLLintPath = "/usr/lib/qt6/bin/qmllint"
+
 func (ExecRunner) LookPath(name string) (string, error) { return exec.LookPath(name) }
 func (ExecRunner) Run(ctx context.Context, name string, args ...string) ([]byte, error) {
 	command := exec.CommandContext(ctx, name, args...)
 	return command.CombinedOutput()
+}
+
+func findQMLLint(runner Runner) (string, bool) {
+	for _, candidate := range []string{"qmllint", qt6QMLLintPath} {
+		path, err := runner.LookPath(candidate)
+		if err == nil {
+			return path, true
+		}
+	}
+	return "", false
 }
 
 func Run(target string, runner Runner) Report {
@@ -78,10 +90,10 @@ func Run(target string, runner Runner) Report {
 			add("OD103", Pass, "Omarchy Shell IPC answered ping", "")
 		}
 	}
-	if _, err := runner.LookPath("qmllint"); err != nil {
+	if path, found := findQMLLint(runner); !found {
 		add("OD104", Warn, "qmllint is unavailable; QML linting cannot be performed", "Install Qt QML tooling for additional local diagnostics.")
 	} else {
-		add("OD104", Pass, "qmllint is available", "")
+		add("OD104", Pass, "qmllint is available at "+path, "")
 	}
 	if _, err := runner.LookPath("omarchy"); err != nil {
 		add("OD105", Fail, "official Omarchy plugin validator was not found", "Update or repair Omarchy before validating plugins.")

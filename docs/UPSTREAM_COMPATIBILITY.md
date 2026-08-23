@@ -9,7 +9,10 @@
 - Git revision: unavailable. The installed package directory is not a Git
   checkout, so no commit claim can be made.
 - Quickshell: `/usr/bin/quickshell`.
-- QML linter: not found on `PATH` during inspection.
+- QML linter: not found on `PATH` during the initial inspection. A follow-up on
+  2026-08-23 verified `qmllint 6.11.1` at
+  `/usr/lib/qt6/bin/qmllint`, owned by installed package
+  `qt6-declarative 6.11.1-3`.
 - Shell health: `omarchy-shell shell ping` returned `ok`.
 - `docs/omarchy-shell.md`: not present in this package.
 - Upstream test files for plugin validation, registry loading, configuration,
@@ -144,8 +147,9 @@ IPC command remains an explicit fallback. The shell persists customization in
   implement `omarchy --version`; package-manager metadata supplied the version.
 - No installed Git revision was available, so compatibility is tied only to
   package `4.0.0-1` and the inspected files, not an upstream commit.
-- `qmllint`, the referenced shell document, and upstream registry/validator
-  tests were absent locally. They cannot be claimed as verified here.
+- `qmllint` was absent from `PATH` but was later verified in Qt's standard tool
+  directory. The referenced shell document and upstream registry/validator
+  tests were absent locally and cannot be claimed as verified here.
 - The richer official Basecamp third-party plugin was not present locally and
   was not needed for the Milestone 0 executable. It should be inspected at a
   pinned official revision before designing the first template.
@@ -195,8 +199,10 @@ heuristic matches explicitly require human review.
 
 On 2026-08-22, the read-only doctor probes detected `omarchy 4.0.0-1`, found
 Quickshell, received `ok` from shell IPC, and passed a generated sample through
-`omarchy plugin validate`. `qmllint` remained unavailable and was accurately
-reported as an optional-tool warning. Doctor did not modify user or packaged
+`omarchy plugin validate`. `qmllint` remained unavailable on `PATH` and was
+reported as an optional-tool warning at that checkpoint. A 2026-08-23 follow-up
+verified it in `/usr/lib/qt6/bin`, motivating a doctor fallback for Qt's tool
+directory. Doctor did not modify user or packaged
 configuration, install software, execute plugin QML, or use the network.
 
 ## Isolated generated-project runtime harness
