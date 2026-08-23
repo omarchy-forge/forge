@@ -223,9 +223,9 @@ reported without failing the check.
 
 The repository contains a composite check Action and a tag-driven Linux release
 pipeline. The Action downloads an exact release version, verifies its checksum,
-and emits pull-request annotations. Forge and its release assets are public;
-Handoff is a separate public project listed on the owner-maintained Projects
-page. See the
+and emits pull-request annotations. Forge and its release assets are public.
+Handoff and the Omaudit plugin capability scanner are separate public projects
+listed on the owner-maintained Projects page. See the
 [Action guide](action/README.md) and [release process](docs/RELEASING.md).
 
 ## Documentation website

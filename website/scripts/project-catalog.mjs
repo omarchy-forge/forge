@@ -1,5 +1,6 @@
 const projectKeys = new Set([
   "schemaVersion",
+  "projectType",
   "tagline",
   "previewPath",
   "compatibility",
@@ -22,6 +23,10 @@ export const validateProjectMetadata = (value) => {
     if (!projectKeys.has(key)) throw new Error(`unknown forge-project.json field: ${key}`);
   }
   if (value.schemaVersion !== 1) throw new Error("forge-project.json schemaVersion must be 1");
+  const projectType = value.projectType ?? "plugin";
+  if (!new Set(["plugin", "cli"]).has(projectType)) {
+    throw new Error("projectType must be plugin or cli");
+  }
   const previewPath = text(value.previewPath, "previewPath");
   if (!/^assets\/[A-Za-z0-9._/-]+\.(png|jpe?g|webp)$/.test(previewPath) || previewPath.includes("..")) {
     throw new Error("previewPath must be a safe image path below assets/");
@@ -38,9 +43,38 @@ export const validateProjectMetadata = (value) => {
     compatibility: [...new Set(value.compatibility)].sort(),
     featured: value.featured,
     order: value.order,
+    projectType,
     previewPath,
     tagline: text(value.tagline, "tagline"),
   };
+};
+
+export const validatePythonProject = (source) => {
+  if (typeof source !== "string" || source.length > 100_000) {
+    throw new Error("pyproject.toml must be text of at most 100 KB");
+  }
+  const header = source.match(/^\[project\]\s*$/m);
+  const section = header
+    ? source.slice(header.index + header[0].length).split(/^\[/m, 1)[0]
+    : "";
+  const name = section.match(/^name\s*=\s*["']([^"']+)["']\s*$/m)?.[1];
+  const version = section.match(/^version\s*=\s*["']([^"']+)["']\s*$/m)?.[1];
+  if (!name || !/^[a-z0-9][a-z0-9-]*$/.test(name)) throw new Error("Python project name is invalid");
+  if (!version || !/^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/.test(version)) {
+    throw new Error("Python project version must be stable semantic versioning");
+  }
+  return { name, version };
+};
+
+export const validateCliInstaller = (bytes, repository) => {
+  if (!Buffer.isBuffer(bytes) || bytes.length > 100_000) throw new Error("CLI installer exceeds 100 KB");
+  const source = bytes.toString("utf8");
+  if (!source.startsWith("#!/usr/bin/env bash\nset -euo pipefail\n")) {
+    throw new Error("CLI installer is missing its strict Bash entry point");
+  }
+  if (!source.split("\n").includes(`repository="${repository}"`)) {
+    throw new Error("CLI installer repository identity does not match");
+  }
 };
 
 export const validateManifest = (value) => {
@@ -80,29 +114,39 @@ export const hasSupportedImageSignature = (bytes, extension) => {
   return false;
 };
 
-export const buildCatalogEntry = ({ repository, commit, release, manifest, metadata }) => {
+export const buildCatalogEntry = ({ repository, commit, release, manifest, pythonProject, metadata }) => {
   if (repository.owner?.login !== "omarchy-forge" || repository.private || repository.archived || repository.disabled) {
     throw new Error("catalog repository must be an active public omarchy-forge project");
   }
   if (!Array.isArray(repository.topics) || !repository.topics.includes("omaforge-project")) {
     throw new Error("catalog repository is missing the omaforge-project topic");
   }
-  const checkedManifest = validateManifest(manifest);
   const checkedMetadata = validateProjectMetadata(metadata);
-  if (release.tag_name !== `v${checkedManifest.version}` || release.draft || release.prerelease) {
-    throw new Error("latest stable release must match the manifest version");
-  }
   const slug = text(repository.name, "repository name", 100);
   if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) throw new Error("repository name is not a safe catalog slug");
   if (!/^[0-9a-f]{40}$/.test(commit.sha)) throw new Error("default-branch commit must be a full SHA");
+  const software = checkedMetadata.projectType === "plugin"
+    ? validateManifest(manifest)
+    : validatePythonProject(pythonProject);
+  if (checkedMetadata.projectType === "cli" && software.name !== slug) {
+    throw new Error("Python project name must match its repository");
+  }
+  if (release.tag_name !== `v${software.version}` || release.draft || release.prerelease) {
+    throw new Error("latest stable release must match the project version");
+  }
   const extension = imageExtension(checkedMetadata.previewPath);
+  const installCommand = checkedMetadata.projectType === "plugin"
+    ? `omarchy plugin add https://github.com/omarchy-forge/${slug}.git --enable`
+    : `curl -fsSL https://raw.githubusercontent.com/omarchy-forge/${slug}/v${software.version}/install.sh | bash -s -- --version v${software.version}`;
   return {
     compatibility: checkedMetadata.compatibility,
     featured: checkedMetadata.featured,
-    installCommand: `omarchy plugin add https://github.com/omarchy-forge/${slug}.git --enable`,
-    name: checkedManifest.name,
+    installCommand,
+    name: checkedMetadata.projectType === "plugin"
+      ? software.name
+      : `${slug[0].toUpperCase()}${slug.slice(1)}`,
     order: checkedMetadata.order,
-    pluginId: checkedManifest.id,
+    pluginId: software.id ?? null,
     preview: `/project-images/${slug}.${extension}`,
     releaseUrl: release.html_url,
     repository: `omarchy-forge/${slug}`,
@@ -110,7 +154,8 @@ export const buildCatalogEntry = ({ repository, commit, release, manifest, metad
     slug,
     sourceCommit: commit.sha,
     tagline: checkedMetadata.tagline,
-    version: checkedManifest.version,
+    projectType: checkedMetadata.projectType,
+    version: software.version,
   };
 };
 

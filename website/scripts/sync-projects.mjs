@@ -6,6 +6,7 @@ import {
   hasSupportedImageSignature,
   imageExtension,
   sortCatalog,
+  validateCliInstaller,
   validateProjectMetadata,
 } from "./project-catalog.mjs";
 
@@ -56,15 +57,25 @@ for (const repository of eligible) {
   const fullName = repository.full_name;
   const commit = await json(`/repos/${fullName}/commits/${encodeURIComponent(repository.default_branch)}`);
   const ref = commit.sha;
-  const [release, manifestBytes, metadataBytes] = await Promise.all([
+  const [release, metadataBytes] = await Promise.all([
     json(`/repos/${fullName}/releases/latest`),
-    raw(fullName, "manifest.json", ref),
     raw(fullName, "forge-project.json", ref),
   ]);
-  const manifest = parseJSON(manifestBytes, `${fullName}/manifest.json`);
   const metadata = parseJSON(metadataBytes, `${fullName}/forge-project.json`);
   const checkedMetadata = validateProjectMetadata(metadata);
-  const entry = buildCatalogEntry({ repository, commit, release, manifest, metadata });
+  let manifest;
+  let pythonProject;
+  if (checkedMetadata.projectType === "plugin") {
+    manifest = parseJSON(await raw(fullName, "manifest.json", ref), `${fullName}/manifest.json`);
+  } else {
+    const [pyprojectBytes, installerBytes] = await Promise.all([
+      raw(fullName, "pyproject.toml", ref),
+      raw(fullName, "install.sh", ref),
+    ]);
+    pythonProject = pyprojectBytes.toString("utf8");
+    validateCliInstaller(installerBytes, fullName);
+  }
+  const entry = buildCatalogEntry({ repository, commit, release, manifest, pythonProject, metadata });
   const preview = await raw(fullName, checkedMetadata.previewPath, ref);
   if (preview.length > 2_000_000) throw new Error(`${fullName} preview exceeds 2 MB`);
   const extension = imageExtension(checkedMetadata.previewPath);

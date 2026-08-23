@@ -3,7 +3,9 @@
 ## Unreleased
 
 - Add a generated owner-project catalog and website Projects page, beginning
-  with the public Handoff plugin, plus a daily protected pull-request sync.
+  with the public Handoff plugin and Omaudit CLI security tool, plus a daily
+  protected pull-request sync. CLI entries use validated package metadata and
+  immutable, derived installer commands.
 - Add an explicitly invoked, checksum-verifying user installer that resolves
   the latest release, skips an already-current installation, and safely updates
   `~/.local/bin/omaforge` without `sudo` or background checks.

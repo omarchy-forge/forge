@@ -17,7 +17,27 @@
       "slug": "handoff",
       "sourceCommit": "609117c871d7dead6777f6f3a8d2153c993b4290",
       "tagline": "Pick up Git projects where you left off.",
+      "projectType": "plugin",
       "version": "0.1.1"
+    },
+    {
+      "compatibility": [
+        "omarchy-4"
+      ],
+      "featured": true,
+      "installCommand": "curl -fsSL https://raw.githubusercontent.com/omarchy-forge/omaudit/v0.1.0/install.sh | bash -s -- --version v0.1.0",
+      "name": "Omaudit",
+      "order": 20,
+      "pluginId": null,
+      "preview": "/project-images/omaudit.png",
+      "releaseUrl": "https://github.com/omarchy-forge/omaudit/releases/tag/v0.1.0",
+      "repository": "omarchy-forge/omaudit",
+      "repositoryUrl": "https://github.com/omarchy-forge/omaudit",
+      "slug": "omaudit",
+      "sourceCommit": "c4dc6ac965cfe23b2e60dfd23473d5cbc33565f6",
+      "tagline": "See what an Omarchy plugin can reach before you install it.",
+      "projectType": "cli",
+      "version": "0.1.0"
     }
   ]
 }

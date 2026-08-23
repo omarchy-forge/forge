@@ -25,7 +25,7 @@ const ProjectsPage = () => (
             <Image alt={`${project.name} preview`} fill sizes="(max-width: 760px) 100vw, 38vw" src={project.preview} />
           </div>
           <div className="forge-project-copy">
-            <div className="forge-project-meta"><PackageCheck aria-hidden="true" /> {project.version} · {project.compatibility.join(", ").replaceAll("-", " ")}</div>
+            <div className="forge-project-meta"><PackageCheck aria-hidden="true" /> {project.projectType === "cli" ? "CLI tool" : "Omarchy plugin"} · {project.version} · {project.compatibility.join(", ").replaceAll("-", " ")}</div>
             <h2>{project.name}</h2>
             <p>{project.tagline}</p>
             <CopyInstallCommand command={project.installCommand} />

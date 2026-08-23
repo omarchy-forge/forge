@@ -14,7 +14,9 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 - Default branch: `main`.
 - Current completed product checkpoint: the owner-project catalog and public
   Handoff listing, merged through pull requests `#41`, `#42`, and `#43` at
-  `5fb8989`. Protected Go and website CI passed, and production deployment
+  `5fb8989`, with the durable checkpoint merged through pull request `#44` at
+  `0e8866466569a05768d6d64e1f1b96b62d9298cd`. Final protected CI run
+  `32631076780` passed both Go and website jobs. Production deployment
   `dpl_dSnrqmrPdU8qSJhVkro4UfRmGV1s` was verified at the custom domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
@@ -177,6 +179,17 @@ as `ddc387e` after all CI checks passed.
 - Live verification returned 200 for `/projects`, the 704×787 Handoff preview,
   and Next's optimized image route; it also confirmed page content, exact
   installation command, sitemap entry, and public Handoff repository access.
+- Omaudit was fully reviewed, hardened, tested, released as `v0.1.0`, and moved
+  from the owner's personal account to the public `omarchy-forge/omaudit`
+  repository. Its protected `main` is at
+  `c4dc6ac965cfe23b2e60dfd23473d5cbc33565f6`; release assets and the explicit
+  checksum-verifying installer passed independent isolated verification.
+- The catalog supports both Omarchy plugins and CLI tools. CLI entries require
+  matching PEP 621 package metadata, an identity-bound strict-Bash installer,
+  and a matching stable release. Forge derives an immutable exact-version
+  command and never executes the installer during synchronization or CI.
+- The generated catalog now contains Handoff and Omaudit, including a checked-in
+  Omaudit preview and a visible project-type label on the Projects page.
 
 ## Forge feedback from Handoff
 
@@ -336,9 +349,11 @@ not locked out by an impossible self-approval requirement.
 
 ## Next checkpoint
 
-1. Keep Handoff's public release and repository protections healthy. The
-   documentation website and custom domain are live at
-   `https://www.omarchyforge.com`.
+1. Complete the protected Forge merge and production verification for the
+   two-project Handoff/Omaudit catalog, then record the exact merge, CI, and
+   deployment identifiers here. Keep both public releases and repository
+   protections healthy. The documentation website and custom domain are live
+   at `https://www.omarchyforge.com`.
 2. The hands-on `v0.3.0` onboarding and supervised agent-ready implementation
    trial are complete. Keep future agent-produced plugin execution subject to
    explicit human review and the existing trust acknowledgement. Forge does
