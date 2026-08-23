@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add the released Control Center process-monitoring plugin to the generated
+  owner-project catalog with its checked-in preview and derived install command.
 - Require reference-driven projects to treat UI mockups as visual-fidelity
   targets and supplied logos/icons as mandatory assets, with human screenshot
   comparison and explicit approval for material deviations.

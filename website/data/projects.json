@@ -38,6 +38,25 @@
       "tagline": "See what an Omarchy plugin can reach before you install it.",
       "projectType": "cli",
       "version": "0.1.0"
+    },
+    {
+      "compatibility": [
+        "omarchy-4"
+      ],
+      "featured": true,
+      "installCommand": "omarchy plugin add https://github.com/omarchy-forge/control-center.git --enable",
+      "name": "Omaforge Local Control Center",
+      "order": 30,
+      "pluginId": "omaforge.control.center",
+      "preview": "/project-images/control-center.png",
+      "releaseUrl": "https://github.com/omarchy-forge/control-center/releases/tag/v0.1.0",
+      "repository": "omarchy-forge/control-center",
+      "repositoryUrl": "https://github.com/omarchy-forge/control-center",
+      "slug": "control-center",
+      "sourceCommit": "cbf45874c2a344c7fba78837eb19c91343dbaf51",
+      "tagline": "Monitor and control your user-owned processes.",
+      "projectType": "plugin",
+      "version": "0.1.0"
     }
   ]
 }

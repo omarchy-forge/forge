@@ -439,6 +439,8 @@ not locked out by an impossible self-approval requirement.
 4. Review the complete guided-agent working-tree diff, rerun the release-sized
    baseline if accepted, and commit it locally before opening any pull request
    or beginning release work.
-5. Control Center has a local catalog metadata commit and preview, but catalog
-   admission still requires its `omaforge-project` repository topic and a
-   stable `v0.1.0` release before Forge can regenerate the public entry.
+5. Control Center is public with the `omaforge-project` topic and stable
+   `v0.1.0` release at
+   `cbf45874c2a344c7fba78837eb19c91343dbaf51`. Forge's generated catalog now
+   includes its checked-in 749×1102 preview and derived official plugin install
+   command. This catalog update remains local until its Forge commit is pushed.
