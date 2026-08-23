@@ -2,6 +2,7 @@
 package checks
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/fs"
@@ -108,6 +109,11 @@ func RunFor(target, compatibility string) Report {
 		contents, readErr := os.ReadFile(path)
 		if readErr != nil {
 			return nil
+		}
+		if index := bytes.IndexByte(contents, 0); index >= 0 {
+			match := finding("OF305", "forge", Error, "source file contains a NUL byte", filepath.ToSlash(rel), "Remove the NUL byte and keep plugin source as plain text.", "NUL bytes can make source appear binary and hide malformed or unintended content from text review tools.")
+			match.Line = bytes.Count(contents[:index], []byte{'\n'}) + 1
+			add(match)
 		}
 		checkSource(filepath.ToSlash(rel), string(contents), add)
 		return nil

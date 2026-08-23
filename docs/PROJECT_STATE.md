@@ -269,6 +269,14 @@ from the downloaded release archive. Both generated contract files contained
 the expected readiness gate, and the sample passed `omaforge check` plus the
 installed official validator without executing QML.
 
+A subsequent supervised agent trial implemented a reviewed local Git-status
+specification in a disposable generated project. Static review caught a
+literal NUL byte that made one QML file appear binary even though the existing
+project, Forge, and official checks passed. Forge now reports error rule
+`OF305`, including the source path and line, whenever a checked QML, JavaScript,
+or shell source file contains a NUL byte. The regression test uses inert file
+bytes and does not execute plugin QML.
+
 ## Standing boundaries
 
 - Keep the CLI local-first, deterministic, and network-independent by default.
@@ -285,10 +293,9 @@ installed official validator without executing QML.
 
 1. Keep Handoff private. The documentation website and custom domain are live
    at `https://www.omarchyforge.com`.
-2. Resume hands-on `v0.3.0` onboarding from the user's home directory: confirm
-   `omaforge version` and `omaforge --help`, then create and review a disposable
-   `omaforge init <name> --git --agent-ready` project before deciding whether
-   to invoke `omarchy agent prompt`. Forge does not automatically install the
-   separate private Handoff plugin.
+2. The hands-on `v0.3.0` onboarding and supervised agent-ready implementation
+   trial are complete. Keep future agent-produced plugin execution subject to
+   explicit human review and the existing trust acknowledgement. Forge does
+   not automatically install the separate private Handoff plugin.
 3. Ongoing local installation, marketplace submission, announcement, and any
    Handoff visibility change remain distinct approval-gated work.
