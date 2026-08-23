@@ -17,6 +17,20 @@ In Forge `v0.3.0` and later, add `--agent-ready` to generate `FORGE_SPEC.md` and
 `AGENTS.md` alongside the normal working template. It is deterministic
 scaffolding only: Forge does not contact or launch an AI agent.
 
+The unreleased interactive `--agent` mode discovers the configured Omarchy
+agent, gathers and confirms a complete specification, creates a local Git
+baseline and `AGENT_PROMPT.md`, then launches the agent only after the user
+confirms the displayed plan and unattended-permission warning. It cannot be
+combined with `--non-interactive`, `--dry-run`, `--force`, or `--agent-ready`.
+It never executes QML, installs a plugin, configures a Git remote, or pushes.
+Forge asks whether to use reference files or the detailed questionnaire.
+Reference mode accepts up to ten local text, Markdown, PNG, JPEG, WebP, or SVG files
+through a generated `references/` drop directory and makes them the primary
+product brief. The agent must inventory every visible or described function,
+control, value, state, action, and configuration hook. Forge separately confirms
+local-command, network, and persistence boundaries. Questionnaire mode retains
+the exact bar, dashboard, action, data-source, and command questions.
+
 ## `omaforge check`
 
 Run static, noninteractive, network-free checks without executing QML.

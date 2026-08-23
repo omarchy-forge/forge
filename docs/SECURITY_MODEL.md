@@ -56,6 +56,26 @@ a human-reviewed acceptance boundary. These are defense-in-depth instructions,
 not a sandbox: users must review agent changes and retain a clean Git rollback
 point before running an unattended Omarchy agent.
 
+The unreleased `omaforge init --agent` mode is a separate explicit
+orchestration boundary. It reads the configured Omarchy agent, rejects
+noninteractive/force/dry-run combinations, gathers access requirements, and
+shows a final plan plus an unattended-permission warning before any write or
+launch. Confirmation creates a local rollback commit before invoking
+`omarchy agent prompt` with one generated prompt argument from inside the new
+project. It does not select an agent, handle credentials, install or execute
+the plugin, configure a remote, or push. Cancellation writes nothing. Because
+the external agent is not sandboxed by Forge, human diff review and explicit
+runtime trust remain mandatory.
+
+Optional references are local regular files only: at most ten, with 256 KiB
+limits for valid UTF-8 `.txt`/`.md` files and 5 MiB limits plus signature checks
+for PNG, JPEG, and WebP images, and validates SVG as bounded UTF-8 XML without
+rendering or executing it. Forge rejects symlinks, directories, duplicates,
+mismatched signatures, NUL text, and unsupported formats. It copies captured
+bytes from the project `references/` directory and records SHA-256 digests. Forge does not
+upload or interpret them, but the configured agent/provider may receive them;
+generated rules treat all reference content as untrusted data.
+
 ## Required controls
 
 - No telemetry, secret collection, account, or cloud requirement.

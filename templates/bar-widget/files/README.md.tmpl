@@ -46,9 +46,6 @@ Omarchy persists the value inline in its shell configuration.
 
 ```bash
 ./tests/run
-./demo/run ready
-./demo/run empty
-./demo/run error
 ```
 
 After reviewing the plugin code and its local commands, run the opt-in isolated
@@ -56,6 +53,9 @@ Quickshell entry-point test on an Omarchy machine:
 
 ```bash
 ./tests/runtime --trust-plugin-code
+./tests/runtime --trust-plugin-code --state ready
+./tests/runtime --trust-plugin-code --state empty
+./tests/runtime --trust-plugin-code --state error
 # Or, with Forge on PATH:
 omaforge dev . --trust-plugin-code
 omaforge dev . --trust-plugin-code --state ready
@@ -74,13 +74,25 @@ captures the desktop. It refuses to overwrite an existing PNG.
 Watch mode reruns the same isolated harness after project changes and stops on
 Ctrl-C; it does not install the plugin into the live shell.
 
+Only after source review and isolated runtime verification, install the local
+checkout deliberately. A GitHub push is not required:
+
+```bash
+omarchy plugin add "$PWD" --enable
+omarchy plugin list
+./demo/run ready
+./demo/run empty
+./demo/run error
+```
+
 Saving files below the installed user-plugin directory triggers shell reload in
 the verified Omarchy 4 contract. `omarchy-shell shell rescanPlugins` forces a
 rescan when needed.
 
 The demo script uses fictional local data and applies the requested state only
 to the running plugin instance through Omarchy Shell IPC. It does not restart
-the shell or modify configuration. The plugin must be installed and enabled.
+the shell or modify configuration. `Target not found` means the plugin is not
+installed and enabled; use the isolated `tests/runtime --state` path first.
 
 ## Update
 

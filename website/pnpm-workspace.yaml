@@ -6,3 +6,5 @@ overrides:
   fumadocs-mdx: 15.3.0
 minimumReleaseAgeExclude:
   - '@vercel/geistdocs@1.22.0'
+patchedDependencies:
+  fumadocs-ui@16.2.2: patches/fumadocs-ui@16.2.2.patch

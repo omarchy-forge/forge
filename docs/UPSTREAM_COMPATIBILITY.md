@@ -49,9 +49,22 @@ Agent-ready scaffolding work on 2026-08-22 verified the installed command
 contract without launching an agent. `omarchy agent --help` lists
 `omarchy agent prompt [--inline] <prompt...>`, and the installed
 `/usr/share/omarchy/bin/omarchy-agent-prompt` requires a nonempty prompt before
-delegating to the user's default `omarchy-agent` configuration. Forge can
-document that local handoff command without selecting a provider, handling
-credentials, or invoking it automatically.
+delegating to the user's default `omarchy-agent` configuration. Forge's
+scaffold-only `--agent-ready` path can document that local handoff command
+without selecting a provider, handling credentials, or invoking it
+automatically.
+
+A 2026-08-23 follow-up for the guided-agent design verified that
+`omarchy-default-agent` prints the configured agent without changing it and
+that this system currently reports `claude`. The installed `omarchy-agent`
+launcher checks that the configured executable exists, preserves the launch
+working directory except for its documented `$HOME` fallback, and passes
+provider-specific unattended or approval-bypass flags. `omarchy agent prompt`
+forwards its prompt as one argument to that launcher. Guided Forge launches
+must therefore disclose the unattended-permission boundary, create a rollback
+commit first, and treat generated instructions as non-sandboxed defense in
+depth. No Omarchy-owned file or default-agent setting was modified during this
+inspection.
 
 ## Source files inspected
 

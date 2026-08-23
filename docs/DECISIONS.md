@@ -359,3 +359,74 @@ metadata, installer text, and image data, opens a pull request when artifacts ch
 CI, and requests auto-merge. Neither the generator nor CI installs projects or
 executes project QML. This is an owner-maintained project directory, not a
 third-party marketplace or submission system.
+
+## D-027: Confirmed guided handoff to the configured Omarchy agent
+
+Status: accepted, 2026-08-23.
+
+Forge keeps `--agent-ready` as deterministic scaffold-only generation and adds
+a separate interactive `omaforge init --agent` path for users who explicitly
+want orchestration. The guided path reads but never changes the current Omarchy
+agent, gathers product and access boundaries, renders an editable summary, and
+writes nothing unless the user confirms that summary and launch.
+
+Confirmation creates a complete ready specification, project safety contract,
+and initial implementation prompt, initializes a local Git repository, and
+commits the generated baseline before invoking `omarchy agent prompt` from the
+project directory. Forge does not embed a provider, handle credentials, push a
+remote, or install or execute the plugin. Noninteractive, force, and dry-run
+combinations are rejected to keep the confirmation meaningful.
+
+The baseline commit disables repository hooks and commit signing for that one
+generated commit so an interactive signing prompt or inherited hook cannot
+silently extend the guided workflow. It still uses the user's configured Git
+identity and fails with recovery guidance if that identity is unavailable.
+
+The installed Omarchy launcher runs configured agents with unattended
+permissions. Forge states that fact before confirmation and treats generated
+instructions as defense in depth, not a sandbox. The implementation agent may
+edit, run static checks, and commit locally. Its required final handoff orders
+human diff review, isolated runtime states, deliberate local installation,
+installed-plugin demos, cleanup, and optional remote publication without
+claiming that static validation proves runtime safety.
+
+Guided projects may include up to ten explicitly selected local references.
+Forge accepts bounded UTF-8 `.txt`/`.md` files, signature-checked PNG, JPEG,
+or WebP files, and XML-validated SVG files without rendering them; it creates a project `references/` drop directory, rejects symlinks
+and duplicate paths, captures the selected bytes, and records SHA-256 digests.
+Reference content is supporting, untrusted product input and cannot override
+the spec or agent rules. Forge performs no upload or OCR, but confirmation
+warns that the configured external agent/provider may receive the copied
+content.
+
+The guided model offers two explicit product-input paths. Reference mode makes
+confirmed text and image files the primary product brief, requires the agent to
+inventory every function and presentation requirement, and asks the user only
+for access boundaries that untrusted files cannot authorize. Questionnaire mode
+retains explicit bar, popout, action, data-source, and command questions. Both
+paths prohibit substituting generic in-memory placeholder content for requested
+behavior.
+
+Reference-driven presentation requirements are fidelity targets rather than
+optional inspiration. UI mockups require a complete visual inventory and close
+composition match within supported Omarchy APIs; supplied logos and icons must
+be used in their intended locations unless the user explicitly marks them as
+inspiration-only. Raster branding does not require vector recreation. Material
+deviations require user approval, and a successful static/runtime check does not
+replace human reference-versus-screenshot review.
+
+## D-028: Patch the Geistdocs-pinned Fumadocs UI export shape
+
+Status: accepted, 2026-08-23.
+
+The website retains Geistdocs' exact `fumadocs-ui@16.2.2` API instead of
+overriding it to a newer UI release. Newer UI releases change provider and
+internal import contracts that Geistdocs `1.22.0` still depends on. The pinned
+UI release, however, publishes several sidebar bindings through a destructured
+export that Next.js production bundlers cannot resolve statically.
+
+Forge carries a narrow pnpm package patch that rewrites only those bindings as
+explicit exports. Route adapters also expose Next.js 16-compatible handler and
+static-parameter signatures. This keeps the compatibility exception reviewed,
+checked in, reproducible from the lockfile, and removable when Geistdocs ships
+a compatible dependency update.

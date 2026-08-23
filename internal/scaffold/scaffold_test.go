@@ -62,7 +62,7 @@ func TestGenerateCreatesDeterministicProject(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, required := range []string{"omarchy-shell", "setDemoState", "Applied %s without changing shell configuration"} {
+	for _, required := range []string{"omarchy-shell", "setDemoState", "Applied %s without changing shell configuration", "for pre-install testing use ./tests/runtime --trust-plugin-code --state %s"} {
 		if !bytes.Contains(demoScript, []byte(required)) {
 			t.Errorf("demo/run missing %q", required)
 		}
@@ -156,6 +156,47 @@ func TestGenerateAgentReadyAddsSpecificationAndGuardrails(t *testing.T) {
 		for _, required := range test.required {
 			if !bytes.Contains(content, []byte(required)) {
 				t.Errorf("%s missing %q", test.path, required)
+			}
+		}
+	}
+}
+
+func TestGenerateGuidedAgentAddsConfirmedSpecAndInitialPrompt(t *testing.T) {
+	target := filepath.Join(t.TempDir(), "agent-widget")
+	options := validOptions(target)
+	options.AgentReady = true
+	options.AgentGuided = true
+	options.BarSummary = "Current local time."
+	options.ClickBehavior = "Left-click toggles details."
+	options.PopoutSummary = "Full date and refresh status."
+	options.UserActions = "Refresh the clock."
+	options.DataSources = "The local system clock."
+	options.LocalCommands = "Not required — none."
+	options.NetworkAccess = "Not required — none."
+	options.Persistence = "Not required — none."
+	options.FailureBehavior = "Show a clear error and preserve safe data."
+	result, err := Generate(options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Changes) != len(readGolden(t, "testdata/bar-widget.golden"))+4 {
+		t.Fatalf("guided-agent changes = %d, want standard project plus four files", len(result.Changes))
+	}
+	for path, required := range map[string][]string{
+		"FORGE_SPEC.md":   {"Specification status: Ready for implementation", "Current local time", "Not required"},
+		"AGENT_PROMPT.md": {"Commit the completed implementation locally", "./tests/runtime --trust-plugin-code --state ready", "omarchy plugin add \"$PWD\" --enable"},
+		"AGENTS.md":       {"Never describe static validation as runtime verification"},
+	} {
+		content, readErr := os.ReadFile(filepath.Join(target, path))
+		if readErr != nil {
+			t.Fatal(readErr)
+		}
+		if bytes.Contains(content, []byte("TODO")) {
+			t.Errorf("%s contains an unresolved placeholder", path)
+		}
+		for _, text := range required {
+			if !bytes.Contains(content, []byte(text)) {
+				t.Errorf("%s missing %q", path, text)
 			}
 		}
 	}

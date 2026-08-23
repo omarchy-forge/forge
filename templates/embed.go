@@ -18,13 +18,33 @@ var templateFiles embed.FS
 
 // Data contains validated values used by templates.
 type Data struct {
-	ID          string
-	Name        string
-	Description string
-	Author      string
-	Section     string
-	IncludeCI   bool
-	AgentReady  bool
+	ID              string
+	Name            string
+	Description     string
+	Author          string
+	Section         string
+	IncludeCI       bool
+	AgentReady      bool
+	AgentGuided     bool
+	ReferenceDriven bool
+	BarSummary      string
+	ClickBehavior   string
+	PopoutSummary   string
+	UserActions     string
+	DataSources     string
+	LocalCommands   string
+	NetworkAccess   string
+	Persistence     string
+	FailureBehavior string
+	References      []ReferenceData
+}
+
+// ReferenceData describes a validated project reference to generated prose.
+type ReferenceData struct {
+	Path   string
+	Kind   string
+	Size   int
+	SHA256 string
 }
 
 // File is one rendered project file.
@@ -65,6 +85,9 @@ func Render(data Data) ([]File, error) {
 			continue
 		}
 		if (relative == "AGENTS.md.tmpl" || relative == "FORGE_SPEC.md.tmpl") && !data.AgentReady {
+			continue
+		}
+		if relative == "AGENT_PROMPT.md.tmpl" && !data.AgentGuided {
 			continue
 		}
 		content, readErr := templateFiles.ReadFile(name)

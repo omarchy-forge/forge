@@ -111,6 +111,29 @@ Complete the specification, change its status from `Draft` to
 [agent-ready workflow](/docs/templates#agent-ready-projects) before executing
 any agent-written QML.
 
+The unreleased guided mode combines those preparation steps while preserving
+the same human-controlled runtime boundary:
+
+```bash
+omaforge init project-pulse --agent
+```
+
+It reports the current Omarchy agent, asks for a short product description and
+the important access boundaries, and shows an editable final review. Only a
+confirmed plan is generated and committed before the configured agent is
+launched. Cancellation writes nothing. See the
+[guided workflow](/docs/templates#guided-agent-workflow-unreleased) for its
+unattended-permission warning and completion handoff.
+
+Choose `references` to drop `.txt`, `.md`, PNG, JPEG, WebP, or SVG product briefs
+into the generated directory. The agent extracts appearance, displayed
+information, controls, states, and functionality from them; Forge asks only for
+the access boundaries the files cannot safely authorize. Choose `questionnaire`
+to enter the bar, dashboard, actions, data sources, and commands directly.
+
+Do not add secrets or personal data: Forge does not upload references, but the
+configured agent/provider may receive their contents.
+
 ## Check and validate
 
 ```bash

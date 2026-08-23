@@ -276,12 +276,17 @@ func runDoctor(args []string, stdout, stderr io.Writer) int {
 }
 
 func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
+	return runInitWithAgentRuntime(args, stdin, stdout, stderr, execAgentRuntime{})
+}
+
+func runInitWithAgentRuntime(args []string, stdin io.Reader, stdout, stderr io.Writer, runtime agentRuntime) int {
 	flags := flag.NewFlagSet("init", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	var options scaffold.Options
 	var templateName string
 	var nonInteractive bool
 	var noCI bool
+	var agentMode bool
 	flags.StringVar(&options.ID, "id", "", "namespaced plugin ID (required)")
 	flags.StringVar(&options.Name, "name", "", "plugin display name")
 	flags.StringVar(&options.Description, "description", "", "short plugin description")
@@ -293,6 +298,7 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	flags.BoolVar(&options.Force, "force", false, "overwrite colliding generated files after showing the plan")
 	flags.BoolVar(&options.InitGit, "git", false, "initialize a local Git repository")
 	flags.BoolVar(&options.AgentReady, "agent-ready", false, "add a structured specification and agent safety guidance")
+	flags.BoolVar(&agentMode, "agent", false, "guide, confirm, commit, and launch the configured Omarchy agent")
 	flags.BoolVar(&noCI, "no-ci", false, "omit the generated GitHub Actions workflow")
 	flags.BoolVar(&nonInteractive, "non-interactive", false, "fail instead of prompting for missing values")
 	flags.Usage = func() {
@@ -330,6 +336,23 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 		fmt.Fprintf(stderr, "unknown template %q; available template: bar-widget\n", templateName)
 		return 2
 	}
+	if agentMode && (nonInteractive || options.DryRun || options.Force || options.AgentReady) {
+		fmt.Fprintln(stderr, "omaforge init --agent is interactive and cannot be combined with --non-interactive, --dry-run, --force, or --agent-ready")
+		return 2
+	}
+	agent := ""
+	if agentMode {
+		var agentErr error
+		agent, agentErr = configuredAgent(runtime)
+		if agentErr != nil {
+			fmt.Fprintf(stderr, "omaforge init --agent: %v\n", agentErr)
+			return 1
+		}
+		fmt.Fprintf(stdout, "Current Omarchy coding agent: %s\n\n", agent)
+		options.AgentReady = true
+		options.AgentGuided = true
+		options.InitGit = true
+	}
 
 	reader := bufio.NewReader(stdin)
 	if flags.NArg() == 1 {
@@ -343,10 +366,16 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 	if options.Name == "" {
 		options.Name = scaffold.DisplayName(options.Directory)
 	}
-	if !nonInteractive {
+	if agentMode {
+		options.HomeDir, _ = os.UserHomeDir()
+		options.OmarchyPath = os.Getenv("OMARCHY_PATH")
+		if !promptAgentPlan(reader, stdout, &options, agent) {
+			return 0
+		}
+	} else if !nonInteractive {
 		options.Name = prompt(reader, stdout, "Plugin name", options.Name)
-		options.ID = prompt(reader, stdout, "Plugin ID", options.ID)
-		options.Description = prompt(reader, stdout, "Description", options.Description)
+		options.ID = prompt(reader, stdout, "Plugin ID (for example my.clock)", options.ID)
+		options.Description = prompt(reader, stdout, "What do you want to build? (short description)", options.Description)
 		options.Author = prompt(reader, stdout, "Author", options.Author)
 		options.Section = prompt(reader, stdout, "Default section", options.Section)
 	}
@@ -354,8 +383,10 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 		options.Description = "A polished Omarchy bar widget."
 	}
 	options.IncludeCI = !noCI
-	options.HomeDir, _ = os.UserHomeDir()
-	options.OmarchyPath = os.Getenv("OMARCHY_PATH")
+	if options.HomeDir == "" {
+		options.HomeDir, _ = os.UserHomeDir()
+		options.OmarchyPath = os.Getenv("OMARCHY_PATH")
+	}
 
 	previewed := false
 	if options.Force && !options.DryRun {
@@ -385,10 +416,28 @@ func runInit(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
 		fmt.Fprintf(stdout, "Dry run complete: %d files planned; nothing written.\n", len(result.Changes))
 	} else {
 		fmt.Fprintf(stdout, "Created %s with %d files.\n", result.Directory, len(result.Changes))
-		if options.AgentReady {
+		if options.AgentReady && !agentMode {
 			fmt.Fprintln(stdout, "Agent-ready files: complete FORGE_SPEC.md, set its status to Ready for implementation, then ask your agent to follow AGENTS.md.")
 		}
+		if agentMode {
+			fmt.Fprintln(stdout, "Guided agent files: FORGE_SPEC.md is confirmed, AGENT_PROMPT.md defines the implementation and completion handoff, and AGENTS.md preserves safety boundaries.")
+		}
 		fmt.Fprintln(stdout, "Next: omarchy plugin validate "+result.Directory)
+	}
+	if agentMode && !options.DryRun {
+		commit, commitErr := runtime.CommitBaseline(result.Directory, options.Name)
+		if commitErr != nil {
+			fmt.Fprintf(stderr, "omaforge init --agent: create baseline commit: %v\n", commitErr)
+			fmt.Fprintln(stderr, "The project was generated but the agent was not launched. Fix Git identity or repository state, commit the scaffold, then run the prompt in AGENT_PROMPT.md.")
+			return 1
+		}
+		fmt.Fprintf(stdout, "Baseline commit: %s\n", commit)
+		fmt.Fprintf(stdout, "Launching %s from %s with AGENT_PROMPT.md.\n", agent, result.Directory)
+		if launchErr := runtime.Launch(result.Directory, stdin, stdout, stderr); launchErr != nil {
+			fmt.Fprintf(stderr, "omaforge init --agent: %v\n", launchErr)
+			fmt.Fprintln(stderr, "The generated project and baseline commit are safe; launch later with: omarchy agent prompt \"Follow AGENT_PROMPT.md and AGENTS.md. Implement FORGE_SPEC.md.\"")
+			return 1
+		}
 	}
 	return 0
 }

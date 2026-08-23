@@ -309,6 +309,60 @@ from the downloaded release archive. Both generated contract files contained
 the expected readiness gate, and the sample passed `omaforge check` plus the
 installed official validator without executing QML.
 
+## Guided-agent development checkpoint (unreleased)
+
+Project Clock dogfooding exposed two workflow gaps: users could not move from
+an idea to the existing specification without manual editing, and generated
+documentation listed live `demo/run` commands before explaining that they need
+an installed plugin. A local, unmerged implementation adds interactive
+`omaforge init --agent` while preserving `--agent-ready` unchanged.
+
+The guided mode reports the configured Omarchy agent, gathers product and
+access boundaries, shows an editable summary and unattended-permission warning,
+and writes nothing on cancellation. Confirmation generates a completed
+`FORGE_SPEC.md`, project `AGENTS.md`, and `AGENT_PROMPT.md`; initializes Git;
+creates a hook- and signing-disabled baseline commit; and invokes the configured
+agent from the project. Generated completion instructions require a local
+implementation commit and order human review, isolated ready/empty/error tests,
+deliberate local installation, installed demos, removal, and optional pushing.
+Forge still never executes QML, installs the plugin, configures a remote, or
+pushes automatically.
+
+Focused tests simulate agent discovery, commit, launch, cancellation, missing
+configuration, and unsafe option combinations without launching an agent.
+The guided flow also accepts up to ten optional local text, Markdown, PNG,
+JPEG, WebP, or non-rendered XML-validated SVG references. It validates bounded regular files, captures their
+bytes from a generated `references/` drop directory, records SHA-256
+digests, and warns that the configured agent/provider may receive the contents.
+Dogfooding the guided flow with a local control-center project showed that
+answers such as `icon` and `dashboard` can erase the functionality stated in a
+detailed reference. The flow now offers `references` or `questionnaire`.
+Reference mode makes confirmed text and image files the primary product brief,
+requires a complete functional and visual inventory, and asks only for local
+command, network, persistence, and failure boundaries. Questionnaire mode keeps
+the detailed bar, dashboard, action, data-source, and command prompts. Generated
+prompts forbid treating reference controls as decoration or silently reducing
+them to placeholder UI.
+
+Reference-mode dogfooding also exposed an initialization-order regression:
+Forge attempted full specification validation before collecting the author,
+causing an empty-input retry loop. Two test runs remained alive, exhausted the
+`/tmp` tmpfs quota, and approached system OOM. The prompt now collects common
+identity fields before reference staging and exits safely when no reference is
+added. A regression test covers that cancellation path. The exact runaway test
+processes and their three stale Go build directories were removed; the machine
+returned to roughly 12 GiB available memory and `/tmp` returned to 2% usage.
+
+After the fix, bounded focused guided-agent tests and the full `go test ./...`,
+`go vet ./...`, `go build ./cmd/omaforge`, and `git diff --check` pass. A real
+CLI walkthrough used a disposable Markdown reference, reached the confirmed
+reference-driven review with the configured agent, then cancelled before any
+project generation or agent launch; its temporary files were removed. Earlier
+checks in this development checkpoint also covered the release action,
+installer, website dependency, catalog, installer route, typecheck, official
+validator, and actionable live-demo failure. This work remains local,
+uncommitted, and unreleased pending review.
+
 A subsequent supervised agent trial implemented a reviewed local Git-status
 specification in a disposable generated project. Static review caught a
 literal NUL byte that made one QML file appear binary even though the existing
@@ -316,6 +370,23 @@ project, Forge, and official checks passed. Forge now reports error rule
 `OF305`, including the source path and line, whenever a checked QML, JavaScript,
 or shell source file contains a NUL byte. The regression test uses inert file
 bytes and does not execute plugin QML.
+
+Control-center dogfooding then exposed a visual-fidelity gap: an implementation
+could inventory reference behavior yet dismiss a supplied raster icon as
+branding-only and approximate a UI mockup with generic generated composition.
+The unreleased guided contract now makes design images fidelity targets,
+requires supplied logos/icons in their intended locations, prohibits inventing
+a vector-conversion prerequisite, and requires human reference-versus-render
+review for visual acceptance.
+
+The website dependency baseline was rebuilt cleanly on 2026-08-23. A narrow
+checked-in pnpm patch makes Geistdocs' pinned `fumadocs-ui@16.2.2` sidebar
+exports statically visible to Next.js, and local route adapters satisfy the
+current Next.js 16 route contract. Type checking and a complete 42-route
+production build pass with Webpack. Turbopack cannot be verified in the current
+restricted execution environment because its MDX loader attempts to bind a
+local process port; the failure is environmental rather than a missing content
+file.
 
 ## Installer and repository protection checkpoint
 
@@ -365,3 +436,11 @@ not locked out by an impossible self-approval requirement.
    not automatically install the separate Handoff plugin.
 3. The user's ongoing local installation is now the verified `v0.4.0` release.
    Marketplace submission and announcement remain distinct approval-gated work.
+4. Review the complete guided-agent working-tree diff, rerun the release-sized
+   baseline if accepted, and commit it locally before opening any pull request
+   or beginning release work.
+5. Control Center is public with the `omaforge-project` topic and stable
+   `v0.1.0` release at
+   `cbf45874c2a344c7fba78837eb19c91343dbaf51`. Forge's generated catalog now
+   includes its checked-in 749×1102 preview and derived official plugin install
+   command. This catalog update remains local until its Forge commit is pushed.
