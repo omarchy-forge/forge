@@ -17,7 +17,11 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   `OF305` NUL-byte rejection, and Qt-directory `qmllint` discovery. Release
   metadata pull request `#48` merged at
   `3584e769e490f9bcf3ed773d9f142a191af046d3`; release workflow run
-  `32633386500` passed both build and publish jobs.
+  `32633386500` passed both build and publish jobs. Pull request `#49` updated
+  current-facing installation and Action guidance at
+  `6b5c4ab18aabfa7d9840cbc68141c125533ee434`; production deployment
+  `dpl_7HppBciD4boi1SUbjfmy23W7WQx8` completed all 42 routes and was verified at
+  the canonical domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -359,5 +363,5 @@ not locked out by an impossible self-approval requirement.
    trial are complete. Keep future agent-produced plugin execution subject to
    explicit human review and the existing trust acknowledgement. Forge does
    not automatically install the separate Handoff plugin.
-3. Ongoing local installation, marketplace submission, and announcement remain
-   distinct approval-gated work.
+3. The user's ongoing local installation is now the verified `v0.4.0` release.
+   Marketplace submission and announcement remain distinct approval-gated work.
