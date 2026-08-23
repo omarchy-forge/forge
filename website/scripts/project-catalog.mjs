@@ -103,7 +103,7 @@ export const buildCatalogEntry = ({ repository, commit, release, manifest, metad
     name: checkedManifest.name,
     order: checkedMetadata.order,
     pluginId: checkedManifest.id,
-    preview: `/projects/${slug}.${extension}`,
+    preview: `/project-images/${slug}.${extension}`,
     releaseUrl: release.html_url,
     repository: `omarchy-forge/${slug}`,
     repositoryUrl: repository.html_url,

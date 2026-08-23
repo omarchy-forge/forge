@@ -31,7 +31,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet -- website/data/projects.json website/public/projects; then
+          if git diff --quiet -- website/data/projects.json website/public/project-images; then
             echo "Project catalog is current."
             exit 0
           fi
@@ -39,7 +39,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add website/data/projects.json website/public/projects
+          git add website/data/projects.json website/public/project-images
           git commit -m "docs: sync owner projects"
           git push origin "$branch"
           pr_url="$(gh pr create --base main --head "$branch" --title "docs: sync owner projects" --body "Automated refresh of the public Omarchy Forge owner-project catalog. The generator reads only declared metadata, manifests, release metadata, and preview image bytes; it does not execute project QML.")"
