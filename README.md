@@ -158,6 +158,17 @@ the specification and committing a rollback point. The agent may edit code and
 run static validation; the user must still review the diff and explicitly
 decide whether to run `omaforge dev` or install the plugin.
 
+This workflow has been verified end to end with the released `v0.3.0` binary:
+Forge generated a disposable agent-ready project, a human completed and
+committed its specification, and Omarchy's configured agent implemented a
+scoped local Git-status widget. The generated tests, `omaforge check`, and the
+official Omarchy validator passed without executing QML, installing the plugin,
+or changing live shell configuration. Human diff review still caught and fixed
+an invalid NUL byte. The follow-up checker fix is merged into Forge `main` as
+error rule `OF305` and will be included in the next release; the installed
+`v0.3.0` checker does not contain that rule. The trial validates the guarded
+workflow, not automatic trust in agent-written code.
+
 ## Check an existing plugin
 
 Forge checks are deterministic, local, and do not execute plugin QML or use the
