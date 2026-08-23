@@ -19,7 +19,7 @@ const HomePage = () => (
       <p>{description} Scaffold polished plugins, catch problems early, and validate every pull request.</p>
       <div className="forge-actions">
         <Link className="forge-primary" href="/docs/quickstart">Start building <ArrowRight aria-hidden="true" /></Link>
-        <Link className="forge-secondary" href="/docs/commands">Explore commands</Link>
+        <Link className="forge-secondary" href="/projects">Browse projects</Link>
       </div>
       <div className="forge-terminal" aria-label="Example Forge commands">
         <div><i /><i /><i /><span>omarchy-forge / plugin</span></div>

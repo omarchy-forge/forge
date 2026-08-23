@@ -16,6 +16,10 @@ export const github = {
 
 export const nav = [
   {
+    label: "Projects",
+    href: "/projects",
+  },
+  {
     label: "Quickstart",
     href: "/docs/quickstart",
   },

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "compatibility": [
+        "omarchy-4"
+      ],
+      "featured": true,
+      "installCommand": "omarchy plugin add https://github.com/omarchy-forge/handoff.git --enable",
+      "name": "Handoff",
+      "order": 10,
+      "pluginId": "org.omarchyforge.handoff",
+      "preview": "/projects/handoff.png",
+      "releaseUrl": "https://github.com/omarchy-forge/handoff/releases/tag/v0.1.1",
+      "repository": "omarchy-forge/handoff",
+      "repositoryUrl": "https://github.com/omarchy-forge/handoff",
+      "slug": "handoff",
+      "sourceCommit": "609117c871d7dead6777f6f3a8d2153c993b4290",
+      "tagline": "Pick up Git projects where you left off.",
+      "version": "0.1.1"
+    }
+  ]
+}

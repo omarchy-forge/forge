@@ -145,7 +145,7 @@ does not create a Vercel project, deployment, domain, or environment variable.
 
 Status: accepted, 2026-08-22.
 
-The flagship Handoff plugin lives in the separate private repository
+The flagship Handoff plugin began in the separate private repository
 `omarchy-forge/handoff`. It has an independent installation and eventual
 release boundary and does not belong inside the Forge monorepo.
 
@@ -203,7 +203,7 @@ The evaluation in `SERVICE_WIDGET_EVALUATION.md` records the evidence and
 revisit criteria. Until one criterion is met, the supported bar-widget template
 remains intentionally singular.
 
-## D-018: Public Forge, private Handoff
+## D-018: Public Forge, initially private Handoff
 
 Status: accepted, 2026-08-22.
 
@@ -213,6 +213,9 @@ separate `omarchy-forge/handoff` repository and release remain private.
 Forge visibility does not authorize a website deployment, connection of
 `omarchyforge.com`, marketplace submission, Handoff visibility change, or a
 public launch announcement. Those remain separate approval-gated actions.
+
+Handoff's visibility boundary was later changed with explicit approval on
+2026-08-23; D-026 records its public catalog boundary.
 
 ## D-019: Project-owned trusted development harness
 
@@ -287,9 +290,9 @@ generated metadata and machine-readable discovery files use that origin.
 The deployment retains the static-first, no-account, no-database, no-analytics,
 and no-AI-chat boundaries recorded in D-013.
 
-This checkpoint does not announce the site, submit anything to a marketplace,
-or change the visibility of the private Handoff repository. Each remains a
-separate approval-gated action.
+At this checkpoint, the site deployment did not announce the site, submit
+anything to a marketplace, or change Handoff's then-private visibility. Those
+were separate approval-gated actions.
 
 ## D-024: Provider-neutral agent-ready scaffolding
 
@@ -333,3 +336,22 @@ telemetry, scheduled execution, or background network checks. Documentation
 keeps an inspect-first path and the full manual exact-version block alongside
 the short convenience command because piping a remote script requires explicit
 user trust.
+
+## D-026: Checked-in owner-project catalog with protected automated updates
+
+Status: accepted, 2026-08-23.
+
+The Forge website exposes a curated directory limited to public, active,
+non-fork repositories owned by `omarchy-forge` and explicitly marked with the
+`omaforge-project` topic. Each repository supplies a strict, versioned metadata
+document, but Forge derives repository, release, preview, and installation
+targets from verified GitHub identity and manifest data. A matching stable
+release is required. The initial eligible project is Handoff.
+
+The catalog and preview images are generated artifacts committed to Forge, so
+ordinary website builds remain deterministic and network-independent. An
+explicit daily or manually dispatched GitHub workflow reads only bounded JSON
+and image data, opens a pull request when artifacts change, invokes protected
+CI, and requests auto-merge. Neither the generator nor CI installs projects or
+executes project QML. This is an owner-maintained project directory, not a
+third-party marketplace or submission system.

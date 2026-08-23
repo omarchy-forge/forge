@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a generated owner-project catalog and website Projects page, beginning
+  with the public Handoff plugin, plus a daily protected pull-request sync.
 - Add an explicitly invoked, checksum-verifying user installer that resolves
   the latest release, skips an already-current installation, and safely updates
   `~/.local/bin/omaforge` without `sudo` or background checks.

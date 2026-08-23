@@ -1,0 +1,47 @@
+name: Sync owner projects
+
+on:
+  schedule:
+    - cron: "17 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version-file: website/.node-version
+          package-manager-cache: false
+      - name: Test catalog generator
+        run: node --test website/scripts/project-catalog.test.mjs
+      - name: Synchronize public owner projects
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node website/scripts/sync-projects.mjs
+      - name: Open and auto-merge an update pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- website/data/projects.json website/public/projects; then
+            echo "Project catalog is current."
+            exit 0
+          fi
+          branch="automation/projects-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add website/data/projects.json website/public/projects
+          git commit -m "docs: sync owner projects"
+          git push origin "$branch"
+          pr_url="$(gh pr create --base main --head "$branch" --title "docs: sync owner projects" --body "Automated refresh of the public Omarchy Forge owner-project catalog. The generator reads only declared metadata, manifests, release metadata, and preview image bytes; it does not execute project QML.")"
+          gh workflow run ci.yml --ref "$branch"
+          gh pr merge "$pr_url" --auto --squash --delete-branch

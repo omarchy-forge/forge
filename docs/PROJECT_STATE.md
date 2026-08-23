@@ -12,18 +12,19 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Current completed product checkpoint: agent-ready scaffolding and hardening,
-  merged through pull requests `#29` and `#30`. Both Go and website CI passed,
-  and the resulting documentation was deployed and verified at the custom
-  domain. Later documentation-only checkpoints do not change that capability.
+- Current completed product checkpoint before the active owner-project catalog
+  work: agent-ready scaffolding and hardening, merged through pull requests
+  `#29` and `#30`. Both Go and website CI passed, and the resulting
+  documentation was deployed and verified at the custom domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
   checks passed).
 - Forge's public visibility, documentation deployment, and custom-domain
-  connection have been authorized and applied. Handoff remains private; no
-  marketplace submission or public launch announcement has been authorized or
-  performed.
+  connection have been authorized and applied. Handoff was made public on
+  2026-08-23 after its release, checks, history scan, metadata, and protections
+  were verified. No marketplace submission or public launch announcement has
+  been performed.
 
 Always verify Git and GitHub state instead of assuming this snapshot is still
 current.
@@ -93,7 +94,7 @@ as `ddc387e` after all CI checks passed.
 
 ### Milestone 5 — Handoff flagship plugin
 
-- Private separate repository: `omarchy-forge/handoff`.
+- Separate public repository: `omarchy-forge/handoff`.
 - Private release: `v0.1.0`, tagged at
   `afa10733292e9d8f2acb9f197eb5802b1eb42422` and published at
   `https://github.com/omarchy-forge/handoff/releases/tag/v0.1.0`.
@@ -116,7 +117,7 @@ as `ddc387e` after all CI checks passed.
   `shell.json` byte-for-byte (SHA-256
   `802fa2600cac1cd2971c48769661432a8f30eb5beb2eadb63f0356a913172f9f`),
   and left `omarchy-shell shell ping` returning `ok`.
-- Handoff remains private, is not installed for ongoing use, and has not been
+- Handoff is public, is not installed for ongoing use, and has not been
   submitted to a marketplace or announced publicly.
 - Private maintenance release `v0.1.1` is tagged at
   `6038185070e580696326a6e8591c761d700dd63f` with the Forge `v0.2.0`
@@ -314,11 +315,12 @@ not locked out by an impossible self-approval requirement.
 
 ## Next checkpoint
 
-1. Keep Handoff private. The documentation website and custom domain are live
-   at `https://www.omarchyforge.com`.
+1. Keep Handoff's public release and repository protections healthy. The
+   documentation website and custom domain are live at
+   `https://www.omarchyforge.com`.
 2. The hands-on `v0.3.0` onboarding and supervised agent-ready implementation
    trial are complete. Keep future agent-produced plugin execution subject to
    explicit human review and the existing trust acknowledgement. Forge does
-   not automatically install the separate private Handoff plugin.
-3. Ongoing local installation, marketplace submission, announcement, and any
-   Handoff visibility change remain distinct approval-gated work.
+   not automatically install the separate Handoff plugin.
+3. Ongoing local installation, marketplace submission, and announcement remain
+   distinct approval-gated work.

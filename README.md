@@ -2,6 +2,9 @@
 
 Developer tools for building, testing, and shipping Omarchy plugins.
 
+Explore optional tools maintained by our organization on the
+[Projects page](https://www.omarchyforge.com/projects).
+
 > Omarchy Forge is an independent community project. It is not affiliated with
 > or endorsed by Omarchy, Basecamp, 37signals, or DHH.
 
@@ -221,7 +224,8 @@ reported without failing the check.
 The repository contains a composite check Action and a tag-driven Linux release
 pipeline. The Action downloads an exact release version, verifies its checksum,
 and emits pull-request annotations. Forge and its release assets are public;
-Handoff remains a separate private project. See the
+Handoff is a separate public project listed on the owner-maintained Projects
+page. See the
 [Action guide](action/README.md) and [release process](docs/RELEASING.md).
 
 ## Documentation website

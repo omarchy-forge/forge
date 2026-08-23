@@ -57,7 +57,7 @@ Implemented and merged:
 
 ## Milestone 5: Handoff flagship plugin
 
-Implemented in the private, separate `omarchy-forge/handoff` repository:
+Implemented in the public, separate `omarchy-forge/handoff` repository:
 
 - Pin a local Git project and save one next-step note.
 - Record branch, clean/dirty state, latest commit, and timestamps.
@@ -67,12 +67,12 @@ Implemented in the private, separate `omarchy-forge/handoff` repository:
 - Pass official validation, Forge checks, private CI, isolated runtime tests,
   and a cleanup-verified Omarchy 4 live session.
 
-Handoff `v0.1.0` has been released from the private repository and verified by
-an exact-tag Omarchy installation followed by complete cleanup. It remains
-private, unannounced, absent from marketplaces, and not installed for ongoing
-use.
+Handoff `v0.1.0` was released while the repository was private and verified by
+an exact-tag Omarchy installation followed by complete cleanup. The repository
+is now public and appears in Forge's owner-project catalog; it remains absent
+from marketplaces and is not installed for ongoing use.
 
-Handoff `v0.1.1` is also released privately as a development-tooling
+Handoff `v0.1.1` was also released initially as a development-tooling
 maintenance update adopting Forge `v0.2.0`; it passed exact-tag installation
 and cleanup verification without changing those distribution boundaries.
 
