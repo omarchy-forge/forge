@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- Require reference-driven projects to treat UI mockups as visual-fidelity
+  targets and supplied logos/icons as mandatory assets, with human screenshot
+  comparison and explicit approval for material deviations.
+- Keep guided reference selection open when a directory scan finds no usable
+  files, report the exact directory being scanned, and allow an explicit retry
+  after file copies finish without implying that the staging directory was
+  never created.
+- Accept bounded, XML-validated SVG references without rendering or executing
+  them, and make each retry prompt trigger one scan instead of requiring two
+  consecutive Returns.
+- Add an interactive `omaforge init --agent` workflow that reports the current
+  Omarchy agent, gathers and confirms a complete specification, generates an
+  initial prompt, creates a local baseline commit, and launches the configured
+  agent only after explicit confirmation.
+- Create a guided `references/` directory for up to ten confirmed local text,
+  Markdown, PNG, JPEG, or WebP files with bounded validation and SHA-256
+  provenance.
+- Guide users to keep the bar entry minimal while separately specifying exact
+  dashboard cards, user actions, data sources, and local commands. Generated
+  prompts require functional wiring instead of generic placeholder dashboards.
+- Require implementation agents to compare attached reference requirements with
+  the confirmed spec and stop on missing or conflicting capabilities.
+- Let guided users choose reference-driven creation or the detailed
+  questionnaire. Reference mode treats confirmed text and images as the primary
+  product brief and asks only for explicit access and failure boundaries.
+- Give generated agents an ordered completion handoff covering static checks,
+  isolated runtime states, deliberate local installation, installed demos,
+  removal, and optional Git publishing.
+- Clarify generated pre-install state testing and replace bare live-demo
+  `Target not found` failures with actionable isolated-runtime guidance.
+
 ## [0.4.0] - 2026-08-23
 
 - Detect `qmllint` in Qt 6's standard tool directory when it is installed but

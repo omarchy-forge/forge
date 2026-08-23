@@ -21,20 +21,32 @@ var (
 
 // Options controls project generation.
 type Options struct {
-	Directory   string
-	ID          string
-	Name        string
-	Description string
-	Author      string
-	License     string
-	Section     string
-	IncludeCI   bool
-	AgentReady  bool
-	InitGit     bool
-	DryRun      bool
-	Force       bool
-	HomeDir     string
-	OmarchyPath string
+	Directory       string
+	ID              string
+	Name            string
+	Description     string
+	Author          string
+	License         string
+	Section         string
+	IncludeCI       bool
+	AgentReady      bool
+	AgentGuided     bool
+	ReferenceDriven bool
+	BarSummary      string
+	ClickBehavior   string
+	PopoutSummary   string
+	UserActions     string
+	DataSources     string
+	LocalCommands   string
+	NetworkAccess   string
+	Persistence     string
+	FailureBehavior string
+	References      []Reference
+	InitGit         bool
+	DryRun          bool
+	Force           bool
+	HomeDir         string
+	OmarchyPath     string
 }
 
 // Change describes one planned filesystem change.
@@ -69,17 +81,36 @@ func Generate(options Options) (Result, error) {
 	}
 
 	files, err := projecttemplates.Render(projecttemplates.Data{
-		ID:          options.ID,
-		Name:        options.Name,
-		Description: options.Description,
-		Author:      options.Author,
-		Section:     options.Section,
-		IncludeCI:   options.IncludeCI,
-		AgentReady:  options.AgentReady,
+		ID:              options.ID,
+		Name:            options.Name,
+		Description:     options.Description,
+		Author:          options.Author,
+		Section:         options.Section,
+		IncludeCI:       options.IncludeCI,
+		AgentReady:      options.AgentReady,
+		AgentGuided:     options.AgentGuided,
+		ReferenceDriven: options.ReferenceDriven,
+		BarSummary:      options.BarSummary,
+		ClickBehavior:   options.ClickBehavior,
+		PopoutSummary:   options.PopoutSummary,
+		UserActions:     options.UserActions,
+		DataSources:     options.DataSources,
+		LocalCommands:   options.LocalCommands,
+		NetworkAccess:   options.NetworkAccess,
+		Persistence:     options.Persistence,
+		FailureBehavior: options.FailureBehavior,
+		References:      referenceTemplateData(options.References),
 	})
 	if err != nil {
 		return Result{}, fmt.Errorf("render template: %w", err)
 	}
+	if options.AgentGuided {
+		files = append(files, projecttemplates.File{Path: "references/.gitkeep", Content: []byte{}, Mode: 0o644})
+	}
+	for _, reference := range options.References {
+		files = append(files, projecttemplates.File{Path: reference.ProjectPath, Content: append([]byte(nil), reference.content...), Mode: 0o644})
+	}
+	sort.Slice(files, func(i, j int) bool { return files[i].Path < files[j].Path })
 
 	result := Result{Directory: target}
 	for _, file := range files {
@@ -117,7 +148,20 @@ func Generate(options Options) (Result, error) {
 	return result, nil
 }
 
+func referenceTemplateData(references []Reference) []projecttemplates.ReferenceData {
+	result := make([]projecttemplates.ReferenceData, 0, len(references))
+	for _, reference := range references {
+		result = append(result, projecttemplates.ReferenceData{
+			Path: reference.ProjectPath, Kind: reference.Kind, Size: reference.Size, SHA256: reference.SHA256,
+		})
+	}
+	return result
+}
+
 func validate(options Options) (string, error) {
+	if err := validatePreparedReferences(options.References); err != nil {
+		return "", err
+	}
 	if strings.TrimSpace(options.Directory) == "" {
 		return "", errors.New("output directory is required")
 	}
@@ -152,7 +196,7 @@ func validate(options Options) (string, error) {
 		if readErr != nil {
 			return "", fmt.Errorf("inspect output directory: %w", readErr)
 		}
-		if len(entries) > 0 && !onlyGitDirectory(entries) && !options.Force {
+		if len(entries) > 0 && !onlyAllowedStagingEntries(entries) && !options.Force {
 			return "", fmt.Errorf("output directory is not empty; inspect it and pass --force to overwrite generated file collisions: %s", target)
 		}
 		if options.Force {
@@ -200,11 +244,40 @@ func validate(options Options) (string, error) {
 	if options.Section != "left" && options.Section != "center" && options.Section != "right" {
 		return "", fmt.Errorf("section %q must be left, center, or right", options.Section)
 	}
+	if options.AgentGuided {
+		if !options.AgentReady {
+			return "", errors.New("guided agent generation requires agent-ready safety files")
+		}
+		for label, value := range map[string]string{
+			"bar summary":      options.BarSummary,
+			"click behavior":   options.ClickBehavior,
+			"popout summary":   options.PopoutSummary,
+			"user actions":     options.UserActions,
+			"data sources":     options.DataSources,
+			"local commands":   options.LocalCommands,
+			"network access":   options.NetworkAccess,
+			"persistence":      options.Persistence,
+			"failure behavior": options.FailureBehavior,
+		} {
+			if strings.TrimSpace(value) == "" || len(value) > 500 || strings.ContainsAny(value, "\r\n\x00") {
+				return "", fmt.Errorf("%s is required and must be a single line of at most 500 bytes", label)
+			}
+		}
+	}
 	return target, nil
 }
 
 func onlyGitDirectory(entries []os.DirEntry) bool {
 	return len(entries) == 1 && entries[0].Name() == ".git" && entries[0].IsDir()
+}
+
+func onlyAllowedStagingEntries(entries []os.DirEntry) bool {
+	for _, entry := range entries {
+		if !entry.IsDir() || (entry.Name() != ".git" && entry.Name() != "references") {
+			return false
+		}
+	}
+	return true
 }
 
 func rejectSymlinkAncestors(target string) error {

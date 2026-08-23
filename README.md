@@ -162,7 +162,7 @@ For more detail, see the
 
 ## Build with your Omarchy AI agent
 
-Forge `v0.3.0` includes opt-in agent-ready scaffolding. Add `--agent-ready` when
+Forge `v0.4.0` includes opt-in agent-ready scaffolding. Add `--agent-ready` when
 creating a project:
 
 ```bash
@@ -198,10 +198,39 @@ committed its specification, and Omarchy's configured agent implemented a
 scoped local Git-status widget. The generated tests, `omaforge check`, and the
 official Omarchy validator passed without executing QML, installing the plugin,
 or changing live shell configuration. Human diff review still caught and fixed
-an invalid NUL byte. The follow-up checker fix is merged into Forge `main` as
-error rule `OF305` and will be included in the next release; the installed
-`v0.3.0` checker does not contain that rule. The trial validates the guarded
+an invalid NUL byte. Forge `v0.4.0` includes the follow-up `OF305` checker rule.
+The trial validates the guarded
 workflow, not automatic trust in agent-written code.
+
+The unreleased guided workflow builds on that trial:
+
+```bash
+omaforge init my-widget --agent
+```
+
+It reports the configured Omarchy agent, asks for the product and safety
+boundaries, shows a final editable summary, and writes nothing if cancelled.
+After confirmation it generates `AGENT_PROMPT.md` alongside the specification
+and safety contract, creates a local baseline Git commit, and launches the
+configured agent from the project. Omarchy launches prompt tasks with
+unattended permissions; the final confirmation names that boundary, and the
+generated instructions are defense in depth rather than a sandbox. Forge never
+installs the plugin, runs its QML, pushes a commit, or publishes a project.
+
+Forge first asks whether to define the product from reference files or through
+the detailed questionnaire. Reference mode copies up to ten local `.txt`,
+`.md`, PNG, JPEG, WebP, or SVG files into the generated `references/` directory and
+makes them the primary product brief. Forge validates type and size, records
+SHA-256 digests, and does not upload them itself.
+The configured agent/provider may receive their contents after confirmation,
+so do not attach secrets or personal data.
+
+In reference mode, the implementation agent must inventory and implement every
+visible or described function, control, value, state, action, and configuration
+hook—not merely copy the visual style. Forge asks only for unresolved access
+boundaries such as permission to read local files or run bounded commands,
+network access, and persistence. Questionnaire mode retains the detailed bar,
+dashboard, action, data-source, and command questions.
 
 ## Check an existing plugin
 

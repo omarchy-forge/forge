@@ -101,6 +101,10 @@ and cleanup verification without changing those distribution boundaries.
 
 ## Still later
 
+- Release the guided `omaforge init --agent` workflow after protected review
+  and a supervised end-to-end trial. The implementation is currently
+  unreleased and must not be described as part of `v0.4.0`.
+
 - Any Handoff marketplace submission, public announcement, visibility change,
   or ongoing local installation, each only with separate explicit approval.
 - Additional templates after the first template is proven.

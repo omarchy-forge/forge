@@ -32,6 +32,7 @@ Generated projects include:
 | `--force` | Preview and overwrite only colliding generated files. |
 | `--git` | Initialize a local Git repository without creating a remote. |
 | `--agent-ready` | Add a structured specification and agent safety guidance. |
+| `--agent` | Unreleased guided specification, confirmation, baseline commit, and Omarchy-agent launch. |
 | `--no-ci` | Omit the generated GitHub Actions workflow. |
 | `--non-interactive` | Fail instead of prompting for missing required values. |
 | `--section` | Choose `left`, `center`, or `right`. |
@@ -71,6 +72,39 @@ omarchy agent prompt \
 
 Omarchy may run prompt tasks unattended. Keep a Git rollback point and review
 the resulting diff before trusting or executing plugin QML.
+
+### Guided agent workflow (unreleased)
+
+The next guided layer is available on the development branch as:
+
+```bash
+omaforge init my-widget --agent
+```
+
+It shows the currently configured Omarchy agent, prompts for the bar, popout,
+data, command, network, persistence, and failure boundaries, and presents an
+editable final summary. Confirmation creates a complete
+`FORGE_SPEC.md`, `AGENTS.md`, and `AGENT_PROMPT.md`, initializes Git, commits a
+rollback baseline, and launches the configured agent from the project.
+
+Forge first offers `references` or `questionnaire`. Reference mode pauses for up
+to ten `.txt`, `.md`, PNG, JPEG, WebP, or SVG files and makes them the primary product
+brief. The generated agent contract requires an inventory of every visible or
+described function, control, value, state, action, and configuration hook, then
+requires implementation of every item within separately confirmed local-command,
+network, and persistence boundaries. Forge rejects symlinks and invalid or
+oversized files and records SHA-256 digests.
+
+Questionnaire mode retains the explicit bar, dashboard, button/action,
+data-source, and local-command questions for users who prefer to describe the
+product interactively.
+
+The confirmation warns that Omarchy agent tasks use unattended permissions.
+Generated instructions are not a sandbox. The agent may implement and commit
+locally but may not execute QML, install or publish the plugin, or push code.
+Its required final handoff separates static validation, isolated ready/empty/
+error runtime tests, deliberate local installation, installed demos, removal,
+and optional remote publishing in that order.
 
 ### Verified end-to-end workflow
 

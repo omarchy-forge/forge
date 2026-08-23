@@ -3,14 +3,14 @@
 CHANGELOG.md -rw-r--r-- c128e108eb91781e2a5dd4081d1da6e6b398f721c4bb94016d8bf2b1e2bf7128
 LICENSE -rw-r--r-- 909927fb9a0d576846b3261d220b5af4effce30cdf63edaa3b1cdaa3046c541d
 Panel.qml -rw-r--r-- dedb25500adac6055388f974ac46fc4a48b9d844152bb7e47fa23ebcb6826aae
-README.md -rw-r--r-- 5a7957c97108e8d3a5d2f5f25267b1acfebe39b62baabd2c53d580f641ce3d64
+README.md -rw-r--r-- 094135c101480b8b4d228cfb860ec66fb2c05b92fe04bea25b333de99c7888b6
 assets/icon.svg -rw-r--r-- 5ba73939c148416107732a0d4c530278c66a98af83d2991c9040e0f9aa8e633a
 components/DetailsPopout.qml -rw-r--r-- 0ee9fabfee6d1e0ba6a14d75fa42fee4b3fcd175b94207f9a29fa6d4ea203786
 components/EmptyState.qml -rw-r--r-- 33d1155754b1230ee25bfd6479ff0e5a4537fd2985bb63e0ff47b69b549350f3
 components/ErrorState.qml -rw-r--r-- 1068f67fca7b006abd79755c69c8802b21938d3e8a6e1d5b05e5243b697e8364
 components/LoadingState.qml -rw-r--r-- 5938acef3c610a3675806a89f55005d82daf23d83676dd2d20e28a6718c0c740
 demo/fixtures.json -rw-r--r-- 6faaeaf17f66df9f0bfa22a9829604a1e0c57d9a817c6214b206a3b6f918b750
-demo/run -rwxr-xr-x 2a39f73eaa60c86ff39a34e7ce16b1000b95f824919e31ec34fe0de65f37e3b6
+demo/run -rwxr-xr-x ee9023cc5bfb69fa059b748ebb0bb016e9dc346edb084426336b99ac1062ba2e
 manifest.json -rw-r--r-- 9b31852e9f00ef44c44aa3d13ed5201eedb4e76994d709812e3eebbe80c33655
 services/DataService.qml -rw-r--r-- 05cea24148d05fded3361c82b7f846d9e7428c5521cb37fbb8d9d60b14e78149
 tests/run -rwxr-xr-x ac917ad0b9db685656e3935358f96144e418b922b5a1dd0456e9fa5b230f26b8
