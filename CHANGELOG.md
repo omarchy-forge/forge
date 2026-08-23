@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.4.0] - 2026-08-23
+
 - Detect `qmllint` in Qt 6's standard tool directory when it is installed but
   not exposed through the user's `PATH`.
 - Add a generated owner-project catalog and website Projects page, beginning
@@ -59,3 +61,4 @@
 [0.1.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.1.0
 [0.2.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.2.0
 [0.3.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.3.0
+[0.4.0]: https://github.com/omarchy-forge/forge/releases/tag/v0.4.0
