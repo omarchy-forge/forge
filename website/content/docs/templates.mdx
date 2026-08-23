@@ -72,6 +72,23 @@ omarchy agent prompt \
 Omarchy may run prompt tasks unattended. Keep a Git rollback point and review
 the resulting diff before trusting or executing plugin QML.
 
+### Verified end-to-end workflow
+
+The released `v0.3.0` binary has completed a supervised agent-ready trial. Forge
+generated a disposable project, a human completed and committed its
+specification, and Omarchy's configured agent implemented a narrowly scoped
+local Git-status widget. The generated project tests, `omaforge check`, and the
+official Omarchy validator passed without executing QML, installing the plugin,
+or modifying live shell configuration.
+
+Human review remained essential: it caught and corrected an invalid NUL byte
+in generated agent code that the checks available during the trial initially
+missed. The follow-up checker fix is merged into Forge `main` as error rule
+`OF305` and will ship in the next release; the installed `v0.3.0` checker does
+not contain that rule. This evidence verifies the
+specification-to-static-validation workflow; it does not imply that arbitrary
+agent-written QML is safe to execute without review.
+
 ## Trusted runtime check
 
 Generated projects include an opt-in Omarchy runtime smoke test:
