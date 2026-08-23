@@ -345,13 +345,17 @@ The Forge website exposes a curated directory limited to public, active,
 non-fork repositories owned by `omarchy-forge` and explicitly marked with the
 `omaforge-project` topic. Each repository supplies a strict, versioned metadata
 document, but Forge derives repository, release, preview, and installation
-targets from verified GitHub identity and manifest data. A matching stable
-release is required. The initial eligible project is Handoff.
+targets from verified GitHub identity and version data. A matching stable
+release is required. Plugins use validated Forge manifests and the official
+Omarchy install command. CLI tools use validated PEP 621 metadata and a bounded,
+strict-Bash installer whose repository identity must match; Forge derives an
+immutable release-tag command and never executes the script. The initial
+eligible plugin is Handoff, followed by the Omaudit CLI security tool.
 
 The catalog and preview images are generated artifacts committed to Forge, so
 ordinary website builds remain deterministic and network-independent. An
-explicit daily or manually dispatched GitHub workflow reads only bounded JSON
-and image data, opens a pull request when artifacts change, invokes protected
+explicit daily or manually dispatched GitHub workflow reads only bounded
+metadata, installer text, and image data, opens a pull request when artifacts change, invokes protected
 CI, and requests auto-merge. Neither the generator nor CI installs projects or
 executes project QML. This is an owner-maintained project directory, not a
 third-party marketplace or submission system.
