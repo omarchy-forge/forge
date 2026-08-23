@@ -38,7 +38,7 @@ official GitHub-maintained Actions pinned to immutable commit SHAs.
 ## Local packaging check
 
 ```bash
-scripts/build-release.sh v0.3.0 "$(git rev-parse HEAD)" "$(git show -s --format=%cI HEAD)" ./dist
+scripts/build-release.sh v0.4.0 "$(git rev-parse HEAD)" "$(git show -s --format=%cI HEAD)" ./dist
 cd dist
 sha256sum --check checksums.txt
 ```
