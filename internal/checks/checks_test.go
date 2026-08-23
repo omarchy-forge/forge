@@ -93,6 +93,28 @@ func TestRunReportsSymlinkAndSourceHeuristics(t *testing.T) {
 	}
 }
 
+func TestRunRejectsNULByteInSource(t *testing.T) {
+	root := validProject(t)
+	path := filepath.Join(root, "services", "DataService.qml")
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(path, []byte("import QtQuick\nItem { property string separator: \"\x00\" }\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	report := Run(root)
+	for _, finding := range report.Findings {
+		if finding.RuleID == "OF305" {
+			if finding.Severity != Error || finding.Path != "services/DataService.qml" || finding.Line != 2 {
+				t.Fatalf("unexpected OF305 finding: %#v", finding)
+			}
+			return
+		}
+	}
+	t.Fatalf("missing OF305 in %#v", report.Findings)
+}
+
 func validProject(t *testing.T) string {
 	t.Helper()
 	root := t.TempDir()

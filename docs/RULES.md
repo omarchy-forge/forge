@@ -26,6 +26,7 @@ review and do not prove a vulnerability or runtime defect.
 | `OF201`–`OF205` | README, license, compatibility, required sections, and preview readiness. |
 | `OF210`–`OF214` | Heuristic theme, keyboard, loading, empty, and error checks for bar widgets. |
 | `OF300`–`OF304` | Heuristic packaged-path, privilege, package installation, command, and color checks. |
+| `OF305` | Source files must not contain NUL bytes that make text review unreliable. |
 
 Every emitted finding includes its severity, evidence location when available,
 specific remediation, and an explanation of the rule boundary.
