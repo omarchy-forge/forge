@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -61,6 +62,9 @@ jobs:
 
       - name: Typecheck website
         run: pnpm typecheck
+
+      - name: Test project catalog
+        run: pnpm test:catalog
 
       - name: Audit production dependencies
         run: pnpm audit:known

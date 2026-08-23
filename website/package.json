@@ -11,6 +11,8 @@
     "start": "NEXT_TELEMETRY_DISABLED=1 next start",
     "postinstall": "fumadocs-mdx",
     "check:installer": "node scripts/verify-installer-route.mjs",
+    "sync:projects": "node scripts/sync-projects.mjs",
+    "test:catalog": "node --test scripts/project-catalog.test.mjs",
     "typecheck": "NEXT_TELEMETRY_DISABLED=1 next typegen && tsc --noEmit"
   },
   "dependencies": {

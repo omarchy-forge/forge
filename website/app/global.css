@@ -35,4 +35,27 @@
 .forge-grid h2 { font-size: 1.45rem; font-weight: 580; letter-spacing: -.025em; }
 .forge-grid p { margin-top: .8rem; line-height: 1.65; color: var(--color-fd-muted-foreground); }
 .forge-disclaimer { padding: 1.5rem; border-top: 1px solid var(--color-fd-border); text-align: center; color: var(--color-fd-muted-foreground); font-size: .78rem; }
+.forge-projects { max-width: 90rem; margin: 0 auto; padding: 7rem 2rem 6rem; }
+.forge-projects-header { max-width: 48rem; }
+.forge-projects-header h1 { margin: 1.2rem 0; font-size: clamp(2.8rem, 7vw, 5.8rem); font-weight: 550; line-height: .95; letter-spacing: -.06em; }
+.forge-projects-header > p { color: var(--color-fd-muted-foreground); font-size: 1.15rem; line-height: 1.7; }
+.forge-project-list { display: grid; gap: 1.5rem; margin-top: 4rem; }
+.forge-project-card { display: grid; grid-template-columns: minmax(16rem, .8fr) 1.2fr; overflow: hidden; border: 1px solid var(--color-fd-border); border-radius: 1rem; background: color-mix(in srgb, var(--color-fd-background) 88%, var(--forge-accent)); }
+.forge-project-preview { position: relative; min-height: 31rem; background: #171513; }
+.forge-project-preview img { object-fit: contain; padding: 1.5rem; }
+.forge-project-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(2rem, 5vw, 4rem); }
+.forge-project-meta { display: flex; align-items: center; gap: .45rem; color: var(--forge-accent); font-family: var(--font-geist-mono); font-size: .76rem; text-transform: uppercase; }
+.forge-project-meta svg { width: 1rem; }
+.forge-project-copy h2 { margin-top: 1rem; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 560; letter-spacing: -.045em; }
+.forge-project-copy > p { margin: .7rem 0 1.6rem; color: var(--color-fd-muted-foreground); font-size: 1.05rem; }
+.forge-project-command { display: flex; align-items: center; min-width: 0; border: 1px solid var(--color-fd-border); border-radius: .6rem; background: #11100f; color: #ddd6cf; }
+.forge-project-command code { flex: 1; min-width: 0; padding: .85rem 1rem; overflow-x: auto; white-space: nowrap; font-size: .78rem; }
+.forge-project-command button { display: grid; width: 2.8rem; height: 2.8rem; flex: 0 0 auto; place-items: center; border-left: 1px solid #302c29; color: #aaa29b; cursor: pointer; }
+.forge-project-command button:hover { color: var(--forge-signal); }
+.forge-project-command svg { width: 1rem; }
+.forge-project-copy nav { display: flex; gap: 1.2rem; margin-top: 1.4rem; }
+.forge-project-copy nav a { display: inline-flex; align-items: center; gap: .35rem; font-size: .88rem; font-weight: 600; }
+.forge-project-copy nav svg { width: .8rem; }
+.forge-projects-note { margin: 2rem auto 0; color: var(--color-fd-muted-foreground); font-size: .8rem; text-align: center; }
 @media (max-width: 760px) { .forge-hero { padding-top: 6rem; } .forge-grid { grid-template-columns: 1fr; } .forge-grid article { min-height: 0; border-right: 1px solid var(--color-fd-border); border-bottom: 0; } .forge-grid article:last-child { border-bottom: 1px solid var(--color-fd-border); } }
+@media (max-width: 760px) { .forge-projects { padding-top: 5rem; } .forge-project-card { grid-template-columns: 1fr; } .forge-project-preview { min-height: 25rem; } .forge-project-copy { padding: 2rem 1.25rem; } .forge-project-copy nav { flex-wrap: wrap; } }
