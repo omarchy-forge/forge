@@ -12,12 +12,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
 
 - Repository: `omarchy-forge/forge` (public).
 - Default branch: `main`.
-- Current completed product checkpoint: the owner-project catalog and public
-  Handoff listing, merged through pull requests `#41`, `#42`, and `#43` at
-  `5fb8989`, with the durable checkpoint merged through pull request `#44` at
-  `0e8866466569a05768d6d64e1f1b96b62d9298cd`. Final protected CI run
-  `32631076780` passed both Go and website jobs. Production deployment
-  `dpl_dSnrqmrPdU8qSJhVkro4UfRmGV1s` was verified at the custom domain.
+- Current completed product checkpoint: the two-project owner catalog with
+  Handoff and Omaudit. Pull request `#45` merged the CLI catalog support at
+  `66454902c6837394a59130855af4e5dfc4c39ebc`; protected pull-request CI run
+  `32632592730` passed both Go and website jobs. Production deployment
+  `dpl_7QZhA5idhfCpGuMFTVVGV8i2rptN` completed all 42 generated routes and was
+  verified at the custom domain.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -349,11 +349,11 @@ not locked out by an impossible self-approval requirement.
 
 ## Next checkpoint
 
-1. Complete the protected Forge merge and production verification for the
-   two-project Handoff/Omaudit catalog, then record the exact merge, CI, and
-   deployment identifiers here. Keep both public releases and repository
-   protections healthy. The documentation website and custom domain are live
-   at `https://www.omarchyforge.com`.
+1. No owner-catalog implementation work remains. Keep both public releases and
+   repository protections healthy. The documentation website and custom domain
+   are live at `https://www.omarchyforge.com`; `/projects`, the exact Omaudit
+   install command, its 753×544 local preview and optimized image route, and the
+   sitemap entry were verified after the production deployment.
 2. The hands-on `v0.3.0` onboarding and supervised agent-ready implementation
    trial are complete. Keep future agent-produced plugin execution subject to
    explicit human review and the existing trust acknowledgement. Forge does
