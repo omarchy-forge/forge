@@ -18,7 +18,7 @@ if ((installerStat.mode & 0o111) === 0) {
 if (!installerSource.startsWith("#!/usr/bin/env bash\nset -euo pipefail\n")) {
   throw new Error("public/install.sh is missing its strict Bash entry point");
 }
-if (!proxySource.includes("|install.sh)")) {
+if (!/(?:\||\()install\.sh(?:\||\))/.test(proxySource)) {
   throw new Error("the locale proxy must bypass the canonical /install.sh path");
 }
 if (!quickstartSource.includes("https://www.omarchyforge.com/install.sh")) {

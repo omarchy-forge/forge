@@ -8,7 +8,7 @@ const proxy = createProxy({
 
 export const config = {
   matcher: [
-    "/((?!api(?:/|$)|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|install.sh).*)",
+    "/((?!api(?:/|$)|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|install.sh|project-images(?:/|$)).*)",
   ],
 };
 

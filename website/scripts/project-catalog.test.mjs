@@ -74,3 +74,8 @@ test("ships a valid checked-in catalog and preview", async () => {
     assert.equal(hasSupportedImageSignature(preview, imageExtension(project.preview)), true);
   }
 });
+
+test("keeps generated previews outside locale proxy handling", async () => {
+  const proxy = await readFile(new URL("../proxy.ts", import.meta.url), "utf8");
+  assert.match(proxy, /project-images\(\?:\/\|\$\)/);
+});
