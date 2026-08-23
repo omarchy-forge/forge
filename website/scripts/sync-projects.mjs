@@ -12,7 +12,7 @@ import {
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const websiteRoot = resolve(scriptDirectory, "..");
 const outputPath = resolve(websiteRoot, "data/projects.json");
-const imageDirectory = resolve(websiteRoot, "public/projects");
+const imageDirectory = resolve(websiteRoot, "public/project-images");
 const token = process.env.GITHUB_TOKEN ?? "";
 const headers = {
   Accept: "application/vnd.github+json",

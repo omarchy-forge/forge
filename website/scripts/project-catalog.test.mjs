@@ -40,7 +40,7 @@ test("builds a fixed install command from validated organization metadata", () =
     metadata,
   });
   assert.equal(project.installCommand, "omarchy plugin add https://github.com/omarchy-forge/handoff.git --enable");
-  assert.equal(project.preview, "/projects/handoff.png");
+  assert.equal(project.preview, "/project-images/handoff.png");
 });
 
 test("rejects unsafe preview paths and mismatched releases", () => {
