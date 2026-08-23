@@ -87,7 +87,7 @@ and cleanup verification without changing those distribution boundaries.
 - Adopt the released Forge `v0.2.0` development harness and Action in private
   Handoff (implemented; no Handoff visibility or release change).
 
-## Later milestones
+## Completed later milestones
 
 - Milestone 7 agent-ready scaffolding: opt-in structured specifications,
   acceptance criteria, and project-scoped agent safety guidance are released
@@ -98,10 +98,12 @@ and cleanup verification without changing those distribution boundaries.
   isolated file-watching sessions.
 - Production documentation deployment and custom-domain connection are
   complete.
+
+## Still later
+
 - Any Handoff marketplace submission, public announcement, visibility change,
   or ongoing local installation, each only with separate explicit approval.
 - Additional templates after the first template is proven.
-- Trusted local preview, demo, and screenshot tooling.
 
 Marketplace features, hosted plugin execution, accounts, and cloud dashboards
 are not planned product scope.

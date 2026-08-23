@@ -34,6 +34,9 @@ independent downloads verified both archive checksums, amd64 and arm64 ELF
 architectures, archive contents, and embedded amd64 build metadata. The public
 release is at `https://github.com/omarchy-forge/forge/releases/tag/v0.3.0` and
 uses the reviewed `docs/RELEASE_NOTES_0.3.0.md` description.
+Release workflow run `32595463905` passed both build and publish jobs. Pull
+request `#34` merged the post-release installation, Action, and website guidance
+as `ddc387e` after all CI checks passed.
 
 ## Delivered milestones
 
@@ -232,6 +235,10 @@ directory through an exit trap on both success and failure, and finish in
 `$HOME`. The exact public `v0.3.0` block was verified with an isolated home;
 the installed binary reported the expected release metadata, temporary files
 were removed, and both successful and forced-failure paths returned home.
+Pull request `#35` merged this correction as `eb97ab0` after all Go and website
+CI checks passed. Production deployment `dpl_FULYL3kk7p5hz776VP5EPp95joDR`
+completed a 40-route build, is aliased to `https://www.omarchyforge.com`, and
+had no error-level production logs in the post-deploy scan.
 
 ## Agent-ready scaffolding checkpoint
 
@@ -278,8 +285,10 @@ installed official validator without executing QML.
 
 1. Keep Handoff private. The documentation website and custom domain are live
    at `https://www.omarchyforge.com`.
-2. Choose the next product milestone from real usage. Do not expand the
-   template set without the evidence and revisit criteria recorded in the
-   roadmap.
+2. Resume hands-on `v0.3.0` onboarding from the user's home directory: confirm
+   `omaforge version` and `omaforge --help`, then create and review a disposable
+   `omaforge init <name> --git --agent-ready` project before deciding whether
+   to invoke `omarchy agent prompt`. Forge does not automatically install the
+   separate private Handoff plugin.
 3. Ongoing local installation, marketplace submission, announcement, and any
    Handoff visibility change remain distinct approval-gated work.
