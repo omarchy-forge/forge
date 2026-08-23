@@ -24,9 +24,38 @@ not need Go, `sudo`, or prior Linux development experience to use the release.
 
 ### 1. Install Forge
 
-Copy this entire block into the Omarchy terminal. It detects the machine's CPU,
-downloads the matching Forge `v0.3.0` release, verifies its checksum, and
-installs it for your user only:
+The short installer detects the machine's CPU, resolves the latest published
+Forge release, verifies its checksum, and installs it for your user only:
+
+```bash
+curl -fsSL https://www.omarchyforge.com/install.sh | bash
+```
+
+Run the same command later to check for and install a newer release. It exits
+without downloading an archive when the installed version is already current.
+Updates are always explicit; Forge never checks or updates in the background.
+
+To inspect the script before running it:
+
+```bash
+curl -fsSLo /tmp/omaforge-install.sh https://www.omarchyforge.com/install.sh
+less /tmp/omaforge-install.sh
+bash /tmp/omaforge-install.sh
+rm -f /tmp/omaforge-install.sh
+```
+
+To install a specific release instead of the latest:
+
+```bash
+curl -fsSL https://www.omarchyforge.com/install.sh | bash -s -- --version v0.3.0
+```
+
+<details>
+<summary>Fully manual v0.3.0 installation</summary>
+
+This expanded form performs the same architecture detection, checksum
+verification, user-only installation, and temporary cleanup without relying on
+the hosted script:
 
 ```bash
 (
@@ -50,8 +79,10 @@ installs it for your user only:
 cd "$HOME"
 ```
 
-This changes only `~/.local/bin/omaforge`, removes its temporary download
-directory, and returns the terminal to your home directory. If `omaforge` is
+</details>
+
+Both installation paths change only `~/.local/bin/omaforge`, remove temporary
+downloads, and leave the terminal in its original directory. If `omaforge` is
 not found in a new terminal, use `$HOME/.local/bin/omaforge` or add
 `~/.local/bin` to your `PATH`.
 

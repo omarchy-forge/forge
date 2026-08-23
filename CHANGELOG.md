@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add an explicitly invoked, checksum-verifying user installer that resolves
+  the latest release, skips an already-current installation, and safely updates
+  `~/.local/bin/omaforge` without `sudo` or background checks.
+- Reject NUL bytes in plugin source with error rule `OF305`.
+
 ## [0.3.0] - 2026-08-22
 
 - Add opt-in `omaforge init --agent-ready` scaffolding with a structured
