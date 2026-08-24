@@ -430,3 +430,29 @@ explicit exports. Route adapters also expose Next.js 16-compatible handler and
 static-parameter signatures. This keeps the compatibility exception reviewed,
 checked in, reproducible from the lockfile, and removable when Geistdocs ships
 a compatible dependency update.
+
+## D-029: Protected Git-driven catalog and documentation delivery
+
+Status: accepted, 2026-08-24.
+
+Forge uses protected Git pull requests as the single normal delivery path for
+generated owner-project catalog changes and documentation website changes. The
+owner-project workflow may request only the explicit `actions`, `contents`, and
+`pull-requests` write permissions needed to push its generated branch, create a
+pull request, start CI, and request squash auto-merge. Organization and
+repository default workflow tokens remain read-only. Auto-merge never bypasses
+the protected `test` and `website` checks or unresolved review conversations.
+
+The existing Vercel project `omarchy-forge-docs` is connected to
+`omarchy-forge/forge`, tracks production branch `main`, and builds from the
+`website` root directory. Pull-request commits receive preview deployments;
+merged `main` commits receive production deployments and canonical domains only
+after a successful build. This path was verified with automatic preview and
+production deployments from pull requests `#53` and `#54`.
+
+Manual `vercel deploy --prod --yes` remains an explicitly authorized recovery
+path, not the normal release mechanism. A manual deployment must use the exact
+reviewed remote commit from a clean disposable checkout, preserve the existing
+project and domain configuration, and receive the same post-deploy domain and
+error-log verification. Neither Git deployment nor catalog synchronization
+changes Forge's local-first CLI behavior or permits QML execution.

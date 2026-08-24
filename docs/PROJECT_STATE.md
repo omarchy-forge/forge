@@ -46,6 +46,14 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   `5ee5d6acc9a3f58fc8e4fc6dc68c3236afbb3039` then created automatic production
   deployment `dpl_4jTVezZtZedPzbbVxMxrRXcCes1c`. Both canonical domains served
   that deployment, and its post-deploy error scan returned no errors.
+- Pull request `#54` auto-merged after protected `test`, `website`, and Vercel
+  preview checks passed, completing the durable automation checkpoint at
+  `dae1d44a00470b690b2c80d0191ff1ab904f2bc7`. That push created automatic
+  production deployment `dpl_86Ep126g9mSuzEtckaXD6zszrfih`, which reported
+  READY, matched the exact `main` commit, served both canonical domains, and
+  had no error-level logs. The final Git audit found a clean local worktree,
+  local and remote `main` at the same commit, matching `v0.1.0` through
+  `v0.4.0` tags, no open pull requests, and no remaining topic branches.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -466,3 +474,6 @@ not locked out by an impossible self-approval requirement.
 5. Git-triggered Vercel preview and production deployments are verified. Keep
    future catalog syncs on the protected PR path and treat an explicit
    `vercel deploy --prod --yes` as a fallback rather than the normal workflow.
+6. Local and remote Forge state is synchronized at the recorded checkpoint.
+   Fetch and inspect current GitHub and Vercel state before beginning new work;
+   do not recreate removed merged topic branches from stale tracking refs.
