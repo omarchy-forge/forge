@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-08-23
+Last updated: 2026-08-24
 
 This is the durable execution checkpoint for future maintainers and coding
 agents. `handoff.md` remains the product and safety source of truth; this file
@@ -28,12 +28,21 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   requirements, generated agent handoff, website dependency compatibility
   fixes, and the three-project catalog entry for Control Center. All four
   protected `test` and `website` checks passed before merge.
-- Current production website deployment:
-  `dpl_6AvWrFsP1tTQLsUoocPAsqjJfrDN`, built from merged `main` on 2026-08-23.
-  Vercel built all 42 routes with Turbopack and reported READY. The canonical
-  `/projects` page and the 749×1102 Control Center preview returned HTTP 200 at
-  both `www.omarchyforge.com` and `www.omaforge.com`; the post-deploy error-log
-  scan returned no errors.
+- Current catalog and production website checkpoint: pull request `#52`
+  squash-merged the generated Control Center `v0.1.1` entry at
+  `e5588e1ef97393d2bef0217c333785467aa87113`. Production deployment
+  `dpl_EkUGsZ9wQjVbET1JXuQtuqysTMUH` built all 42 routes with Turbopack and
+  reported READY. Both `www.omarchyforge.com` and `www.omaforge.com` served
+  that deployment with the `omaforge-control-center` name and `v0.1.1`
+  release; the post-deploy error-log scan returned no errors.
+- The owner-project sync automation now has the required organization and
+  repository permission to create pull requests while retaining read-only
+  default workflow tokens. Forge repository auto-merge is enabled, and sync
+  run `32772673066` passed as a clean three-project no-op. The Vercel project
+  is connected to `omarchy-forge/forge`, tracks production branch `main`, uses
+  `website` as its root directory, and has Git deployments enabled. The
+  documentation-only verification pull request following this checkpoint is
+  the first controlled end-to-end test of preview and production Git deploys.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -446,11 +455,12 @@ not locked out by an impossible self-approval requirement.
 3. Keep agent-produced plugin execution subject to explicit human review and
    the existing trust acknowledgement. Forge must not automatically install,
    enable, or execute generated plugin QML.
-4. Control Center is public with topic `omaforge-project` and stable `v0.1.0`
-   at `cbf45874c2a344c7fba78837eb19c91343dbaf51`. Its generated catalog card,
+4. Control Center is public with topic `omaforge-project` and stable `v0.1.1`
+   at `88cd6f93cc9308f05fe992780eb4c047bcda1bf1`. Its generated catalog card,
    preview, release link, source link, and derived official installation command
    are live. Marketplace submission and public announcement remain distinct
    approval-gated work.
-5. Investigate why the Vercel Git integration did not automatically deploy the
-   merged pull request. The successful production update required an explicit
-   `vercel deploy --prod --yes`; do not assume future merges deploy themselves.
+5. Verify that the controlled documentation pull request receives an automatic
+   Vercel preview and that its merge to `main` receives an automatic production
+   deployment. If both pass, future catalog merges should no longer require an
+   explicit `vercel deploy --prod --yes` fallback.
