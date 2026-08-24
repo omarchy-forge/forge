@@ -28,8 +28,8 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   requirements, generated agent handoff, website dependency compatibility
   fixes, and the three-project catalog entry for Control Center. All four
   protected `test` and `website` checks passed before merge.
-- Current catalog and production website checkpoint: pull request `#52`
-  squash-merged the generated Control Center `v0.1.1` entry at
+- Current catalog and pre-Git-connection production website checkpoint: pull
+  request `#52` squash-merged the generated Control Center `v0.1.1` entry at
   `e5588e1ef97393d2bef0217c333785467aa87113`. Production deployment
   `dpl_EkUGsZ9wQjVbET1JXuQtuqysTMUH` built all 42 routes with Turbopack and
   reported READY. Both `www.omarchyforge.com` and `www.omaforge.com` served
@@ -40,9 +40,12 @@ lives in `DECISIONS.md`, and verified Omarchy facts live in
   default workflow tokens. Forge repository auto-merge is enabled, and sync
   run `32772673066` passed as a clean three-project no-op. The Vercel project
   is connected to `omarchy-forge/forge`, tracks production branch `main`, uses
-  `website` as its root directory, and has Git deployments enabled. The
-  documentation-only verification pull request following this checkpoint is
-  the first controlled end-to-end test of preview and production Git deploys.
+  `website` as its root directory, and has Git deployments enabled. Pull
+  request `#53` passed both protected CI checks and created automatic preview
+  deployment `dpl_7jX145fZdG5hCMaNURjt3ffW9Mjf`; its squash merge at
+  `5ee5d6acc9a3f58fc8e4fc6dc68c3236afbb3039` then created automatic production
+  deployment `dpl_4jTVezZtZedPzbbVxMxrRXcCes1c`. Both canonical domains served
+  that deployment, and its post-deploy error scan returned no errors.
 - Milestone 4 implementation commit: `e5f3ab8` (`docs: add documentation
   website`).
 - Milestone 4 pull request: `#4` (merged on 2026-08-22 after all required CI
@@ -460,7 +463,6 @@ not locked out by an impossible self-approval requirement.
    preview, release link, source link, and derived official installation command
    are live. Marketplace submission and public announcement remain distinct
    approval-gated work.
-5. Verify that the controlled documentation pull request receives an automatic
-   Vercel preview and that its merge to `main` receives an automatic production
-   deployment. If both pass, future catalog merges should no longer require an
-   explicit `vercel deploy --prod --yes` fallback.
+5. Git-triggered Vercel preview and production deployments are verified. Keep
+   future catalog syncs on the protected PR path and treat an explicit
+   `vercel deploy --prod --yes` as a fallback rather than the normal workflow.
