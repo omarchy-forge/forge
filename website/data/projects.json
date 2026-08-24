@@ -45,18 +45,18 @@
       ],
       "featured": true,
       "installCommand": "omarchy plugin add https://github.com/omarchy-forge/control-center.git --enable",
-      "name": "Omaforge Local Control Center",
+      "name": "omaforge-control-center",
       "order": 30,
       "pluginId": "omaforge.control.center",
       "preview": "/project-images/control-center.png",
-      "releaseUrl": "https://github.com/omarchy-forge/control-center/releases/tag/v0.1.0",
+      "releaseUrl": "https://github.com/omarchy-forge/control-center/releases/tag/v0.1.1",
       "repository": "omarchy-forge/control-center",
       "repositoryUrl": "https://github.com/omarchy-forge/control-center",
       "slug": "control-center",
-      "sourceCommit": "cbf45874c2a344c7fba78837eb19c91343dbaf51",
+      "sourceCommit": "88cd6f93cc9308f05fe992780eb4c047bcda1bf1",
       "tagline": "Monitor and control your user-owned processes.",
       "projectType": "plugin",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
