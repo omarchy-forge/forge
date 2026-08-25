@@ -15,7 +15,7 @@
       "repository": "omarchy-forge/handoff",
       "repositoryUrl": "https://github.com/omarchy-forge/handoff",
       "slug": "handoff",
-      "sourceCommit": "e8c9dcbfd9895f1b55d8345a0d249ad04832eec9",
+      "sourceCommit": "5a89df953640cd67c65c48c492cc6ca0bff59052",
       "tagline": "Pick up Git projects where you left off.",
       "projectType": "plugin",
       "version": "0.1.2"
@@ -53,7 +53,7 @@
       "repository": "omarchy-forge/control-center",
       "repositoryUrl": "https://github.com/omarchy-forge/control-center",
       "slug": "control-center",
-      "sourceCommit": "cb5068335d310187693020156c57e94e9aab71ff",
+      "sourceCommit": "34b2fd1aaebe649d9b58605ce8f601a058668cc3",
       "tagline": "Monitor and control your user-owned processes.",
       "projectType": "plugin",
       "version": "0.1.3"
