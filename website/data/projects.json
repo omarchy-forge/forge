@@ -57,6 +57,25 @@
       "tagline": "Monitor and control your user-owned processes.",
       "projectType": "plugin",
       "version": "0.1.4"
+    },
+    {
+      "compatibility": [
+        "omarchy-4"
+      ],
+      "featured": false,
+      "installCommand": "omarchy plugin add https://github.com/omarchy-forge/onstage.git --enable",
+      "name": "OmaStage",
+      "order": 40,
+      "pluginId": "omaforge-onstage",
+      "preview": "/project-images/onstage.png",
+      "releaseUrl": "https://github.com/omarchy-forge/onstage/releases/tag/v0.1.0",
+      "repository": "omarchy-forge/onstage",
+      "repositoryUrl": "https://github.com/omarchy-forge/onstage",
+      "slug": "onstage",
+      "sourceCommit": "081c48a401a739adfb2398b91f38e41434d6afbd",
+      "tagline": "Prepare, present, and safely restore your Omarchy desktop.",
+      "projectType": "plugin",
+      "version": "0.1.0"
     }
   ]
 }
