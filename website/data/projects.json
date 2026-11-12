@@ -72,7 +72,7 @@
       "repository": "omarchy-forge/onstage",
       "repositoryUrl": "https://github.com/omarchy-forge/onstage",
       "slug": "onstage",
-      "sourceCommit": "081c48a401a739adfb2398b91f38e41434d6afbd",
+      "sourceCommit": "2d752b84c3df7c62ea7ad5c13eb357f5e213a30e",
       "tagline": "Prepare, present, and safely restore your Omarchy desktop.",
       "projectType": "plugin",
       "version": "0.1.0"
